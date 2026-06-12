@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const nextConfig: NextConfig = {
-  // Only applies to `next dev`. Production (`next build` + `next start`) never shows this UI.
-  devIndicators: false,
+  devIndicators: isDev ? { position: "bottom-left" } : false,
 };
 
 export default nextConfig;
