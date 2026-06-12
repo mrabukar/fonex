@@ -1,26 +1,160 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-jetbrains);
+  --font-display: var(--font-sora);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Fonex Brand Tokens */
+  --color-ink: #0B1226;
+  --color-ink-2: #1C2A55;
+  --color-brand: #2F5BFF;
+  --color-brand-deep: #2147E6;
+  --color-cyan: #16C2D5;
+  --color-violet: #6C5CE7;
+  --color-amber: #FFB020;
+  --color-mist: #F4F6FB;
+  --color-paper: #FFFFFF;
+  --color-line: #E7EAF3;
+  --color-muted-text: #5A6480;
+  --color-muted-2: #9098AE;
+  --color-dark-text: #A9B2CC;
+  --color-status-green: #067A55;
+  --color-status-amber: #9A6400;
+  --color-status-violet: #5A3FC0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: #F4F6FB;
+  --foreground: #0B1226;
+  --card: #FFFFFF;
+  --card-foreground: #0B1226;
+  --popover: #FFFFFF;
+  --popover-foreground: #0B1226;
+  --primary: #2F5BFF;
+  --primary-foreground: #FFFFFF;
+  --secondary: #EEF1FB;
+  --secondary-foreground: #0B1226;
+  --muted: #F4F6FB;
+  --muted-foreground: #5A6480;
+  --accent: #EEF1FB;
+  --accent-foreground: #0B1226;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #E7EAF3;
+  --input: #E7EAF3;
+  --ring: #2F5BFF;
+  --radius: 0.75rem;
+  --sidebar: #F4F6FB;
+  --sidebar-foreground: #0B1226;
+  --sidebar-primary: #2F5BFF;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #EEF1FB;
+  --sidebar-accent-foreground: #0B1226;
+  --sidebar-border: #E7EAF3;
+  --sidebar-ring: #2F5BFF;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50 box-border;
+  }
+  body {
+    @apply bg-[#F4F6FB] text-[#0B1226] antialiased;
+    font-family: var(--font-manrope), sans-serif;
+  }
+  html {
+    scroll-behavior: smooth;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes fx-up {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fx-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes fx-float-2 {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(12px); }
+}
+
+@keyframes fx-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.06); }
+}
+
+.animate-fx-up {
+  animation: fx-up 0.7s ease both;
+}
+
+.animate-fx-up-delayed {
+  animation: fx-up 0.8s ease 0.1s both;
+}
+
+.animate-float {
+  animation: fx-float 6s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: fx-float-2 7s ease-in-out infinite;
+}
+
+.animate-pulse-arc {
+  animation: fx-pulse 5s ease-in-out infinite;
+}
+
+.animate-pulse-arc-2 {
+  animation: fx-pulse 5s ease-in-out infinite 0.6s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fx-up,
+  .animate-fx-up-delayed,
+  .animate-float,
+  .animate-float-2,
+  .animate-pulse-arc,
+  .animate-pulse-arc-2 {
+    animation: none;
+  }
 }
