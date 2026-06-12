@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
@@ -14,56 +15,24 @@ function FonexLogo() {
       className="flex items-center gap-2.5"
       aria-label="Fonex Supply Limited"
     >
+      <Image
+        src="/logo.png"
+        alt=""
+        width={40}
+        height={40}
+        className="h-10 w-10 shrink-0 object-contain"
+        priority
+      />
       <span
-        className="relative inline-flex items-end justify-center gap-[2.5px] rounded-[11px]"
+        className="font-extrabold text-[21px] uppercase leading-none"
         style={{
-          width: 38,
-          height: 38,
-          background: "linear-gradient(135deg,#2F5BFF,#6C5CE7)",
-          padding: "9px 8px",
-          boxShadow: "0 6px 16px rgba(47,91,255,.32)",
+          fontFamily: "var(--font-sora)",
+          letterSpacing: "-0.03em",
         }}
         aria-hidden
       >
-        <span
-          style={{
-            width: 4,
-            height: 9,
-            background: "#fff",
-            borderRadius: 2,
-            opacity: 0.7,
-            display: "block",
-          }}
-        />
-        <span
-          style={{
-            width: 4,
-            height: 14,
-            background: "#fff",
-            borderRadius: 2,
-            opacity: 0.85,
-            display: "block",
-          }}
-        />
-        <span
-          style={{
-            width: 4,
-            height: 19,
-            background: "#fff",
-            borderRadius: 2,
-            display: "block",
-          }}
-        />
-      </span>
-      <span
-        className="font-extrabold text-[21px]"
-        style={{
-          fontFamily: "var(--font-sora)",
-          letterSpacing: "-.02em",
-          color: "#0B1226",
-        }}
-      >
-        Fonex
+        <span style={{ color: "#00051A" }}>FONE</span>
+        <span style={{ color: "#0047AB" }}>X</span>
       </span>
     </Link>
   );
