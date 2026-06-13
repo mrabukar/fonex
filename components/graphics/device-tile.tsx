@@ -1,4 +1,12 @@
+import Image from "next/image";
 import { colorFamilies, type ColorFamily, type DeviceType } from "@/lib/content";
+
+function hexToRgba(hex: string, alpha: number): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
 
 function getDeviceStyle(type: DeviceType, f: ColorFamily): React.CSSProperties {
   const sc = `linear-gradient(160deg,${f.g1},${f.g2})`;
@@ -31,10 +39,29 @@ function getDeviceStyle(type: DeviceType, f: ColorFamily): React.CSSProperties {
 interface DeviceTileProps {
   fam: string;
   type: DeviceType;
+  img?: string;
 }
 
-export function DeviceTile({ fam, type }: DeviceTileProps) {
+export function DeviceTile({ fam, type, img }: DeviceTileProps) {
   const f = colorFamilies[fam] ?? colorFamilies.blue;
+
+  if (img) {
+    const tint = `linear-gradient(160deg, ${hexToRgba(f.g1, 0.34)}, ${hexToRgba(f.g2, 0.06)} 55%, transparent)`;
+    return (
+      <div
+        style={{
+          position: "relative",
+          height: 210,
+          overflow: "hidden",
+          background: `linear-gradient(135deg,${f.bgA},${f.bgB})`,
+        }}
+      >
+        <Image src={img} alt="" fill style={{ objectFit: "cover" }} />
+        <div style={{ position: "absolute", inset: 0, background: tint }} />
+      </div>
+    );
+  }
+
   return (
     <div
       style={{
