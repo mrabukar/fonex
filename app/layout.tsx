@@ -3,6 +3,8 @@ import { Sora, Manrope, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { SmoothScroll } from "@/components/smooth-scroll";
+import { PageTransition } from "@/components/motion/page-transition";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -53,9 +55,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sora.variable} ${manrope.variable} ${jetbrainsMono.variable}`}>
       <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <Navbar />
+          <main>
+            <PageTransition>{children}</PageTransition>
+          </main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );
