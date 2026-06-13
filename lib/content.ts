@@ -12,7 +12,7 @@ export const siteConfig = {
 export const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Products", href: "/products" },
+  { label: "Products & Services", href: "/products" },
   { label: "Partnerships", href: "/partnerships" },
   { label: "Why Fonex", href: "/why-fonex" },
   { label: "Contact", href: "/contact" },
@@ -127,9 +127,22 @@ export const milestones = [
   },
 ];
 
-export type ProductCategory = "all" | "flagship" | "midrange" | "accessories" | "wearables" | "parts";
+export type ProductCategory =
+  | "all"
+  | "flagship"
+  | "midrange"
+  | "accessories"
+  | "wearables"
+  | "parts";
 export type ProductStatus = "In Stock" | "Limited" | "Pre-Order";
-export type DeviceType = "phone" | "watch" | "charger" | "earbuds" | "case" | "screen" | "battery";
+export type DeviceType =
+  | "phone"
+  | "watch"
+  | "charger"
+  | "earbuds"
+  | "case"
+  | "screen"
+  | "battery";
 
 export type ColorFamily = {
   bgA: string;
@@ -148,18 +161,114 @@ export const colorFamilies: Record<string, ColorFamily> = {
 };
 
 export const products = [
-  { name: "Aurora Pro 5G", cat: "flagship" as ProductCategory, fam: "blue", type: "phone" as DeviceType, status: "In Stock" as ProductStatus, blurb: '6.7″ OLED flagship with pro-grade cameras and all-day battery.' },
-  { name: "Aurora Ultra", cat: "flagship" as ProductCategory, fam: "violet", type: "phone" as DeviceType, status: "Limited" as ProductStatus, blurb: "Top-tier performance and premium glass build, 5G on every band." },
-  { name: "Zenith 5G", cat: "flagship" as ProductCategory, fam: "cyan", type: "phone" as DeviceType, status: "In Stock" as ProductStatus, blurb: "Flagship power at a sharper price, built for heavy multitaskers." },
-  { name: "Everyday 4G", cat: "midrange" as ProductCategory, fam: "teal", type: "phone" as DeviceType, status: "In Stock" as ProductStatus, blurb: "A dependable daily smartphone with a big, bright display." },
-  { name: "Connect Lite", cat: "midrange" as ProductCategory, fam: "blue", type: "phone" as DeviceType, status: "In Stock" as ProductStatus, blurb: "Affordable connectivity with reliable performance for daily life." },
-  { name: "Vibe Plus", cat: "midrange" as ProductCategory, fam: "cyan", type: "phone" as DeviceType, status: "In Stock" as ProductStatus, blurb: "Bigger battery and a smooth experience at an accessible price." },
-  { name: "Power Charger 33W", cat: "accessories" as ProductCategory, fam: "amber", type: "charger" as DeviceType, status: "In Stock" as ProductStatus, blurb: "Fast, safe charging with broad device compatibility." },
-  { name: "Wireless Earbuds", cat: "accessories" as ProductCategory, fam: "violet", type: "earbuds" as DeviceType, status: "In Stock" as ProductStatus, blurb: "Crisp wireless audio with long playback and quick pairing." },
-  { name: "Protective Case", cat: "accessories" as ProductCategory, fam: "slate", type: "case" as DeviceType, status: "In Stock" as ProductStatus, blurb: "Slim, shock-absorbing protection for everyday durability." },
-  { name: "Active Smartwatch", cat: "wearables" as ProductCategory, fam: "blue", type: "watch" as DeviceType, status: "Limited" as ProductStatus, blurb: "Track your health and stay connected on the move." },
-  { name: "Display Module", cat: "parts" as ProductCategory, fam: "slate", type: "screen" as DeviceType, status: "In Stock" as ProductStatus, blurb: "Genuine replacement screens for fast, reliable repairs." },
-  { name: "Battery Pack", cat: "parts" as ProductCategory, fam: "teal", type: "battery" as DeviceType, status: "In Stock" as ProductStatus, blurb: "Original-spec batteries for restored, long-lasting performance." },
+  {
+    name: "Aurora Pro 5G",
+    cat: "flagship" as ProductCategory,
+    fam: "blue",
+    type: "phone" as DeviceType,
+    status: "In Stock" as ProductStatus,
+    blurb: "6.7″ OLED flagship with pro-grade cameras and all-day battery.",
+    img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=80",
+  },
+  {
+    name: "Aurora Ultra",
+    cat: "flagship" as ProductCategory,
+    fam: "violet",
+    type: "phone" as DeviceType,
+    status: "Limited" as ProductStatus,
+    blurb: "Top-tier performance and premium glass build, 5G on every band.",
+    img: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&q=80",
+  },
+  {
+    name: "Zenith 5G",
+    cat: "flagship" as ProductCategory,
+    fam: "cyan",
+    type: "phone" as DeviceType,
+    status: "In Stock" as ProductStatus,
+    blurb: "Flagship power at a sharper price, built for heavy multitaskers.",
+    img: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&q=80",
+  },
+  {
+    name: "Everyday 4G",
+    cat: "midrange" as ProductCategory,
+    fam: "teal",
+    type: "phone" as DeviceType,
+    status: "In Stock" as ProductStatus,
+    blurb: "A dependable daily smartphone with a big, bright display.",
+    img: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=800&q=80",
+  },
+  {
+    name: "Connect Lite",
+    cat: "midrange" as ProductCategory,
+    fam: "blue",
+    type: "phone" as DeviceType,
+    status: "In Stock" as ProductStatus,
+    blurb: "Affordable connectivity with reliable performance for daily life.",
+    img: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=800&q=80",
+  },
+  {
+    name: "Vibe Plus",
+    cat: "midrange" as ProductCategory,
+    fam: "cyan",
+    type: "phone" as DeviceType,
+    status: "In Stock" as ProductStatus,
+    blurb: "Bigger battery and a smooth experience at an accessible price.",
+    img: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800&q=80",
+  },
+  {
+    name: "Power Charger 33W",
+    cat: "accessories" as ProductCategory,
+    fam: "amber",
+    type: "charger" as DeviceType,
+    status: "In Stock" as ProductStatus,
+    blurb: "Fast, safe charging with broad device compatibility.",
+    img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=800&q=80",
+  },
+  {
+    name: "Wireless Earbuds",
+    cat: "accessories" as ProductCategory,
+    fam: "violet",
+    type: "earbuds" as DeviceType,
+    status: "In Stock" as ProductStatus,
+    blurb: "Crisp wireless audio with long playback and quick pairing.",
+    img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&q=80",
+  },
+  {
+    name: "Protective Case",
+    cat: "accessories" as ProductCategory,
+    fam: "slate",
+    type: "case" as DeviceType,
+    status: "In Stock" as ProductStatus,
+    blurb: "Slim, shock-absorbing protection for everyday durability.",
+    img: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=800&q=80",
+  },
+  {
+    name: "Active Smartwatch",
+    cat: "wearables" as ProductCategory,
+    fam: "blue",
+    type: "watch" as DeviceType,
+    status: "Limited" as ProductStatus,
+    blurb: "Track your health and stay connected on the move.",
+    img: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=800&q=80",
+  },
+  {
+    name: "Display Module",
+    cat: "parts" as ProductCategory,
+    fam: "slate",
+    type: "screen" as DeviceType,
+    status: "In Stock" as ProductStatus,
+    blurb: "Genuine replacement screens for fast, reliable repairs.",
+    img: "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&q=80",
+  },
+  {
+    name: "Battery Pack",
+    cat: "parts" as ProductCategory,
+    fam: "teal",
+    type: "battery" as DeviceType,
+    status: "In Stock" as ProductStatus,
+    blurb: "Original-spec batteries for restored, long-lasting performance.",
+    img: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&q=80",
+  },
 ];
 
 export const categoryLabels: Record<string, string> = {
@@ -215,12 +324,30 @@ export const partnerPillars = [
 ];
 
 export const partnerBenefits = [
-  { title: "Authentic Products", body: "Genuine devices, sourced direct — never grey-market." },
-  { title: "Competitive Pricing", body: "Fair wholesale rates that protect your margins." },
-  { title: "Reliable Delivery", body: "Consistent, dependable supply you can plan around." },
-  { title: "After-Sales Support", body: "Spare parts and service that build customer trust." },
-  { title: "Transparent Dealing", body: "Honest, ethical business in every transaction." },
-  { title: "Long-Term Focus", body: "We invest in partnerships, not one-off sales." },
+  {
+    title: "Authentic Products",
+    body: "Genuine devices, sourced direct — never grey-market.",
+  },
+  {
+    title: "Competitive Pricing",
+    body: "Fair wholesale rates that protect your margins.",
+  },
+  {
+    title: "Reliable Delivery",
+    body: "Consistent, dependable supply you can plan around.",
+  },
+  {
+    title: "After-Sales Support",
+    body: "Spare parts and service that build customer trust.",
+  },
+  {
+    title: "Transparent Dealing",
+    body: "Honest, ethical business in every transaction.",
+  },
+  {
+    title: "Long-Term Focus",
+    body: "We invest in partnerships, not one-off sales.",
+  },
 ];
 
 export const reasons = [
