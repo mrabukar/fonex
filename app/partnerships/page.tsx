@@ -86,8 +86,7 @@ export default function PartnershipsPage() {
               className="relative overflow-hidden rounded-[22px] p-8"
               style={{ background: "#fff", border: "1px solid #E7EAF3", boxShadow: "0 6px 18px rgba(11,18,38,.04)" }}
             >
-              <div className="absolute top-0 left-0 right-0" style={{ height: 5, background: p.accent }} />
-              <div className="flex items-center gap-4 mb-4 mt-2">
+              <div className="flex items-center gap-4 mb-4">
                 <div
                   className="inline-flex items-center justify-center rounded-[15px] flex-shrink-0"
                   style={{ width: 56, height: 56, background: p.tint, color: p.accent }}
