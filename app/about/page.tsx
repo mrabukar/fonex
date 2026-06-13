@@ -265,9 +265,9 @@ export default function AboutPage() {
       <section style={{ background: "#fff", borderBottom: "1px solid #E7EAF3" }}>
         <Container className="py-18.5 grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Mission */}
-          <FadeIn direction="left">
+          <FadeIn direction="left" className="h-full">
             <div
-              className="relative overflow-hidden rounded-[22px] p-10"
+              className="relative overflow-hidden rounded-[22px] p-10 h-full"
               style={{ background: "linear-gradient(135deg,#EEF1FB,#F6F8FF)", border: "1px solid #E0E6FA" }}
             >
               <div
@@ -288,9 +288,9 @@ export default function AboutPage() {
           </FadeIn>
 
           {/* Vision */}
-          <FadeIn direction="right">
+          <FadeIn direction="right" className="h-full">
             <div
-              className="relative overflow-hidden rounded-[22px] p-10"
+              className="relative overflow-hidden rounded-[22px] p-10 h-full"
               style={{ background: "linear-gradient(135deg,#0B1226,#1C2A55)" }}
             >
               <div className="absolute" style={{ top: -30, right: -30, width: 180, height: 180, border: "1.5px solid rgba(255,255,255,.08)", borderRadius: "50%", pointerEvents: "none" }} />
