@@ -247,7 +247,8 @@ export default function AboutPage() {
               </p>
               <blockquote
                 className="rounded-[16px] p-6"
-                style={{ background: "linear-gradient(135deg,#EEF1FB,#F6F8FF)", borderLeft: "4px solid #2F5BFF" }}
+                style={{ background: "linear-gradient(135deg,#EEF1FB,#F6F8FF)",  }}
+                // borderLeft: "4px solid #2F5BFF"
               >
                 <p className="font-semibold text-[15.5px] leading-[1.6]" style={{ color: "#0B1226", fontStyle: "italic" }}>
                   &ldquo;We don&apos;t just supply phones — we connect people to opportunity.&rdquo;

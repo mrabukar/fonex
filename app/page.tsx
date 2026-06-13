@@ -35,7 +35,7 @@ export default function HomePage() {
   return (
     <div>
       {/* ===== HERO ===== */}
-      <HeroSwitcher />
+      {/* <HeroSwitcher /> */}
 
       {/* ===== TRUST STRIP ===== */}
       <section
