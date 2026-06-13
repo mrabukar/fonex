@@ -52,27 +52,29 @@ export default function PartnershipsPage() {
           }}
         />
         <Container className="relative py-16 pb-[70px]">
-          <div
-            className="text-[13px] font-bold tracking-[.08em] uppercase mb-4"
-            style={{ color: "#8B97C4" }}
-          >
-            Clientele & Partnerships
-          </div>
-          <h1
-            className="font-extrabold text-white text-balance max-w-[740px]"
-            style={{
-              fontFamily: "var(--font-sora)",
-              fontSize: "clamp(36px, 4vw, 50px)",
-              lineHeight: 1.08,
-              letterSpacing: "-.03em",
-            }}
-          >
-            Built on strong, trusted relationships
-          </h1>
-          <p className="text-[18px] leading-[1.65] max-w-[620px] mt-6" style={{ color: "#A9B2CC" }}>
-            Our network connects global manufacturers, local retailers, technology providers, and
-            community organizations — together building East Africa&apos;s mobile future.
-          </p>
+          <FadeIn>
+            <div
+              className="text-[13px] font-bold tracking-[.08em] uppercase mb-4"
+              style={{ color: "#8B97C4" }}
+            >
+              Clientele & Partnerships
+            </div>
+            <h1
+              className="font-extrabold text-white text-balance max-w-185"
+              style={{
+                fontFamily: "var(--font-sora)",
+                fontSize: "clamp(36px, 4vw, 50px)",
+                lineHeight: 1.08,
+                letterSpacing: "-.03em",
+              }}
+            >
+              Built on strong, trusted relationships
+            </h1>
+            <p className="text-[18px] leading-[1.65] max-w-155 mt-6" style={{ color: "#A9B2CC" }}>
+              Our network connects global manufacturers, local retailers, technology providers, and
+              community organizations — together building East Africa&apos;s mobile future.
+            </p>
+          </FadeIn>
         </Container>
       </section>
 
