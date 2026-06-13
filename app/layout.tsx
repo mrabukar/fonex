@@ -4,7 +4,6 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { SmoothScroll } from "@/components/smooth-scroll";
-import { PageTransition } from "@/components/motion/page-transition";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -57,9 +56,7 @@ export default function RootLayout({
       <body>
         <SmoothScroll>
           <Navbar />
-          <main>
-            <PageTransition>{children}</PageTransition>
-          </main>
+          <main>{children}</main>
           <Footer />
         </SmoothScroll>
       </body>
