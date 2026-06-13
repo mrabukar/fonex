@@ -66,44 +66,51 @@ export default function AboutPage() {
         />
         <Container className="relative py-20 pb-24">
           {/* Location badge */}
-          <div
-            className="inline-flex items-center gap-2 rounded-full mb-7 px-4 py-2"
-            style={{ background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.13)" }}
-          >
-            <MapPin size={13} style={{ color: "#16C2D5" }} />
-            <span className="text-[13px] font-semibold" style={{ color: "#A9B2CC" }}>
-              Mogadishu, Somalia · Est. 2025
-            </span>
-          </div>
+          <FadeIn delay={0}>
+            <div
+              className="inline-flex items-center gap-2 rounded-full mb-7 px-4 py-2"
+              style={{ background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.13)" }}
+            >
+              <MapPin size={13} style={{ color: "#16C2D5" }} />
+              <span className="text-[13px] font-semibold" style={{ color: "#A9B2CC" }}>
+                Mogadishu, Somalia · Est. 2025
+              </span>
+            </div>
+          </FadeIn>
 
-          <h1
-            className="font-extrabold text-white text-balance max-w-190 mb-6"
-            style={{
-              fontFamily: "var(--font-sora)",
-              fontSize: "clamp(40px, 5vw, 58px)",
-              lineHeight: 1.06,
-              letterSpacing: "-.03em",
-            }}
-          >
-            A trusted partner in East Africa&apos;s mobile technology ecosystem
-          </h1>
-          <p
-            className="text-[18px] leading-[1.65] max-w-150 mb-12"
-            style={{ color: "#A9B2CC" }}
-          >
-            Founded to meet the growing demand for reliable mobile technology
-            and digital adaptation across the region.
-          </p>
+          <FadeIn delay={0.1}>
+            <h1
+              className="font-extrabold text-white text-balance max-w-190 mb-6"
+              style={{
+                fontFamily: "var(--font-sora)",
+                fontSize: "clamp(40px, 5vw, 58px)",
+                lineHeight: 1.06,
+                letterSpacing: "-.03em",
+              }}
+            >
+              A trusted partner in East Africa&apos;s mobile technology ecosystem
+            </h1>
+          </FadeIn>
+
+          <FadeIn delay={0.2}>
+            <p
+              className="text-[18px] leading-[1.65] max-w-150 mb-12"
+              style={{ color: "#A9B2CC" }}
+            >
+              Founded to meet the growing demand for reliable mobile technology
+              and digital adaptation across the region.
+            </p>
+          </FadeIn>
 
           {/* Stat pills */}
-          <div className="flex flex-wrap gap-3">
+          <StaggerContainer className="flex flex-wrap gap-3">
             {[
               { value: "6+", label: "Cities reached" },
               { value: "100%", label: "Authentic products" },
               { value: "Est. 2025", label: "Year founded" },
               { value: "East Africa", label: "Region served" },
             ].map((s) => (
-              <div
+              <StaggerItem
                 key={s.label}
                 className="rounded-full px-5 py-2.5 flex items-center gap-2.5"
                 style={{ background: "rgba(255,255,255,.07)", border: "1px solid rgba(255,255,255,.11)" }}
@@ -115,9 +122,9 @@ export default function AboutPage() {
                   {s.value}
                 </span>
                 <span className="text-[13px]" style={{ color: "#7B8EB5" }}>{s.label}</span>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </Container>
       </section>
 
