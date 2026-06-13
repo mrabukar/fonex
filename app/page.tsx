@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { HeroSwitcher } from "@/components/hero-switcher";
 import { CtaBand } from "@/components/cta-band";
 import { services } from "@/lib/content";
 import { Container } from "@/components/container";
+import { FadeIn } from "@/components/motion/fade-in";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 import {
   Smartphone,
   Layers,
@@ -75,7 +78,7 @@ export default function HomePage() {
 
       {/* ===== SERVICES PREVIEW ===== */}
       <Container as="section" className="pt-20 pb-8">
-        <div className="flex items-end justify-between gap-6 mb-10 flex-wrap">
+        <FadeIn className="flex items-end justify-between gap-6 mb-10 flex-wrap">
           <div className="max-w-[560px]">
             <div
               className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
@@ -108,13 +111,14 @@ export default function HomePage() {
           >
             View all products →
           </Link>
-        </div>
+        </FadeIn>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map((s) => (
-            <div
+            <StaggerItem
               key={s.title}
-              className="rounded-[18px] p-6 transition-colors"
+              hover
+              className="rounded-[18px] p-6"
               style={{
                 background: "#fff",
                 border: "1px solid #E7EAF3",
@@ -123,12 +127,7 @@ export default function HomePage() {
             >
               <div
                 className="inline-flex items-center justify-center rounded-[14px]"
-                style={{
-                  width: 52,
-                  height: 52,
-                  background: s.tint,
-                  color: s.accent,
-                }}
+                style={{ width: 52, height: 52, background: s.tint, color: s.accent }}
               >
                 {iconMap[s.icon]}
               </div>
@@ -138,15 +137,12 @@ export default function HomePage() {
               >
                 {s.title}
               </div>
-              <div
-                className="text-[14.5px] leading-[1.6]"
-                style={{ color: "#5A6480" }}
-              >
+              <div className="text-[14.5px] leading-[1.6]" style={{ color: "#5A6480" }}>
                 {s.body}
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </Container>
 
       {/* ===== MISSION SPLIT ===== */}
@@ -160,48 +156,41 @@ export default function HomePage() {
           }}
         >
           {/* Dark visual panel */}
-          <div
-            className="relative rounded-[18px] overflow-hidden"
-            style={{
-              height: 330,
-              background: "linear-gradient(150deg,#0B1226,#1C2A55)",
-            }}
-          >
+          <FadeIn direction="left">
             <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(50% 50% at 75% 25%, rgba(47,91,255,.5), transparent 60%), radial-gradient(45% 45% at 25% 80%, rgba(22,194,213,.4), transparent 60%)",
-              }}
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px)",
-                backgroundSize: "24px 24px",
-              }}
-            />
-            <div className="absolute bottom-6 left-6 right-6">
+              className="relative rounded-[18px] overflow-hidden"
+              style={{ height: 360, background: "linear-gradient(150deg,#0B1226,#1C2A55)" }}
+            >
+              <Image
+                src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=900&q=80"
+                alt="Connected communities across East Africa"
+                fill
+                style={{ objectFit: "cover" }}
+              />
               <div
-                className="font-extrabold text-white"
-                style={{
-                  fontFamily: "var(--font-sora)",
-                  fontSize: 30,
-                  letterSpacing: "-.02em",
-                  lineHeight: 1.1,
-                }}
-              >
-                Digital inclusion, by design
-              </div>
-              <div className="text-[14px] mt-2" style={{ color: "#A9B2CC" }}>
-                Connecting students, entrepreneurs & businesses to technology.
+                className="absolute inset-0"
+                style={{ background: "linear-gradient(155deg, rgba(47,91,255,.62), rgba(108,92,231,.30) 45%, rgba(11,18,38,.85))" }}
+              />
+              <div
+                className="absolute inset-0"
+                style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,.10) 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+              />
+              <div className="absolute" style={{ bottom: 26, left: 26, right: 26 }}>
+                <div
+                  className="font-extrabold text-white"
+                  style={{ fontFamily: "var(--font-sora)", fontSize: 30, letterSpacing: "-.02em", lineHeight: 1.1, textShadow: "0 2px 18px rgba(11,18,38,.4)" }}
+                >
+                  Digital inclusion, by design
+                </div>
+                <div className="text-[14px] mt-2" style={{ color: "#EAEEFB" }}>
+                  Connecting students, entrepreneurs & businesses to technology.
+                </div>
               </div>
             </div>
-          </div>
+          </FadeIn>
 
           {/* Text */}
-          <div>
+          <FadeIn direction="right">
             <div
               className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
               style={{ color: "#2F5BFF" }}
@@ -210,24 +199,14 @@ export default function HomePage() {
             </div>
             <h2
               className="font-extrabold text-balance mb-5"
-              style={{
-                fontFamily: "var(--font-sora)",
-                fontSize: 34,
-                lineHeight: 1.15,
-                letterSpacing: "-.025em",
-                color: "#0B1226",
-              }}
+              style={{ fontFamily: "var(--font-sora)", fontSize: 34, lineHeight: 1.15, letterSpacing: "-.025em", color: "#0B1226" }}
             >
-              Empowering people and businesses through reliable mobile
-              technology
+              Empowering people and businesses through reliable mobile technology
             </h2>
-            <p
-              className="text-[16.5px] leading-[1.65] mb-6"
-              style={{ color: "#4C566F" }}
-            >
-              We supply innovative smartphones, accessories, and spare parts
-              that enhance communication, productivity, and digital inclusion —
-              helping East Africa adapt and thrive in a connected world.
+            <p className="text-[16.5px] leading-[1.65] mb-6" style={{ color: "#4C566F" }}>
+              We supply innovative smartphones, accessories, and spare parts that enhance
+              communication, productivity, and digital inclusion — helping East Africa adapt and
+              thrive in a connected world.
             </p>
             <div className="grid grid-cols-2 gap-4">
               {[
@@ -238,39 +217,30 @@ export default function HomePage() {
               ].map((item) => (
                 <div key={item.text} className="flex gap-2.5 items-start">
                   <span
-                    style={{
-                      width: 9,
-                      height: 9,
-                      borderRadius: "50%",
-                      background: item.color,
-                      marginTop: 6,
-                      flexShrink: 0,
-                      display: "block",
-                    }}
+                    style={{ width: 9, height: 9, borderRadius: "50%", background: item.color, marginTop: 6, flexShrink: 0, display: "block" }}
                   />
-                  <span
-                    className="text-[15px] font-semibold"
-                    style={{ color: "#27314B" }}
-                  >
+                  <span className="text-[15px] font-semibold" style={{ color: "#27314B" }}>
                     {item.text}
                   </span>
                 </div>
               ))}
             </div>
-          </div>
+          </FadeIn>
         </div>
       </Container>
 
       {/* ===== CTA BAND ===== */}
       <Container as="section" className="mb-20">
-        <CtaBand
-          title="Ready to stock authentic devices your customers can trust?"
-          subtitle="Partner with Fonex for genuine products, competitive pricing, and dependable supply across East Africa."
-          primaryLabel="Request a Quote"
-          primaryHref="/contact"
-          secondaryLabel="Become a Partner"
-          secondaryHref="/partnerships"
-        />
+        <FadeIn>
+          <CtaBand
+            title="Ready to stock authentic devices your customers can trust?"
+            subtitle="Partner with Fonex for genuine products, competitive pricing, and dependable supply across East Africa."
+            primaryLabel="Request a Quote"
+            primaryHref="/contact"
+            secondaryLabel="Become a Partner"
+            secondaryHref="/partnerships"
+          />
+        </FadeIn>
       </Container>
     </div>
   );
