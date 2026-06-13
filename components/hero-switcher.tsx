@@ -609,7 +609,7 @@ export function HeroSwitcher() {
 
   return (
     <div>
-      <ConceptTabs active={active} onChange={setActive} />
+      {/* <ConceptTabs active={active} onChange={setActive} /> */}
       <AnimatePresence mode="wait">
         <motion.div key={active} {...heroWrap}>
           {active === "A" && <HeroA />}
