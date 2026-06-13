@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
-const ease = [0.21, 0.47, 0.32, 0.98];
+const ease = [0.21, 0.47, 0.32, 0.98] as const;
 
 const containerVariants = {
   hidden: {},
