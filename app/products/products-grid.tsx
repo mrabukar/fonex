@@ -10,6 +10,7 @@ import {
 } from "@/lib/content";
 import { DeviceTile } from "@/components/graphics/device-tile";
 import { Container } from "@/components/container";
+import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 
 function statusStyle(status: string): React.CSSProperties {
   if (status === "In Stock") return { background: "#E2F6EF", color: "#067A55" };
@@ -51,11 +52,15 @@ export function ProductsGrid() {
 
       {/* Grid */}
       <Container as="section" className="pt-10 pb-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <StaggerContainer
+          staggerKey={cat}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {visible.map((p) => (
-            <div
+            <StaggerItem
               key={p.name}
-              className="rounded-[20px] overflow-hidden transition-colors"
+              hover
+              className="rounded-[20px] overflow-hidden"
               style={{
                 background: "#fff",
                 border: "1px solid #E7EAF3",
@@ -64,7 +69,7 @@ export function ProductsGrid() {
             >
               {/* Visual */}
               <div className="relative">
-                <DeviceTile fam={p.fam} type={p.type} />
+                <DeviceTile fam={p.fam} type={p.type} img={p.img} />
                 {/* Category chip */}
                 <span
                   className="absolute top-3.5 left-3.5 text-[11.5px] font-bold px-2.5 py-1.5 rounded-full"
@@ -122,9 +127,9 @@ export function ProductsGrid() {
                   </Link>
                 </div>
               </div>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </Container>
     </>
   );
