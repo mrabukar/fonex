@@ -2,9 +2,28 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import { PhoneGraphic } from "@/components/graphics/phone-graphic";
 
 type Concept = "A" | "B" | "C";
+
+const ease = [0.21, 0.47, 0.32, 0.98] as const;
+
+const heroContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+
+const heroItem = {
+  hidden: { opacity: 0, y: 22 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
+};
+
+const heroWrap = {
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.32, ease } },
+  exit: { opacity: 0, y: -10, transition: { duration: 0.2, ease } },
+};
 
 function tabBtnStyle(active: boolean): React.CSSProperties {
   return {
@@ -49,7 +68,6 @@ function ConceptTabs({
           color: "#9098AE",
         }}
       >
-        {/* Hero concept */}
         Hero layout
       </span>
       <div
@@ -62,24 +80,11 @@ function ConceptTabs({
           boxShadow: "0 4px 14px rgba(11,18,38,.05)",
         }}
       >
-        <button
-          onClick={() => onChange("A")}
-          style={tabBtnStyle(active === "A")}
-        >
-          A · Editorial
-        </button>
-        <button
-          onClick={() => onChange("B")}
-          style={tabBtnStyle(active === "B")}
-        >
-          B · Centered
-        </button>
-        <button
-          onClick={() => onChange("C")}
-          style={tabBtnStyle(active === "C")}
-        >
-          C · Premium
-        </button>
+        {(["A", "B", "C"] as Concept[]).map((c) => (
+          <button key={c} onClick={() => onChange(c)} style={tabBtnStyle(active === c)}>
+            {c === "A" ? "A · Editorial" : c === "B" ? "B · Centered" : "C · Premium"}
+          </button>
+        ))}
       </div>
     </div>
   );
@@ -89,36 +94,31 @@ function ConceptTabs({
 function HeroA() {
   return (
     <section className="max-w-[1200px] mx-auto px-7 pt-[34px] pb-[70px] grid grid-cols-1 lg:grid-cols-[1.05fr_.95fr] gap-12 items-center">
-      <div className="animate-fx-up">
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 9,
-            background: "#EEF1FB",
-            border: "1px solid #DCE2FA",
-            color: "#2F5BFF",
-            fontWeight: 700,
-            fontSize: 12.5,
-            letterSpacing: ".04em",
-            padding: "7px 14px",
-            borderRadius: 999,
-            marginBottom: 24,
-          }}
-        >
-          <span
+      <motion.div variants={heroContainer} initial="hidden" animate="visible">
+        <motion.div variants={heroItem}>
+          <div
             style={{
-              width: 6,
-              height: 6,
-              borderRadius: "50%",
-              background: "#16C2D5",
-              display: "block",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 9,
+              background: "#EEF1FB",
+              border: "1px solid #DCE2FA",
+              color: "#2F5BFF",
+              fontWeight: 700,
+              fontSize: 12.5,
+              letterSpacing: ".04em",
+              padding: "7px 14px",
+              borderRadius: 999,
+              marginBottom: 24,
             }}
-          />
-          EST. 2025 · MOGADISHU, SOMALIA
-        </div>
+          >
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#16C2D5", display: "block" }} />
+            EST. 2025 · MOGADISHU, SOMALIA
+          </div>
+        </motion.div>
 
-        <h1
+        <motion.h1
+          variants={heroItem}
           className="text-balance"
           style={{
             fontFamily: "var(--font-sora)",
@@ -141,29 +141,20 @@ function HeroA() {
           >
             delivered across East Africa.
           </span>
-        </h1>
+        </motion.h1>
 
-        <p
-          style={{
-            fontSize: 18,
-            lineHeight: 1.6,
-            color: "#4C566F",
-            maxWidth: 500,
-            marginBottom: 32,
-          }}
+        <motion.p
+          variants={heroItem}
+          style={{ fontSize: 18, lineHeight: 1.6, color: "#4C566F", maxWidth: 500, marginBottom: 32 }}
         >
-          Fonex Supply Limited imports and distributes genuine smartphones,
-          accessories, and spare parts — connecting people, businesses, and
-          communities to the devices that move them forward.
-        </p>
+          Fonex Supply Limited imports and distributes genuine smartphones, accessories, and spare
+          parts — connecting people, businesses, and communities to the devices that move them
+          forward.
+        </motion.p>
 
-        <div
-          style={{
-            display: "flex",
-            gap: 14,
-            flexWrap: "wrap",
-            marginBottom: 40,
-          }}
+        <motion.div
+          variants={heroItem}
+          style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 40 }}
         >
           <Link
             href="/products"
@@ -202,62 +193,35 @@ function HeroA() {
           >
             Become a Partner
           </Link>
-        </div>
+        </motion.div>
 
-        <div style={{ display: "flex", gap: 34, flexWrap: "wrap" }}>
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-sora)",
-                fontWeight: 800,
-                fontSize: 26,
-                color: "#0B1226",
-              }}
-            >
-              100%
-            </div>
-            <div style={{ fontSize: 13.5, color: "#7B8499" }}>
-              Authentic stock
-            </div>
-          </div>
-          <div style={{ width: 1, background: "#E7EAF3" }} />
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-sora)",
-                fontWeight: 800,
-                fontSize: 26,
-                color: "#0B1226",
-              }}
-            >
-              6+
-            </div>
-            <div style={{ fontSize: 13.5, color: "#7B8499" }}>
-              Cities served
-            </div>
-          </div>
-          <div style={{ width: 1, background: "#E7EAF3" }} />
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-sora)",
-                fontWeight: 800,
-                fontSize: 26,
-                color: "#0B1226",
-              }}
-            >
-              24/7
-            </div>
-            <div style={{ fontSize: 13.5, color: "#7B8499" }}>
-              After-sales support
-            </div>
-          </div>
-        </div>
-      </div>
+        <motion.div variants={heroItem} style={{ display: "flex", gap: 34, flexWrap: "wrap" }}>
+          {[
+            { value: "100%", label: "Authentic stock" },
+            { value: "6+", label: "Cities served" },
+            { value: "24/7", label: "After-sales support" },
+          ].map((stat, i) => (
+            <>
+              {i > 0 && <div key={`div-${i}`} style={{ width: 1, background: "#E7EAF3" }} />}
+              <div key={stat.value}>
+                <div style={{ fontFamily: "var(--font-sora)", fontWeight: 800, fontSize: 26, color: "#0B1226" }}>
+                  {stat.value}
+                </div>
+                <div style={{ fontSize: 13.5, color: "#7B8499" }}>{stat.label}</div>
+              </div>
+            </>
+          ))}
+        </motion.div>
+      </motion.div>
 
-      <div className="animate-fx-up-delayed hidden lg:block">
+      <motion.div
+        className="hidden lg:block"
+        initial={{ opacity: 0, x: 30 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.7, delay: 0.2, ease }}
+      >
         <PhoneGraphic />
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -265,32 +229,19 @@ function HeroA() {
 /* ── B · Centered Bold ────────────────────────────────────────── */
 function HeroB() {
   return (
-    <section
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        padding: "60px 28px 80px",
-      }}
-    >
+    <section style={{ position: "relative", overflow: "hidden", padding: "60px 28px 80px" }}>
       {/* dot grid */}
       <div
         style={{
           position: "absolute",
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-          backgroundImage:
-            "radial-gradient(circle, #DDE2F0 1px, transparent 1px)",
+          inset: 0,
+          backgroundImage: "radial-gradient(circle, #DDE2F0 1px, transparent 1px)",
           backgroundSize: "26px 26px",
           opacity: 0.6,
-          WebkitMaskImage:
-            "radial-gradient(70% 60% at 50% 30%, #000, transparent 75%)",
-          maskImage:
-            "radial-gradient(70% 60% at 50% 30%, #000, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(70% 60% at 50% 30%, #000, transparent 75%)",
+          maskImage: "radial-gradient(70% 60% at 50% 30%, #000, transparent 75%)",
         }}
       />
-      {/* top glow */}
       <div
         style={{
           position: "absolute",
@@ -299,51 +250,41 @@ function HeroB() {
           transform: "translateX(-50%)",
           width: 600,
           height: 360,
-          background:
-            "radial-gradient(50% 50% at 50% 50%, rgba(47,91,255,.18), transparent 70%)",
+          background: "radial-gradient(50% 50% at 50% 50%, rgba(47,91,255,.18), transparent 70%)",
         }}
       />
 
-      {/* text content */}
-      <div
-        className="animate-fx-up"
-        style={{
-          position: "relative",
-          maxWidth: 880,
-          margin: "0 auto",
-          textAlign: "center",
-        }}
+      <motion.div
+        variants={heroContainer}
+        initial="hidden"
+        animate="visible"
+        style={{ position: "relative", maxWidth: 880, margin: "0 auto", textAlign: "center" }}
       >
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 9,
-            background: "#fff",
-            border: "1px solid #E2E6F2",
-            color: "#2F5BFF",
-            fontWeight: 700,
-            fontSize: 12.5,
-            letterSpacing: ".04em",
-            padding: "8px 16px",
-            borderRadius: 999,
-            marginBottom: 26,
-            boxShadow: "0 4px 14px rgba(11,18,38,.05)",
-          }}
-        >
-          <span
+        <motion.div variants={heroItem}>
+          <div
             style={{
-              width: 6,
-              height: 6,
-              borderRadius: "50%",
-              background: "#16C2D5",
-              display: "block",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 9,
+              background: "#fff",
+              border: "1px solid #E2E6F2",
+              color: "#2F5BFF",
+              fontWeight: 700,
+              fontSize: 12.5,
+              letterSpacing: ".04em",
+              padding: "8px 16px",
+              borderRadius: 999,
+              marginBottom: 26,
+              boxShadow: "0 4px 14px rgba(11,18,38,.05)",
             }}
-          />
-          YOUR TRUSTED MOBILE SUPPLY PARTNER
-        </div>
+          >
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#16C2D5", display: "block" }} />
+            YOUR TRUSTED MOBILE SUPPLY PARTNER
+          </div>
+        </motion.div>
 
-        <h1
+        <motion.h1
+          variants={heroItem}
           className="text-balance"
           style={{
             fontFamily: "var(--font-sora)",
@@ -367,29 +308,19 @@ function HeroB() {
             power progress
           </span>
           , supplied with confidence.
-        </h1>
+        </motion.h1>
 
-        <p
-          style={{
-            fontSize: 19,
-            lineHeight: 1.6,
-            color: "#4C566F",
-            maxWidth: 600,
-            margin: "0 auto 34px",
-          }}
+        <motion.p
+          variants={heroItem}
+          style={{ fontSize: 19, lineHeight: 1.6, color: "#4C566F", maxWidth: 600, margin: "0 auto 34px" }}
         >
-          From flagship smartphones to everyday accessories and spare parts —
-          Fonex delivers authentic mobile technology to retailers, businesses,
-          and people across East Africa.
-        </p>
+          From flagship smartphones to everyday accessories and spare parts — Fonex delivers
+          authentic mobile technology to retailers, businesses, and people across East Africa.
+        </motion.p>
 
-        <div
-          style={{
-            display: "flex",
-            gap: 14,
-            justifyContent: "center",
-            flexWrap: "wrap",
-          }}
+        <motion.div
+          variants={heroItem}
+          style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}
         >
           <Link
             href="/products"
@@ -428,12 +359,15 @@ function HeroB() {
           >
             Request a Quote
           </Link>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
-      {/* 3 device cards — hidden on small screens to avoid overflow */}
-      <div
+      {/* 3 device cards */}
+      <motion.div
         className="hidden sm:flex"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, delay: 0.35, ease }}
         style={{
           position: "relative",
           maxWidth: 760,
@@ -441,148 +375,53 @@ function HeroB() {
           alignItems: "flex-end",
           justifyContent: "center",
           gap: 18,
-          animation: "fx-up 0.8s ease 0.15s both",
         }}
       >
-        {/* left card */}
         <div
           style={{
-            width: 150,
-            height: 200,
-            borderRadius: 22,
+            width: 150, height: 200, borderRadius: 22,
             background: "linear-gradient(160deg,#fff,#F1F4FC)",
             border: "1px solid #E7EAF3",
             boxShadow: "0 24px 50px -18px rgba(11,18,38,.22)",
-            padding: 16,
-            flexShrink: 0,
+            padding: 16, flexShrink: 0,
           }}
         >
-          <div
-            style={{
-              width: 38,
-              height: 38,
-              borderRadius: 11,
-              background: "linear-gradient(135deg,#16C2D5,#13A6C0)",
-              marginBottom: 14,
-            }}
-          />
-          <div
-            style={{
-              height: 8,
-              width: "70%",
-              background: "#E7EAF3",
-              borderRadius: 4,
-              marginBottom: 7,
-            }}
-          />
-          <div
-            style={{
-              height: 8,
-              width: "50%",
-              background: "#EEF1FB",
-              borderRadius: 4,
-            }}
-          />
+          <div style={{ width: 38, height: 38, borderRadius: 11, background: "linear-gradient(135deg,#16C2D5,#13A6C0)", marginBottom: 14 }} />
+          <div style={{ height: 8, width: "70%", background: "#E7EAF3", borderRadius: 4, marginBottom: 7 }} />
+          <div style={{ height: 8, width: "50%", background: "#EEF1FB", borderRadius: 4 }} />
         </div>
 
-        {/* center card — tall dark */}
         <div
           style={{
-            width: 188,
-            height: 268,
-            borderRadius: 26,
+            width: 188, height: 268, borderRadius: 26,
             background: "#0B1226",
             boxShadow: "0 36px 70px -22px rgba(11,18,38,.5)",
-            padding: 14,
-            flexShrink: 0,
+            padding: 14, flexShrink: 0,
           }}
         >
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              borderRadius: 18,
-              background: "linear-gradient(160deg,#2F5BFF,#6C5CE7)",
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                top: 0,
-                right: 0,
-                bottom: 0,
-                left: 0,
-                background:
-                  "radial-gradient(60% 40% at 30% 20%, rgba(255,255,255,.35), transparent 60%)",
-              }}
-            />
-            <div
-              style={{ position: "absolute", bottom: 16, left: 16, right: 16 }}
-            >
-              <div
-                style={{
-                  height: 9,
-                  width: "60%",
-                  background: "rgba(255,255,255,.7)",
-                  borderRadius: 5,
-                  marginBottom: 8,
-                }}
-              />
-              <div
-                style={{
-                  height: 9,
-                  width: "85%",
-                  background: "rgba(255,255,255,.35)",
-                  borderRadius: 5,
-                }}
-              />
+          <div style={{ width: "100%", height: "100%", borderRadius: 18, background: "linear-gradient(160deg,#2F5BFF,#6C5CE7)", position: "relative", overflow: "hidden" }}>
+            <div style={{ position: "absolute", inset: 0, background: "radial-gradient(60% 40% at 30% 20%, rgba(255,255,255,.35), transparent 60%)" }} />
+            <div style={{ position: "absolute", bottom: 16, left: 16, right: 16 }}>
+              <div style={{ height: 9, width: "60%", background: "rgba(255,255,255,.7)", borderRadius: 5, marginBottom: 8 }} />
+              <div style={{ height: 9, width: "85%", background: "rgba(255,255,255,.35)", borderRadius: 5 }} />
             </div>
           </div>
         </div>
 
-        {/* right card */}
         <div
           style={{
-            width: 150,
-            height: 200,
-            borderRadius: 22,
+            width: 150, height: 200, borderRadius: 22,
             background: "linear-gradient(160deg,#fff,#F1F4FC)",
             border: "1px solid #E7EAF3",
             boxShadow: "0 24px 50px -18px rgba(11,18,38,.22)",
-            padding: 16,
-            flexShrink: 0,
+            padding: 16, flexShrink: 0,
           }}
         >
-          <div
-            style={{
-              width: 38,
-              height: 38,
-              borderRadius: 11,
-              background: "linear-gradient(135deg,#FFB020,#F59300)",
-              marginBottom: 14,
-            }}
-          />
-          <div
-            style={{
-              height: 8,
-              width: "70%",
-              background: "#E7EAF3",
-              borderRadius: 4,
-              marginBottom: 7,
-            }}
-          />
-          <div
-            style={{
-              height: 8,
-              width: "50%",
-              background: "#EEF1FB",
-              borderRadius: 4,
-            }}
-          />
+          <div style={{ width: 38, height: 38, borderRadius: 11, background: "linear-gradient(135deg,#FFB020,#F59300)", marginBottom: 14 }} />
+          <div style={{ height: 8, width: "70%", background: "#E7EAF3", borderRadius: 4, marginBottom: 7 }} />
+          <div style={{ height: 8, width: "50%", background: "#EEF1FB", borderRadius: 4 }} />
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -590,72 +429,47 @@ function HeroB() {
 /* ── C · Dark Premium ─────────────────────────────────────────── */
 function HeroC() {
   return (
-    <section
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        background: "#0B1226",
-      }}
-    >
-      {/* gradient overlays */}
+    <section style={{ position: "relative", overflow: "hidden", background: "#0B1226" }}>
       <div
         style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-          background:
-            "radial-gradient(50% 60% at 78% 30%, rgba(47,91,255,.42), transparent 65%), radial-gradient(45% 55% at 20% 80%, rgba(108,92,231,.34), transparent 65%)",
+          position: "absolute", inset: 0,
+          background: "radial-gradient(50% 60% at 78% 30%, rgba(47,91,255,.42), transparent 65%), radial-gradient(45% 55% at 20% 80%, rgba(108,92,231,.34), transparent 65%)",
         }}
       />
-      {/* dot grid */}
       <div
         style={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          bottom: 0,
-          left: 0,
-          backgroundImage:
-            "radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1px)",
+          position: "absolute", inset: 0,
+          backgroundImage: "radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1px)",
           backgroundSize: "30px 30px",
         }}
       />
 
-      {/* content */}
       <div className="relative max-w-[1200px] mx-auto px-7 pt-[60px] pb-[72px] grid grid-cols-1 lg:grid-cols-[1.08fr_.92fr] gap-11 items-center">
-        {/* left */}
-        <div className="animate-fx-up">
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 9,
-              background: "rgba(255,255,255,.07)",
-              border: "1px solid rgba(255,255,255,.14)",
-              color: "#BFC8E4",
-              fontWeight: 700,
-              fontSize: 12.5,
-              letterSpacing: ".04em",
-              padding: "8px 15px",
-              borderRadius: 999,
-              marginBottom: 26,
-            }}
-          >
-            <span
+        <motion.div variants={heroContainer} initial="hidden" animate="visible">
+          <motion.div variants={heroItem}>
+            <div
               style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: "#FFB020",
-                display: "block",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 9,
+                background: "rgba(255,255,255,.07)",
+                border: "1px solid rgba(255,255,255,.14)",
+                color: "#BFC8E4",
+                fontWeight: 700,
+                fontSize: 12.5,
+                letterSpacing: ".04em",
+                padding: "8px 15px",
+                borderRadius: 999,
+                marginBottom: 26,
               }}
-            />
-            IMPORTING · DISTRIBUTING · DELIVERING
-          </div>
+            >
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#FFB020", display: "block" }} />
+              IMPORTING · DISTRIBUTING · DELIVERING
+            </div>
+          </motion.div>
 
-          <h1
+          <motion.h1
+            variants={heroItem}
             className="text-balance"
             style={{
               fontFamily: "var(--font-sora)",
@@ -668,25 +482,19 @@ function HeroC() {
             }}
           >
             Mobile technology you can{" "}
-            <span style={{ color: "#FFB020" }}>trust</span>, supply you can rely
-            on.
-          </h1>
+            <span style={{ color: "#FFB020" }}>trust</span>, supply you can rely on.
+          </motion.h1>
 
-          <p
-            style={{
-              fontSize: 18,
-              lineHeight: 1.6,
-              color: "#A9B2CC",
-              maxWidth: 500,
-              marginBottom: 34,
-            }}
+          <motion.p
+            variants={heroItem}
+            style={{ fontSize: 18, lineHeight: 1.6, color: "#A9B2CC", maxWidth: 500, marginBottom: 34 }}
           >
-            Fonex Supply Limited is one of Somalia&apos;s first dedicated mobile
-            supply companies — bringing authentic smartphones, accessories, and
-            spare parts to East Africa&apos;s growing digital economy.
-          </p>
+            Fonex Supply Limited is one of Somalia&apos;s first dedicated mobile supply companies
+            — bringing authentic smartphones, accessories, and spare parts to East Africa&apos;s
+            growing digital economy.
+          </motion.p>
 
-          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+          <motion.div variants={heroItem} style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
             <Link
               href="/products"
               style={{
@@ -724,15 +532,17 @@ function HeroC() {
             >
               Our Story
             </Link>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* right — custom dark phone */}
-        <div
-          className="animate-fx-up-delayed hidden lg:block"
+        {/* right — dark phone */}
+        <motion.div
+          className="hidden lg:block"
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.25, ease }}
           style={{ position: "relative", height: 460 }}
         >
-          {/* phone body */}
           <div
             className="animate-float"
             style={{
@@ -751,95 +561,26 @@ function HeroC() {
           >
             <div
               style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: 28,
+                width: "100%", height: "100%", borderRadius: 28,
                 background: "linear-gradient(160deg,#16224A,#0B1226)",
-                overflow: "hidden",
-                position: "relative",
+                overflow: "hidden", position: "relative",
               }}
             >
-              {/* notch */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: 11,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  width: 90,
-                  height: 20,
-                  background: "#05080F",
-                  borderRadius: 999,
-                }}
-              />
-              {/* screen */}
+              <div style={{ position: "absolute", top: 11, left: "50%", transform: "translateX(-50%)", width: 90, height: 20, background: "#05080F", borderRadius: 999 }} />
               <div style={{ padding: "44px 18px" }}>
-                {/* hero gradient card */}
-                <div
-                  style={{
-                    height: 120,
-                    borderRadius: 16,
-                    background: "linear-gradient(135deg,#2F5BFF,#6C5CE7)",
-                    position: "relative",
-                    overflow: "hidden",
-                  }}
-                >
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: 0,
-                      right: 0,
-                      bottom: 0,
-                      left: 0,
-                      background:
-                        "radial-gradient(60% 50% at 70% 20%, rgba(255,255,255,.4), transparent 60%)",
-                    }}
-                  />
+                <div style={{ height: 120, borderRadius: 16, background: "linear-gradient(135deg,#2F5BFF,#6C5CE7)", position: "relative", overflow: "hidden" }}>
+                  <div style={{ position: "absolute", inset: 0, background: "radial-gradient(60% 50% at 70% 20%, rgba(255,255,255,.4), transparent 60%)" }} />
                 </div>
-                {/* two-cell row */}
                 <div style={{ marginTop: 16, display: "flex", gap: 9 }}>
-                  <div
-                    style={{
-                      flex: 1,
-                      height: 54,
-                      borderRadius: 13,
-                      background: "rgba(255,255,255,.06)",
-                    }}
-                  />
-                  <div
-                    style={{
-                      flex: 1,
-                      height: 54,
-                      borderRadius: 13,
-                      background: "rgba(255,176,32,.18)",
-                      border: "1px solid rgba(255,176,32,.3)",
-                    }}
-                  />
+                  <div style={{ flex: 1, height: 54, borderRadius: 13, background: "rgba(255,255,255,.06)" }} />
+                  <div style={{ flex: 1, height: 54, borderRadius: 13, background: "rgba(255,176,32,.18)", border: "1px solid rgba(255,176,32,.3)" }} />
                 </div>
-                {/* text lines */}
-                <div
-                  style={{
-                    marginTop: 12,
-                    height: 9,
-                    width: "70%",
-                    background: "rgba(255,255,255,.14)",
-                    borderRadius: 5,
-                  }}
-                />
-                <div
-                  style={{
-                    marginTop: 9,
-                    height: 9,
-                    width: "48%",
-                    background: "rgba(255,255,255,.09)",
-                    borderRadius: 5,
-                  }}
-                />
+                <div style={{ marginTop: 12, height: 9, width: "70%", background: "rgba(255,255,255,.14)", borderRadius: 5 }} />
+                <div style={{ marginTop: 9, height: 9, width: "48%", background: "rgba(255,255,255,.09)", borderRadius: 5 }} />
               </div>
             </div>
           </div>
 
-          {/* glassmorphism chip */}
           <div
             className="animate-float-2"
             style={{
@@ -853,21 +594,10 @@ function HeroC() {
               backdropFilter: "blur(8px)",
             }}
           >
-            <div style={{ fontSize: 11, color: "#9AA3BE", fontWeight: 600 }}>
-              Authentic
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-sora)",
-                fontWeight: 800,
-                fontSize: 16,
-                color: "#fff",
-              }}
-            >
-              Global brands
-            </div>
+            <div style={{ fontSize: 11, color: "#9AA3BE", fontWeight: 600 }}>Authentic</div>
+            <div style={{ fontFamily: "var(--font-sora)", fontWeight: 800, fontSize: 16, color: "#fff" }}>Global brands</div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -880,9 +610,14 @@ export function HeroSwitcher() {
   return (
     <div>
       <ConceptTabs active={active} onChange={setActive} />
-      {active === "A" && <HeroA />}
-      {active === "B" && <HeroB />}
-      {active === "C" && <HeroC />}
+      <AnimatePresence mode="wait">
+        <motion.div key={active} {...heroWrap}>
+          {active === "A" && <HeroA />}
+          {active === "B" && <HeroB />}
+          {active === "C" && <HeroC />}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
+
