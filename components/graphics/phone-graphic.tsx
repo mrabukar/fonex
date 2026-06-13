@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function PhoneGraphic() {
   return (
     <div className="relative h-[540px]">
@@ -163,25 +165,42 @@ export function PhoneGraphic() {
       <div
         className="absolute animate-float-2"
         style={{
-          top: 120,
-          left: 8,
+          top: 116,
+          left: 0,
+          display: "flex",
+          alignItems: "center",
+          gap: 11,
           background: "#fff",
           border: "1px solid #EDEFF6",
-          borderRadius: 14,
-          padding: "12px 15px",
-          boxShadow: "0 16px 34px rgba(11,18,38,.12)",
+          borderRadius: 16,
+          padding: "10px 14px 10px 10px",
+          boxShadow: "0 16px 34px rgba(11,18,38,.14)",
         }}
       >
-        <div style={{ fontSize: 11, color: "#7B8499", fontWeight: 600 }}>In stock</div>
-        <div
+        <span
           style={{
-            fontFamily: "var(--font-sora)",
-            fontWeight: 800,
-            fontSize: 17,
-            color: "#0B1226",
+            position: "relative",
+            width: 46,
+            height: 46,
+            borderRadius: 11,
+            overflow: "hidden",
+            flexShrink: 0,
+            display: "block",
+            background: "linear-gradient(135deg,#2F5BFF,#6C5CE7)",
           }}
         >
-          Flagship 5G
+          <Image
+            src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=200&q=80"
+            alt="Flagship smartphone"
+            fill
+            style={{ objectFit: "cover" }}
+          />
+        </span>
+        <div>
+          <div style={{ fontSize: 11, color: "#7B8499", fontWeight: 600 }}>In stock</div>
+          <div style={{ fontFamily: "var(--font-sora)", fontWeight: 800, fontSize: 16, color: "#0B1226" }}>
+            Flagship 5G
+          </div>
         </div>
       </div>
 
