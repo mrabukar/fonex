@@ -208,23 +208,23 @@ export default function HomePage() {
               communication, productivity, and digital inclusion — helping East Africa adapt and
               thrive in a connected world.
             </p>
-            <div className="grid grid-cols-2 gap-4">
+            <StaggerContainer className="grid grid-cols-2 gap-4">
               {[
                 { color: "#2F5BFF", text: "Authentic, warrantied products" },
                 { color: "#16C2D5", text: "Reliable regional distribution" },
                 { color: "#6C5CE7", text: "Competitive partner pricing" },
                 { color: "#FFB020", text: "Dependable after-sales support" },
               ].map((item) => (
-                <div key={item.text} className="flex gap-2.5 items-start">
+                <StaggerItem key={item.text} className="flex gap-2.5 items-start">
                   <span
                     style={{ width: 9, height: 9, borderRadius: "50%", background: item.color, marginTop: 6, flexShrink: 0, display: "block" }}
                   />
                   <span className="text-[15px] font-semibold" style={{ color: "#27314B" }}>
                     {item.text}
                   </span>
-                </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </FadeIn>
         </div>
       </Container>
