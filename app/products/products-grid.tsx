@@ -15,7 +15,7 @@ import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
 function statusStyle(status: string): React.CSSProperties {
   if (status === "In Stock") return { background: "#E2F6EF", color: "#067A55" };
   if (status === "Limited") return { background: "#FFF1D6", color: "#9A6400" };
-  return { background: "#EFEBFC", color: "#5A3FC0" };
+  return { background: "#E7E8F5", color: "#12144F" };
 }
 
 export function ProductsGrid() {
@@ -36,8 +36,8 @@ export function ProductsGrid() {
                 onClick={() => setCat(f.key as ProductCategory)}
                 className="font-bold text-[14px] px-[18px] py-2.5 rounded-full transition-colors"
                 style={{
-                  border: `1px solid ${active ? "#2F5BFF" : "#DFE3EE"}`,
-                  background: active ? "#2F5BFF" : "#fff",
+                  border: `1px solid ${active ? "#1A1C74" : "#DFE3EE"}`,
+                  background: active ? "#1A1C74" : "#fff",
                   color: active ? "#fff" : "#4C566F",
                   fontFamily: "var(--font-manrope)",
                   cursor: "pointer",
@@ -116,10 +116,10 @@ export function ProductsGrid() {
                   </span>
                   <Link
                     href="/contact"
-                    className="font-bold text-[13.5px] px-4 py-2.5 rounded-[10px] transition-colors hover:bg-[#2F5BFF] hover:text-white"
+                    className="font-bold text-[13.5px] px-4 py-2.5 rounded-[10px] transition-colors hover:bg-[#1A1C74] hover:text-white"
                     style={{
                       background: "#EEF1FB",
-                      color: "#2F5BFF",
+                      color: "#1A1C74",
                       fontFamily: "var(--font-manrope)",
                     }}
                   >

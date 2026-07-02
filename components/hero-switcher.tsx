@@ -103,7 +103,7 @@ function HeroA() {
               gap: 9,
               background: "#EEF1FB",
               border: "1px solid #DCE2FA",
-              color: "#2F5BFF",
+              color: "#1A1C74",
               fontWeight: 700,
               fontSize: 12.5,
               letterSpacing: ".04em",
@@ -112,7 +112,7 @@ function HeroA() {
               marginBottom: 24,
             }}
           >
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#16C2D5", display: "block" }} />
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#F5A623", display: "block" }} />
             EST. 2025 · MOGADISHU, SOMALIA
           </div>
         </motion.div>
@@ -133,7 +133,7 @@ function HeroA() {
           Authentic mobile technology,{" "}
           <span
             style={{
-              background: "linear-gradient(115deg,#2F5BFF,#6C5CE7)",
+              background: "linear-gradient(115deg,#1A1C74,#F5A623)",
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
               color: "transparent",
@@ -162,14 +162,14 @@ function HeroA() {
               display: "inline-flex",
               alignItems: "center",
               gap: 9,
-              background: "#2F5BFF",
+              background: "#1A1C74",
               color: "#fff",
               fontFamily: "var(--font-manrope)",
               fontWeight: 700,
               fontSize: 16,
               padding: "15px 26px",
               borderRadius: 13,
-              boxShadow: "0 12px 28px rgba(47,91,255,.32)",
+              boxShadow: "0 12px 28px rgba(26,28,116,.32)",
               textDecoration: "none",
             }}
           >
@@ -250,7 +250,7 @@ function HeroB() {
           transform: "translateX(-50%)",
           width: 600,
           height: 360,
-          background: "radial-gradient(50% 50% at 50% 50%, rgba(47,91,255,.18), transparent 70%)",
+          background: "radial-gradient(50% 50% at 50% 50%, rgba(26,28,116,.18), transparent 70%)",
         }}
       />
 
@@ -268,7 +268,7 @@ function HeroB() {
               gap: 9,
               background: "#fff",
               border: "1px solid #E2E6F2",
-              color: "#2F5BFF",
+              color: "#1A1C74",
               fontWeight: 700,
               fontSize: 12.5,
               letterSpacing: ".04em",
@@ -278,7 +278,7 @@ function HeroB() {
               boxShadow: "0 4px 14px rgba(11,18,38,.05)",
             }}
           >
-            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#16C2D5", display: "block" }} />
+            <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#F5A623", display: "block" }} />
             YOUR TRUSTED MOBILE SUPPLY PARTNER
           </div>
         </motion.div>
@@ -299,7 +299,7 @@ function HeroB() {
           The devices that{" "}
           <span
             style={{
-              background: "linear-gradient(115deg,#2F5BFF,#16C2D5)",
+              background: "linear-gradient(115deg,#1A1C74,#F5A623)",
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
               color: "transparent",
@@ -328,14 +328,14 @@ function HeroB() {
               display: "inline-flex",
               alignItems: "center",
               gap: 9,
-              background: "#2F5BFF",
+              background: "#1A1C74",
               color: "#fff",
               fontFamily: "var(--font-manrope)",
               fontWeight: 700,
               fontSize: 16,
               padding: "15px 28px",
               borderRadius: 13,
-              boxShadow: "0 12px 28px rgba(47,91,255,.32)",
+              boxShadow: "0 12px 28px rgba(26,28,116,.32)",
               textDecoration: "none",
             }}
           >
@@ -386,7 +386,7 @@ function HeroB() {
             padding: 16, flexShrink: 0,
           }}
         >
-          <div style={{ width: 38, height: 38, borderRadius: 11, background: "linear-gradient(135deg,#16C2D5,#13A6C0)", marginBottom: 14 }} />
+          <div style={{ width: 38, height: 38, borderRadius: 11, background: "linear-gradient(135deg,#F5A623,#13A6C0)", marginBottom: 14 }} />
           <div style={{ height: 8, width: "70%", background: "#E7EAF3", borderRadius: 4, marginBottom: 7 }} />
           <div style={{ height: 8, width: "50%", background: "#EEF1FB", borderRadius: 4 }} />
         </div>
@@ -399,7 +399,7 @@ function HeroB() {
             padding: 14, flexShrink: 0,
           }}
         >
-          <div style={{ width: "100%", height: "100%", borderRadius: 18, background: "linear-gradient(160deg,#2F5BFF,#6C5CE7)", position: "relative", overflow: "hidden" }}>
+          <div style={{ width: "100%", height: "100%", borderRadius: 18, background: "linear-gradient(160deg,#1A1C74,#F5A623)", position: "relative", overflow: "hidden" }}>
             <div style={{ position: "absolute", inset: 0, background: "radial-gradient(60% 40% at 30% 20%, rgba(255,255,255,.35), transparent 60%)" }} />
             <div style={{ position: "absolute", bottom: 16, left: 16, right: 16 }}>
               <div style={{ height: 9, width: "60%", background: "rgba(255,255,255,.7)", borderRadius: 5, marginBottom: 8 }} />
@@ -417,7 +417,7 @@ function HeroB() {
             padding: 16, flexShrink: 0,
           }}
         >
-          <div style={{ width: 38, height: 38, borderRadius: 11, background: "linear-gradient(135deg,#FFB020,#F59300)", marginBottom: 14 }} />
+          <div style={{ width: 38, height: 38, borderRadius: 11, background: "linear-gradient(135deg,#F5A623,#F59300)", marginBottom: 14 }} />
           <div style={{ height: 8, width: "70%", background: "#E7EAF3", borderRadius: 4, marginBottom: 7 }} />
           <div style={{ height: 8, width: "50%", background: "#EEF1FB", borderRadius: 4 }} />
         </div>
@@ -433,7 +433,7 @@ function HeroC() {
       <div
         style={{
           position: "absolute", inset: 0,
-          background: "radial-gradient(50% 60% at 78% 30%, rgba(47,91,255,.42), transparent 65%), radial-gradient(45% 55% at 20% 80%, rgba(108,92,231,.34), transparent 65%)",
+          background: "radial-gradient(50% 60% at 78% 30%, rgba(26,28,116,.42), transparent 65%), radial-gradient(45% 55% at 20% 80%, rgba(245,166,35,.34), transparent 65%)",
         }}
       />
       <div
@@ -463,7 +463,7 @@ function HeroC() {
                 marginBottom: 26,
               }}
             >
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#FFB020", display: "block" }} />
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#F5A623", display: "block" }} />
               IMPORTING · DISTRIBUTING · DELIVERING
             </div>
           </motion.div>
@@ -482,7 +482,7 @@ function HeroC() {
             }}
           >
             Mobile technology you can{" "}
-            <span style={{ color: "#FFB020" }}>trust</span>, supply you can rely on.
+            <span style={{ color: "#F5A623" }}>trust</span>, supply you can rely on.
           </motion.h1>
 
           <motion.p
@@ -501,14 +501,14 @@ function HeroC() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 9,
-                background: "#2F5BFF",
+                background: "#1A1C74",
                 color: "#fff",
                 fontFamily: "var(--font-manrope)",
                 fontWeight: 700,
                 fontSize: 16,
                 padding: "15px 26px",
                 borderRadius: 13,
-                boxShadow: "0 12px 30px rgba(47,91,255,.45)",
+                boxShadow: "0 12px 30px rgba(26,28,116,.45)",
                 textDecoration: "none",
               }}
             >
@@ -568,12 +568,12 @@ function HeroC() {
             >
               <div style={{ position: "absolute", top: 11, left: "50%", transform: "translateX(-50%)", width: 90, height: 20, background: "#05080F", borderRadius: 999 }} />
               <div style={{ padding: "44px 18px" }}>
-                <div style={{ height: 120, borderRadius: 16, background: "linear-gradient(135deg,#2F5BFF,#6C5CE7)", position: "relative", overflow: "hidden" }}>
+                <div style={{ height: 120, borderRadius: 16, background: "linear-gradient(135deg,#1A1C74,#F5A623)", position: "relative", overflow: "hidden" }}>
                   <div style={{ position: "absolute", inset: 0, background: "radial-gradient(60% 50% at 70% 20%, rgba(255,255,255,.4), transparent 60%)" }} />
                 </div>
                 <div style={{ marginTop: 16, display: "flex", gap: 9 }}>
                   <div style={{ flex: 1, height: 54, borderRadius: 13, background: "rgba(255,255,255,.06)" }} />
-                  <div style={{ flex: 1, height: 54, borderRadius: 13, background: "rgba(255,176,32,.18)", border: "1px solid rgba(255,176,32,.3)" }} />
+                  <div style={{ flex: 1, height: 54, borderRadius: 13, background: "rgba(245,166,35,.18)", border: "1px solid rgba(245,166,35,.3)" }} />
                 </div>
                 <div style={{ marginTop: 12, height: 9, width: "70%", background: "rgba(255,255,255,.14)", borderRadius: 5 }} />
                 <div style={{ marginTop: 9, height: 9, width: "48%", background: "rgba(255,255,255,.09)", borderRadius: 5 }} />

@@ -82,7 +82,7 @@ export default function HomePage() {
           <div className="max-w-[560px]">
             <div
               className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
-              style={{ color: "#2F5BFF" }}
+              style={{ color: "#1A1C74" }}
             >
               What we supply
             </div>
@@ -101,7 +101,7 @@ export default function HomePage() {
           </div>
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 font-bold text-[15px] px-5 py-3.5 rounded-[12px] transition-colors hover:border-[#2F5BFF] hover:text-[#2F5BFF] whitespace-nowrap"
+            className="inline-flex items-center gap-2 font-bold text-[15px] px-5 py-3.5 rounded-[12px] transition-colors hover:border-[#1A1C74] hover:text-[#1A1C74] whitespace-nowrap"
             style={{
               background: "#fff",
               border: "1px solid #DFE3EE",
@@ -169,7 +169,7 @@ export default function HomePage() {
               />
               <div
                 className="absolute inset-0"
-                style={{ background: "linear-gradient(155deg, rgba(47,91,255,.62), rgba(108,92,231,.30) 45%, rgba(11,18,38,.85))" }}
+                style={{ background: "linear-gradient(155deg, rgba(26,28,116,.62), rgba(245,166,35,.30) 45%, rgba(11,18,38,.85))" }}
               />
               <div
                 className="absolute inset-0"
@@ -193,7 +193,7 @@ export default function HomePage() {
           <FadeIn direction="right">
             <div
               className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
-              style={{ color: "#2F5BFF" }}
+              style={{ color: "#1A1C74" }}
             >
               Our mission
             </div>
@@ -210,10 +210,10 @@ export default function HomePage() {
             </p>
             <StaggerContainer className="grid grid-cols-2 gap-4">
               {[
-                { color: "#2F5BFF", text: "Authentic, warrantied products" },
-                { color: "#16C2D5", text: "Reliable regional distribution" },
-                { color: "#6C5CE7", text: "Competitive partner pricing" },
-                { color: "#FFB020", text: "Dependable after-sales support" },
+                { color: "#1A1C74", text: "Authentic, warrantied products" },
+                { color: "#F5A623", text: "Reliable regional distribution" },
+                { color: "#F5A623", text: "Competitive partner pricing" },
+                { color: "#F5A623", text: "Dependable after-sales support" },
               ].map((item) => (
                 <StaggerItem key={item.text} className="flex gap-2.5 items-start">
                   <span

@@ -14,7 +14,7 @@ export function Footer() {
               style={{
                 width: 34,
                 height: 34,
-                background: "linear-gradient(135deg,#2F5BFF,#6C5CE7)",
+                background: "linear-gradient(135deg,#1A1C74,#F5A623)",
                 padding: "8px 7px",
               }}
               aria-hidden

@@ -12,7 +12,7 @@ export function SectionHeading({ eyebrow, title, subtitle, center, light }: Sect
       {eyebrow && (
         <div
           className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
-          style={{ color: light ? "#8B97C4" : "#2F5BFF" }}
+          style={{ color: light ? "#8B97C4" : "#1A1C74" }}
         >
           {eyebrow}
         </div>

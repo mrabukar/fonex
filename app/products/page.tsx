@@ -19,7 +19,7 @@ export default function ProductsPage() {
           <FadeIn delay={0}>
             <div
               className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
-              style={{ color: "#2F5BFF" }}
+              style={{ color: "#1A1C74" }}
             >
               Products & Services
             </div>
@@ -64,7 +64,7 @@ export default function ProductsPage() {
               className="absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(40% 70% at 90% 20%, rgba(47,91,255,.3), transparent 60%)",
+                  "radial-gradient(40% 70% at 90% 20%, rgba(26,28,116,.3), transparent 60%)",
               }}
             />
             <div className="relative md:col-span-3 mb-2">
@@ -103,7 +103,7 @@ export default function ProductsPage() {
                 <StaggerItem key={s.title}>
                   <div
                     className="font-bold text-[18px] mb-2"
-                    style={{ color: "#16C2D5", fontFamily: "var(--font-sora)" }}
+                    style={{ color: "#F5A623", fontFamily: "var(--font-sora)" }}
                   >
                     {s.title}
                   </div>

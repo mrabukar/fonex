@@ -26,7 +26,7 @@ export default function ContactPage() {
           <FadeIn>
             <div
               className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
-              style={{ color: "#2F5BFF" }}
+              style={{ color: "#1A1C74" }}
             >
               Get in touch
             </div>
@@ -108,7 +108,7 @@ export default function ContactPage() {
                           height: 46,
                           background: "rgba(255,255,255,.08)",
                           border: "1px solid rgba(255,255,255,.12)",
-                          color: "#16C2D5",
+                          color: "#F5A623",
                         }}
                       >
                         {iconMap[c.icon]}

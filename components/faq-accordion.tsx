@@ -37,7 +37,7 @@ export function FaqAccordion({ items }: { items: FaqItem[] }) {
                 style={{
                   fontFamily: "var(--font-sora)",
                   fontWeight: 400,
-                  color: isOpen ? "#2F5BFF" : "#9098AE",
+                  color: isOpen ? "#1A1C74" : "#9098AE",
                   transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
                 }}
                 aria-hidden

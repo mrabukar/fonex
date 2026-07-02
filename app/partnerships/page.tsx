@@ -48,7 +48,7 @@ export default function PartnershipsPage() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(50% 80% at 80% 25%, rgba(22,194,213,.42), transparent 62%), radial-gradient(45% 70% at 12% 85%, rgba(47,91,255,.5), transparent 62%), linear-gradient(90deg, #0B1226 38%, rgba(11,18,38,.4))",
+              "radial-gradient(50% 80% at 80% 25%, rgba(245,166,35,.42), transparent 62%), radial-gradient(45% 70% at 12% 85%, rgba(26,28,116,.5), transparent 62%), linear-gradient(90deg, #0B1226 38%, rgba(11,18,38,.4))",
           }}
         />
         <Container className="relative py-16 pb-[70px]">
@@ -118,7 +118,7 @@ export default function PartnershipsPage() {
             style={{ background: "#fff", border: "1px solid #E7EAF3", boxShadow: "0 10px 30px rgba(11,18,38,.04)" }}
           >
             <div className="max-w-[560px] mb-10">
-              <div className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5" style={{ color: "#2F5BFF" }}>
+              <div className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5" style={{ color: "#1A1C74" }}>
                 Why partner with Fonex
               </div>
               <h2 className="font-extrabold" style={{ fontFamily: "var(--font-sora)", fontSize: 34, lineHeight: 1.14, letterSpacing: "-.025em", color: "#0B1226" }}>
@@ -131,7 +131,7 @@ export default function PartnershipsPage() {
                 <StaggerItem key={b.title} className="flex gap-3.5 items-start">
                   <span
                     className="inline-flex items-center justify-center rounded-[9px] flex-shrink-0 mt-0.5"
-                    style={{ width: 28, height: 28, background: "#EEF1FB", color: "#2F5BFF" }}
+                    style={{ width: 28, height: 28, background: "#EEF1FB", color: "#1A1C74" }}
                   >
                     <Check size={14} strokeWidth={2.5} />
                   </span>
