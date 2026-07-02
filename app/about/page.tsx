@@ -53,7 +53,7 @@ export default function AboutPage() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(50% 80% at 78% 25%, rgba(47,91,255,.55), transparent 62%), radial-gradient(45% 70% at 12% 90%, rgba(108,92,231,.45), transparent 62%), linear-gradient(90deg, #0B1226 38%, rgba(11,18,38,.35))",
+              "radial-gradient(50% 80% at 78% 25%, rgba(26,28,116,.55), transparent 62%), radial-gradient(45% 70% at 12% 90%, rgba(245,166,35,.45), transparent 62%), linear-gradient(90deg, #0B1226 38%, rgba(11,18,38,.35))",
           }}
         />
         <div
@@ -71,7 +71,7 @@ export default function AboutPage() {
               className="inline-flex items-center gap-2 rounded-full mb-7 px-4 py-2"
               style={{ background: "rgba(255,255,255,.08)", border: "1px solid rgba(255,255,255,.13)" }}
             >
-              <MapPin size={13} style={{ color: "#16C2D5" }} />
+              <MapPin size={13} style={{ color: "#F5A623" }} />
               <span className="text-[13px] font-semibold" style={{ color: "#A9B2CC" }}>
                 Mogadishu, Somalia · Est. 2025
               </span>
@@ -134,7 +134,7 @@ export default function AboutPage() {
           <FadeIn direction="left">
             <div
               className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
-              style={{ color: "#2F5BFF" }}
+              style={{ color: "#1A1C74" }}
             >
               Company overview
             </div>
@@ -165,10 +165,10 @@ export default function AboutPage() {
           {/* Stat grid */}
           <StaggerContainer className="grid grid-cols-2 gap-4">
             {[
-              { value: "2025", label: "Year established", dark: false, accent: "#2F5BFF" },
+              { value: "2025", label: "Year established", dark: false, accent: "#1A1C74" },
               { value: "6+", label: "Cities reached in year one", dark: true, accent: "#fff" },
-              { value: "100%", label: "Authentic, sourced direct", dark: true, accent: "#16C2D5" },
-              { value: "4", label: "Partnership pillars", dark: false, accent: "#6C5CE7" },
+              { value: "100%", label: "Authentic, sourced direct", dark: true, accent: "#F5A623" },
+              { value: "4", label: "Partnership pillars", dark: false, accent: "#F5A623" },
             ].map((stat) => (
               <StaggerItem
                 key={stat.label}
@@ -207,7 +207,7 @@ export default function AboutPage() {
                   fill
                   style={{ objectFit: "cover" }}
                 />
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(47,91,255,.28), rgba(11,18,38,.55))" }} />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(26,28,116,.28), rgba(11,18,38,.55))" }} />
               </div>
               <div
                 className="absolute -bottom-5 -right-5 rounded-[18px] p-5"
@@ -225,7 +225,7 @@ export default function AboutPage() {
             </FadeIn>
 
             <FadeIn direction="right">
-              <div className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5" style={{ color: "#2F5BFF" }}>
+              <div className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5" style={{ color: "#1A1C74" }}>
                 Our story
               </div>
               <h2
@@ -248,12 +248,12 @@ export default function AboutPage() {
               <blockquote
                 className="rounded-[16px] p-6"
                 style={{ background: "linear-gradient(135deg,#EEF1FB,#F6F8FF)",  }}
-                // borderLeft: "4px solid #2F5BFF"
+                // borderLeft: "4px solid #1A1C74"
               >
                 <p className="font-semibold text-[15.5px] leading-[1.6]" style={{ color: "#0B1226", fontStyle: "italic" }}>
                   &ldquo;We don&apos;t just supply phones — we connect people to opportunity.&rdquo;
                 </p>
-                <div className="mt-3 text-[13px] font-semibold" style={{ color: "#2F5BFF" }}>
+                <div className="mt-3 text-[13px] font-semibold" style={{ color: "#1A1C74" }}>
                   — Fonex Supply Limited Team
                 </div>
               </blockquote>
@@ -273,11 +273,11 @@ export default function AboutPage() {
             >
               <div
                 className="inline-flex items-center justify-center rounded-[14px] mb-6"
-                style={{ width: 50, height: 50, background: "#2F5BFF", color: "#fff", boxShadow: "0 8px 20px rgba(47,91,255,.3)" }}
+                style={{ width: 50, height: 50, background: "#1A1C74", color: "#fff", boxShadow: "0 8px 20px rgba(26,28,116,.3)" }}
               >
                 <Shield size={22} strokeWidth={2} />
               </div>
-              <div className="font-bold text-[14px] tracking-[.06em] uppercase mb-3" style={{ color: "#2F5BFF", fontFamily: "var(--font-sora)" }}>
+              <div className="font-bold text-[14px] tracking-[.06em] uppercase mb-3" style={{ color: "#1A1C74", fontFamily: "var(--font-sora)" }}>
                 Our Mission
               </div>
               <p className="font-bold text-balance" style={{ fontFamily: "var(--font-sora)", fontSize: 23, lineHeight: 1.35, letterSpacing: "-.01em", color: "#0B1226" }}>
@@ -298,11 +298,11 @@ export default function AboutPage() {
               <div className="absolute" style={{ top: -80, right: -80, width: 300, height: 300, border: "1px solid rgba(255,255,255,.04)", borderRadius: "50%", pointerEvents: "none" }} />
               <div
                 className="inline-flex items-center justify-center rounded-[14px] mb-6"
-                style={{ width: 50, height: 50, background: "#FFB020", color: "#fff", boxShadow: "0 8px 20px rgba(255,176,32,.3)" }}
+                style={{ width: 50, height: 50, background: "#F5A623", color: "#fff", boxShadow: "0 8px 20px rgba(245,166,35,.3)" }}
               >
                 <Lightbulb size={22} strokeWidth={2} />
               </div>
-              <div className="font-bold text-[14px] tracking-[.06em] uppercase mb-3" style={{ color: "#FFB020", fontFamily: "var(--font-sora)" }}>
+              <div className="font-bold text-[14px] tracking-[.06em] uppercase mb-3" style={{ color: "#F5A623", fontFamily: "var(--font-sora)" }}>
                 Our Vision
               </div>
               <p className="relative font-bold text-balance" style={{ fontFamily: "var(--font-sora)", fontSize: 23, lineHeight: 1.35, letterSpacing: "-.01em", color: "#fff" }}>
@@ -317,7 +317,7 @@ export default function AboutPage() {
       {/* ===== CORE VALUES ===== */}
       <Container as="section" className="py-20">
         <FadeIn className="text-center max-w-160 mx-auto mb-12">
-          <div className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5" style={{ color: "#2F5BFF" }}>
+          <div className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5" style={{ color: "#1A1C74" }}>
             What we stand for
           </div>
           <h2 className="font-extrabold" style={{ fontFamily: "var(--font-sora)", fontSize: 40, lineHeight: 1.1, letterSpacing: "-.025em", color: "#0B1226" }}>
@@ -362,7 +362,7 @@ export default function AboutPage() {
 
       {/* ===== MILESTONES ===== */}
       <section className="relative overflow-hidden" style={{ background: "#0B1226" }}>
-        <div className="absolute inset-0" style={{ background: "radial-gradient(40% 60% at 85% 30%, rgba(47,91,255,.25), transparent 60%)" }} />
+        <div className="absolute inset-0" style={{ background: "radial-gradient(40% 60% at 85% 30%, rgba(26,28,116,.25), transparent 60%)" }} />
         <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,.03) 1px, transparent 1px)", backgroundSize: "28px 28px" }} />
         <Container className="relative py-[80px]">
           <FadeIn>
@@ -383,8 +383,8 @@ export default function AboutPage() {
                     style={{
                       width: 36,
                       height: 36,
-                      background: "rgba(47,91,255,.18)",
-                      border: "1.5px solid rgba(47,91,255,.5)",
+                      background: "rgba(26,28,116,.18)",
+                      border: "1.5px solid rgba(26,28,116,.5)",
                       color: "#6B8FFF",
                       fontSize: 13,
                       fontFamily: "var(--font-jetbrains)",
@@ -393,10 +393,10 @@ export default function AboutPage() {
                     {String(i + 1).padStart(2, "0")}
                   </div>
                   {i < milestones.length - 1 && (
-                    <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg, rgba(47,91,255,.4), rgba(255,255,255,.06))" }} />
+                    <div style={{ flex: 1, height: 1, background: "linear-gradient(90deg, rgba(26,28,116,.4), rgba(255,255,255,.06))" }} />
                   )}
                 </div>
-                <div className="text-[12px] font-bold tracking-[.08em] mb-2" style={{ fontFamily: "var(--font-jetbrains)", color: "#16C2D5" }}>
+                <div className="text-[12px] font-bold tracking-[.08em] mb-2" style={{ fontFamily: "var(--font-jetbrains)", color: "#F5A623" }}>
                   {m.tag}
                 </div>
                 <div className="text-[15.5px] leading-[1.6] font-medium" style={{ color: "#C3CADD" }}>
@@ -412,7 +412,7 @@ export default function AboutPage() {
       <section style={{ background: "#fff", borderTop: "1px solid #E7EAF3" }}>
         <Container className="py-20">
           <FadeIn className="max-w-[700px] mx-auto text-center">
-            <div className="text-[13px] font-bold tracking-[.08em] uppercase mb-4" style={{ color: "#2F5BFF" }}>
+            <div className="text-[13px] font-bold tracking-[.08em] uppercase mb-4" style={{ color: "#1A1C74" }}>
               Partner with us
             </div>
             <h2
@@ -429,7 +429,7 @@ export default function AboutPage() {
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-bold text-[15px] text-white transition-opacity hover:opacity-90"
-                style={{ background: "#2F5BFF", fontFamily: "var(--font-sora)", boxShadow: "0 8px 24px rgba(47,91,255,.3)" }}
+                style={{ background: "#1A1C74", fontFamily: "var(--font-sora)", boxShadow: "0 8px 24px rgba(26,28,116,.3)" }}
               >
                 Get in touch <ArrowRight size={16} />
               </Link>

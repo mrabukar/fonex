@@ -31,8 +31,8 @@ function FonexLogo() {
         }}
         aria-hidden
       >
-        <span style={{ color: "#00051A" }}>FONE</span>
-        <span style={{ color: "#0047AB" }}>X</span>
+        <span style={{ color: "#0B1226" }}>Fon</span>
+        <span style={{ color: "#F5A623" }}>ex</span>
       </span>
     </Link>
   );
@@ -66,7 +66,7 @@ export function Navbar() {
                 href={link.href}
                 className="px-3.5 py-2.5 rounded-[10px] font-semibold text-[14.5px] transition-colors"
                 style={{
-                  color: active ? "#2F5BFF" : "#4C566F",
+                  color: active ? "#1A1C74" : "#4C566F",
                   background: active ? "#EEF1FB" : "transparent",
                   fontFamily: "var(--font-manrope)",
                 }}
@@ -79,10 +79,10 @@ export function Navbar() {
 
         <Link
           href="/products"
-          className="hidden md:inline-flex items-center gap-2 font-bold text-[14.5px] text-white px-[18px] py-[11px] rounded-[11px] transition-colors hover:bg-[#2147E6]"
+          className="hidden md:inline-flex items-center gap-2 font-bold text-[14.5px] text-white px-[18px] py-[11px] rounded-[11px] transition-colors hover:bg-[#12144F]"
           style={{
-            background: "#2F5BFF",
-            boxShadow: "0 8px 20px rgba(47,91,255,.28)",
+            background: "#1A1C74",
+            boxShadow: "0 8px 20px rgba(26,28,116,.28)",
             fontFamily: "var(--font-manrope)",
           }}
         >
@@ -116,7 +116,7 @@ export function Navbar() {
                     href={link.href}
                     className="px-4 py-3 rounded-[10px] font-semibold text-[15px] transition-colors"
                     style={{
-                      color: active ? "#2F5BFF" : "#4C566F",
+                      color: active ? "#1A1C74" : "#4C566F",
                       background: active ? "#EEF1FB" : "transparent",
                       fontFamily: "var(--font-manrope)",
                     }}
@@ -129,7 +129,7 @@ export function Navbar() {
                 href="/products"
                 className="mt-4 text-center font-bold text-[15px] text-white px-4 py-3 rounded-[11px]"
                 style={{
-                  background: "#2F5BFF",
+                  background: "#1A1C74",
                   fontFamily: "var(--font-manrope)",
                 }}
               >

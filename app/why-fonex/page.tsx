@@ -28,7 +28,7 @@ export default function WhyFonexPage() {
           <FadeIn>
             <div
               className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
-              style={{ color: "#2F5BFF" }}
+              style={{ color: "#1A1C74" }}
             >
               Why Fonex
             </div>
@@ -100,7 +100,7 @@ export default function WhyFonexPage() {
           <FadeIn direction="left">
             <div
               className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
-              style={{ color: "#2F5BFF" }}
+              style={{ color: "#1A1C74" }}
             >
               The Fonex difference
             </div>
@@ -125,7 +125,7 @@ export default function WhyFonexPage() {
                 <StaggerItem key={d} className="flex items-center gap-3.5">
                   <span
                     className="inline-flex items-center justify-center rounded-[7px] shrink-0"
-                    style={{ width: 24, height: 24, background: "#2F5BFF", color: "#fff" }}
+                    style={{ width: 24, height: 24, background: "#1A1C74", color: "#fff" }}
                   >
                     <Check size={13} strokeWidth={2.5} />
                   </span>
@@ -147,7 +147,7 @@ export default function WhyFonexPage() {
                 className="absolute inset-0"
                 style={{
                   background:
-                    "radial-gradient(50% 50% at 70% 25%, rgba(47,91,255,.5), transparent 60%), radial-gradient(45% 45% at 25% 85%, rgba(22,194,213,.4), transparent 60%)",
+                    "radial-gradient(50% 50% at 70% 25%, rgba(26,28,116,.5), transparent 60%), radial-gradient(45% 45% at 25% 85%, rgba(245,166,35,.4), transparent 60%)",
                 }}
               />
               <div
@@ -162,8 +162,8 @@ export default function WhyFonexPage() {
                 <div className="grid grid-cols-2 gap-4 w-[78%]">
                   {[
                     { value: "100%", label: "Authentic stock", color: "#fff" },
-                    { value: "24/7", label: "Support", color: "#16C2D5" },
-                    { value: "6+", label: "Cities served", color: "#FFB020" },
+                    { value: "24/7", label: "Support", color: "#F5A623" },
+                    { value: "6+", label: "Cities served", color: "#F5A623" },
                     { value: "2025", label: "Trusted since", color: "#fff" },
                   ].map((s) => (
                     <div
@@ -198,7 +198,7 @@ export default function WhyFonexPage() {
           <FadeIn className="text-center mb-10">
             <div
               className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
-              style={{ color: "#2F5BFF" }}
+              style={{ color: "#1A1C74" }}
             >
               Questions, answered
             </div>

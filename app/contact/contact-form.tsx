@@ -73,7 +73,7 @@ export function ContactForm() {
         <button
           onClick={() => { setSent(false); reset(); }}
           className="font-bold text-[15px] px-6 py-3 rounded-[11px]"
-          style={{ background: "#EEF1FB", color: "#2F5BFF", fontFamily: "var(--font-manrope)", cursor: "pointer", border: "none" }}
+          style={{ background: "#EEF1FB", color: "#1A1C74", fontFamily: "var(--font-manrope)", cursor: "pointer", border: "none" }}
         >
           Send another message
         </button>
@@ -102,8 +102,8 @@ export function ContactForm() {
               placeholder="Your name"
               style={inputStyle}
               onFocus={(e) => {
-                e.target.style.borderColor = "#2F5BFF";
-                e.target.style.boxShadow = "0 0 0 3px rgba(47,91,255,.14)";
+                e.target.style.borderColor = "#1A1C74";
+                e.target.style.boxShadow = "0 0 0 3px rgba(26,28,116,.14)";
               }}
               onBlur={(e) => {
                 e.target.style.borderColor = "#DFE3EE";
@@ -123,8 +123,8 @@ export function ContactForm() {
               placeholder="+252 ..."
               style={inputStyle}
               onFocus={(e) => {
-                e.target.style.borderColor = "#2F5BFF";
-                e.target.style.boxShadow = "0 0 0 3px rgba(47,91,255,.14)";
+                e.target.style.borderColor = "#1A1C74";
+                e.target.style.boxShadow = "0 0 0 3px rgba(26,28,116,.14)";
               }}
               onBlur={(e) => {
                 e.target.style.borderColor = "#DFE3EE";
@@ -142,8 +142,8 @@ export function ContactForm() {
             placeholder="you@example.com"
             style={inputStyle}
             onFocus={(e) => {
-              e.target.style.borderColor = "#2F5BFF";
-              e.target.style.boxShadow = "0 0 0 3px rgba(47,91,255,.14)";
+              e.target.style.borderColor = "#1A1C74";
+              e.target.style.boxShadow = "0 0 0 3px rgba(26,28,116,.14)";
             }}
             onBlur={(e) => {
               e.target.style.borderColor = "#DFE3EE";
@@ -164,8 +164,8 @@ export function ContactForm() {
             style={{ ...inputStyle, cursor: "pointer" }}
             defaultValue=""
             onFocus={(e) => {
-              e.target.style.borderColor = "#2F5BFF";
-              e.target.style.boxShadow = "0 0 0 3px rgba(47,91,255,.14)";
+              e.target.style.borderColor = "#1A1C74";
+              e.target.style.boxShadow = "0 0 0 3px rgba(26,28,116,.14)";
             }}
             onBlur={(e) => {
               e.target.style.borderColor = "#DFE3EE";
@@ -194,8 +194,8 @@ export function ContactForm() {
             placeholder="Tell us what you're looking for..."
             style={{ ...inputStyle, resize: "vertical" }}
             onFocus={(e) => {
-              e.target.style.borderColor = "#2F5BFF";
-              e.target.style.boxShadow = "0 0 0 3px rgba(47,91,255,.14)";
+              e.target.style.borderColor = "#1A1C74";
+              e.target.style.boxShadow = "0 0 0 3px rgba(26,28,116,.14)";
             }}
             onBlur={(e) => {
               e.target.style.borderColor = "#DFE3EE";
@@ -212,10 +212,10 @@ export function ContactForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full font-bold text-[16px] text-white py-4 rounded-[13px] transition-colors hover:bg-[#2147E6] disabled:opacity-60"
+          className="w-full font-bold text-[16px] text-white py-4 rounded-[13px] transition-colors hover:bg-[#12144F] disabled:opacity-60"
           style={{
-            background: "#2F5BFF",
-            boxShadow: "0 12px 28px rgba(47,91,255,.28)",
+            background: "#1A1C74",
+            boxShadow: "0 12px 28px rgba(26,28,116,.28)",
             fontFamily: "var(--font-manrope)",
             border: "none",
             cursor: isSubmitting ? "not-allowed" : "pointer",

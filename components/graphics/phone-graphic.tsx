@@ -8,7 +8,7 @@ export function PhoneGraphic() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 55% at 70% 35%, rgba(47,91,255,.22), transparent 70%), radial-gradient(50% 50% at 30% 75%, rgba(22,194,213,.20), transparent 70%), radial-gradient(45% 45% at 80% 85%, rgba(108,92,231,.20), transparent 70%)",
+            "radial-gradient(60% 55% at 70% 35%, rgba(26,28,116,.22), transparent 70%), radial-gradient(50% 50% at 30% 75%, rgba(245,166,35,.20), transparent 70%), radial-gradient(45% 45% at 80% 85%, rgba(245,166,35,.20), transparent 70%)",
           filter: "blur(8px)",
         }}
       />
@@ -20,7 +20,7 @@ export function PhoneGraphic() {
           right: 36,
           width: 240,
           height: 340,
-          border: "1.5px solid rgba(47,91,255,.18)",
+          border: "1.5px solid rgba(26,28,116,.18)",
           borderRadius: "50%",
         }}
       />
@@ -31,7 +31,7 @@ export function PhoneGraphic() {
           right: 86,
           width: 140,
           height: 240,
-          border: "1.5px solid rgba(22,194,213,.18)",
+          border: "1.5px solid rgba(245,166,35,.18)",
           borderRadius: "50%",
         }}
       />
@@ -99,7 +99,7 @@ export function PhoneGraphic() {
                 style={{
                   height: 74,
                   borderRadius: 14,
-                  background: "linear-gradient(135deg,#2F5BFF,#5B7BFF)",
+                  background: "linear-gradient(135deg,#1A1C74,#3A3EAE)",
                 }}
               />
               <div
@@ -122,7 +122,7 @@ export function PhoneGraphic() {
                 style={{
                   height: 74,
                   borderRadius: 14,
-                  background: "linear-gradient(135deg,#16C2D5,#13A6c0)",
+                  background: "linear-gradient(135deg,#F5A623,#13A6c0)",
                 }}
               />
             </div>
@@ -143,7 +143,7 @@ export function PhoneGraphic() {
                   width: 26,
                   height: 26,
                   borderRadius: 8,
-                  background: "#FFB020",
+                  background: "#F5A623",
                   display: "block",
                 }}
               />
@@ -186,7 +186,7 @@ export function PhoneGraphic() {
             overflow: "hidden",
             flexShrink: 0,
             display: "block",
-            background: "linear-gradient(135deg,#2F5BFF,#6C5CE7)",
+            background: "linear-gradient(135deg,#1A1C74,#F5A623)",
           }}
         >
           <Image

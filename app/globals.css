@@ -45,11 +45,11 @@
   /* Fonex Brand Tokens */
   --color-ink: #0B1226;
   --color-ink-2: #1C2A55;
-  --color-brand: #2F5BFF;
-  --color-brand-deep: #2147E6;
-  --color-cyan: #16C2D5;
-  --color-violet: #6C5CE7;
-  --color-amber: #FFB020;
+  --color-brand: #1A1C74;
+  --color-brand-deep: #12144F;
+  --color-brand-2: #3A3EAE;
+  --color-amber: #F5A623;
+  --color-amber-deep: #D98E12;
   --color-mist: #F4F6FB;
   --color-paper: #FFFFFF;
   --color-line: #E7EAF3;
@@ -58,7 +58,7 @@
   --color-dark-text: #A9B2CC;
   --color-status-green: #067A55;
   --color-status-amber: #9A6400;
-  --color-status-violet: #5A3FC0;
+  --color-status-navy: #12144F;
 }
 
 :root {
@@ -68,7 +68,7 @@
   --card-foreground: #0B1226;
   --popover: #FFFFFF;
   --popover-foreground: #0B1226;
-  --primary: #2F5BFF;
+  --primary: #1A1C74;
   --primary-foreground: #FFFFFF;
   --secondary: #EEF1FB;
   --secondary-foreground: #0B1226;
@@ -79,16 +79,16 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: #E7EAF3;
   --input: #E7EAF3;
-  --ring: #2F5BFF;
+  --ring: #1A1C74;
   --radius: 0.75rem;
   --sidebar: #F4F6FB;
   --sidebar-foreground: #0B1226;
-  --sidebar-primary: #2F5BFF;
+  --sidebar-primary: #1A1C74;
   --sidebar-primary-foreground: #FFFFFF;
   --sidebar-accent: #EEF1FB;
   --sidebar-accent-foreground: #0B1226;
   --sidebar-border: #E7EAF3;
-  --sidebar-ring: #2F5BFF;
+  --sidebar-ring: #1A1C74;
 }
 
 @layer base {

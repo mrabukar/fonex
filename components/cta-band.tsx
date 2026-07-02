@@ -20,7 +20,7 @@ export function CtaBand({
   return (
     <div
       className="relative overflow-hidden rounded-2xl p-14 flex items-center justify-between gap-8 flex-wrap"
-      style={{ background: "linear-gradient(120deg,#2F5BFF,#6C5CE7)" }}
+      style={{ background: "linear-gradient(120deg,#1A1C74,#F5A623)" }}
     >
       {/* Decorative circles */}
       <div
@@ -71,7 +71,7 @@ export function CtaBand({
           className="inline-flex items-center justify-center font-bold text-[16px] px-6 py-4 rounded-[13px] transition-colors"
           style={{
             background: "#fff",
-            color: "#2147E6",
+            color: "#12144F",
             boxShadow: "0 12px 28px rgba(0,0,0,.18)",
             fontFamily: "var(--font-manrope)",
           }}
