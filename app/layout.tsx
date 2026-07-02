@@ -28,13 +28,15 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Fonex Supply Limited — Authentic Mobile Technology in East Africa",
+    default:
+      "Fonex Supply Limited — Authentic Mobile Technology in East Africa",
     template: "%s | Fonex Supply Limited",
   },
   description:
     "Premier supplier of smartphones, mobile devices, and accessories in East Africa. Authentic products, competitive pricing, dependable supply.",
   icons: {
-    icon: "/logo.png",
+    // icon: "/logo.png",
+    icon: "/Picture1.png",
     apple: "/logo.png",
   },
   openGraph: {
@@ -52,7 +54,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${sora.variable} ${manrope.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang="en"
+      className={`${sora.variable} ${manrope.variable} ${jetbrainsMono.variable}`}
+    >
       <body>
         <SmoothScroll>
           <Navbar />
