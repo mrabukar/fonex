@@ -35,8 +35,8 @@ export const metadata: Metadata = {
   description:
     "Premier supplier of smartphones, mobile devices, and accessories in East Africa. Authentic products, competitive pricing, dependable supply.",
   icons: {
-    // icon: "/logo.png",
-    icon: "/Picture1.png",
+    icon: "/logo.png",
+    // icon: "/Picture1.png",
     apple: "/logo.png",
   },
   openGraph: {
