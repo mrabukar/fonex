@@ -1,0 +1,9 @@
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String?
+  email     String
+  interest  String
+  message   String
+  createdAt DateTime @default(now())
+}
