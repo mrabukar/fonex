@@ -22,6 +22,7 @@ apps/*/dist
 packages/*/dist
 
 # misc
+.claude/
 .DS_Store
 *.pem
 
