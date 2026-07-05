@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{ background:#F4F6FB; font-family:'Manrope',sans-serif; color:#0B1226; -webkit-font-smoothing:antialiased; }
+  ::selection{ background:#2F5BFF; color:#fff; }
+  @keyframes fxUp{ from{ opacity:0; transform:translateY(22px);} to{ opacity:1; transform:translateY(0);} }
+  @keyframes fxFloat{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-14px);} }
+  @keyframes fxFloat2{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(12px);} }
+  @keyframes fxSheen{ 0%{ background-position:-200% 0;} 100%{ background-position:200% 0;} }
+  @keyframes fxPulse{ 0%,100%{ opacity:.5; transform:scale(1);} 50%{ opacity:.9; transform:scale(1.06);} }
+  @keyframes fxSpin{ to{ transform:rotate(360deg);} }
+  @keyframes fxMarquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+</style>
+</helmet>
+
+<div style="min-height:100vh; background:#F4F6FB;">
+
+  <!-- ===================== DESIGNER BAR ===================== -->
+  <div style="background:#0B1226; color:#fff; display:flex; align-items:center; justify-content:space-between; padding:9px 22px; gap:16px; flex-wrap:wrap;">
+    <div style="display:flex; align-items:center; gap:10px; font-size:12.5px; letter-spacing:.02em; color:#A9B2CC;">
+      <span style="display:inline-flex; width:7px; height:7px; border-radius:50%; background:#16C2D5; box-shadow:0 0 0 4px rgba(22,194,213,.18);"></span>
+      <span style="font-weight:600;">Fonex Supply — Website Concept</span>
+      <span style="color:#566080;">·</span>
+      <span style="color:#7E88A6;">prepared for client review</span>
+    </div>
+    <div style="display:inline-flex; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:999px; padding:4px;">
+      <button onClick="{{ showSite }}" style="{{ tabSiteStyle }}">Website</button>
+      <button onClick="{{ showPlan }}" style="{{ tabPlanStyle }}">Project Plan</button>
+    </div>
+  </div>
+
+  <!-- ===================== SITE MODE ===================== -->
+  <sc-if value="{{ isSite }}" hint-placeholder-val="{{ true }}">
+  <div>
+
+    <!-- NAV -->
+    <header style="position:sticky; top:0; z-index:40; background:rgba(255,255,255,.82); backdrop-filter:blur(14px); border-bottom:1px solid #E7EAF3;">
+      <div style="max-width:1200px; margin:0 auto; padding:0 28px; height:72px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+        <div onClick="{{ goHome }}" style="display:flex; align-items:center; gap:11px; cursor:pointer;">
+          <span style="position:relative; width:38px; height:38px; border-radius:11px; background:linear-gradient(135deg,#2F5BFF,#6C5CE7); display:inline-flex; align-items:flex-end; justify-content:center; gap:2.5px; padding:9px 8px; box-shadow:0 6px 16px rgba(47,91,255,.32);">
+            <span style="width:4px; height:9px; background:#fff; border-radius:2px; opacity:.7;"></span>
+            <span style="width:4px; height:14px; background:#fff; border-radius:2px; opacity:.85;"></span>
+            <span style="width:4px; height:19px; background:#fff; border-radius:2px;"></span>
+          </span>
+          <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:21px; letter-spacing:-.02em; color:#0B1226;">Fonex</span>
+        </div>
+        <nav style="display:flex; align-items:center; gap:4px;">
+          <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="6">
+            <button onClick="{{ n.onClick }}" style="{{ n.style }}">{{ n.label }}</button>
+          </sc-for>
+        </nav>
+        <button onClick="{{ goProducts }}" style="display:inline-flex; align-items:center; gap:8px; background:#2F5BFF; color:#fff; border:none; font-family:'Manrope',sans-serif; font-weight:700; font-size:14.5px; padding:11px 18px; border-radius:11px; cursor:pointer; box-shadow:0 8px 20px rgba(47,91,255,.28);" style-hover="background:#2147E6;">
+          Browse Products
+          <span style="font-size:16px; line-height:1;">→</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- PAGE: HOME -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Home">
+
+        <!-- HERO CONCEPT SWITCHER -->
+        <div style="max-width:1200px; margin:0 auto; padding:18px 28px 0; display:flex; align-items:center; justify-content:flex-end; gap:12px;">
+          <span style="font-size:11.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:#9098AE;">Hero concept</span>
+          <div style="display:inline-flex; background:#fff; border:1px solid #E7EAF3; border-radius:999px; padding:4px; box-shadow:0 4px 14px rgba(11,18,38,.05);">
+            <button onClick="{{ pickA }}" style="{{ hABtn }}">A · Editorial</button>
+            <button onClick="{{ pickB }}" style="{{ hBBtn }}">B · Centered</button>
+            <button onClick="{{ pickC }}" style="{{ hCBtn }}">C · Premium</button>
+          </div>
+        </div>
+
+        <!-- ===== HERO A : EDITORIAL SPLIT ===== -->
+        <sc-if value="{{ heroA }}" hint-placeholder-val="{{ true }}">
+        <section style="max-width:1200px; margin:0 auto; padding:34px 28px 70px; display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center;">
+          <div style="animation:fxUp .7s ease both;">
+            <div style="display:inline-flex; align-items:center; gap:9px; background:#EEF1FB; border:1px solid #DCE2FA; color:#2F5BFF; font-weight:700; font-size:12.5px; letter-spacing:.04em; padding:7px 14px; border-radius:999px; margin-bottom:24px;">
+              <span style="width:6px; height:6px; border-radius:50%; background:#16C2D5;"></span>
+              EST. 2025 · MOGADISHU, SOMALIA
+            </div>
+            <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:58px; line-height:1.04; letter-spacing:-.03em; color:#0B1226; margin-bottom:22px; text-wrap:balance;">Authentic mobile technology, <span style="background:linear-gradient(115deg,#2F5BFF,#6C5CE7); -webkit-background-clip:text; background-clip:text; color:transparent;">delivered across East Africa.</span></h1>
+            <p style="font-size:18px; line-height:1.6; color:#4C566F; max-width:500px; margin-bottom:32px;">Fonex Supply Limited imports and distributes genuine smartphones, accessories, and spare parts — connecting people, businesses, and communities to the devices that move them forward.</p>
+            <div style="display:flex; gap:14px; flex-wrap:wrap; margin-bottom:40px;">
+              <button onClick="{{ goProducts }}" style="display:inline-flex; align-items:center; gap:9px; background:#2F5BFF; color:#fff; border:none; font-family:'Manrope',sans-serif; font-weight:700; font-size:16px; padding:15px 26px; border-radius:13px; cursor:pointer; box-shadow:0 12px 28px rgba(47,91,255,.32);" style-hover="background:#2147E6;">Browse Products <span style="font-size:18px;">→</span></button>
+              <button onClick="{{ goPartners }}" style="background:#fff; color:#0B1226; border:1px solid #DfE3EE; font-family:'Manrope',sans-serif; font-weight:700; font-size:16px; padding:15px 26px; border-radius:13px; cursor:pointer;" style-hover="border-color:#2F5BFF; color:#2F5BFF;">Become a Partner</button>
+            </div>
+            <div style="display:flex; gap:34px; flex-wrap:wrap;">
+              <div><div style="font-family:'Sora',sans-serif; font-weight:800; font-size:26px; color:#0B1226;">100%</div><div style="font-size:13.5px; color:#7B8499;">Authentic stock</div></div>
+              <div style="width:1px; background:#E7EAF3;"></div>
+              <div><div style="font-family:'Sora',sans-serif; font-weight:800; font-size:26px; color:#0B1226;">6+</div><div style="font-size:13.5px; color:#7B8499;">Cities served</div></div>
+              <div style="width:1px; background:#E7EAF3;"></div>
+              <div><div style="font-family:'Sora',sans-serif; font-weight:800; font-size:26px; color:#0B1226;">24/7</div><div style="font-size:13.5px; color:#7B8499;">After-sales support</div></div>
+            </div>
+          </div>
+          <div style="position:relative; height:540px; animation:fxUp .8s ease .1s both;">
+            <div style="position:absolute; inset:0; background:radial-gradient(60% 55% at 70% 35%, rgba(47,91,255,.22), transparent 70%), radial-gradient(50% 50% at 30% 75%, rgba(22,194,213,.20), transparent 70%), radial-gradient(45% 45% at 80% 85%, rgba(108,92,231,.20), transparent 70%); filter:blur(8px);"></div>
+            <div style="position:absolute; top:40px; right:36px; width:240px; height:340px; border:1.5px solid rgba(47,91,255,.18); border-radius:50%; animation:fxPulse 5s ease-in-out infinite;"></div>
+            <div style="position:absolute; top:90px; right:86px; width:140px; height:240px; border:1.5px solid rgba(22,194,213,.18); border-radius:50%; animation:fxPulse 5s ease-in-out infinite .6s;"></div>
+            <!-- CSS phone -->
+            <div style="position:absolute; top:60px; left:50%; transform:translateX(-50%); width:236px; height:478px; background:#0B1226; border-radius:38px; padding:11px; box-shadow:0 40px 80px -24px rgba(11,18,38,.55); animation:fxFloat 6s ease-in-out infinite;">
+              <div style="width:100%; height:100%; border-radius:28px; background:linear-gradient(160deg,#1B2546,#0E1630); overflow:hidden; position:relative;">
+                <div style="position:absolute; top:11px; left:50%; transform:translateX(-50%); width:96px; height:22px; background:#0B1226; border-radius:999px;"></div>
+                <div style="padding:46px 18px 18px;">
+                  <div style="color:#7E88A6; font-size:11px; font-weight:600;">Good morning</div>
+                  <div style="color:#fff; font-family:'Sora',sans-serif; font-weight:700; font-size:19px; margin-top:2px;">Fonex Devices</div>
+                  <div style="margin-top:18px; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                    <div style="height:74px; border-radius:14px; background:linear-gradient(135deg,#2F5BFF,#5B7BFF);"></div>
+                    <div style="height:74px; border-radius:14px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.1);"></div>
+                    <div style="height:74px; border-radius:14px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.1);"></div>
+                    <div style="height:74px; border-radius:14px; background:linear-gradient(135deg,#16C2D5,#13A6c0);"></div>
+                  </div>
+                  <div style="margin-top:14px; height:46px; border-radius:13px; background:rgba(255,255,255,.06); display:flex; align-items:center; padding:0 14px; gap:10px;">
+                    <span style="width:26px; height:26px; border-radius:8px; background:#FFB020;"></span>
+                    <span style="flex:1; height:8px; border-radius:4px; background:rgba(255,255,255,.14);"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- floating chips -->
+            <div style="position:absolute; top:116px; left:0; display:flex; align-items:center; gap:11px; background:#fff; border:1px solid #EDEFF6; border-radius:16px; padding:10px 14px 10px 10px; box-shadow:0 16px 34px rgba(11,18,38,.14); animation:fxFloat2 7s ease-in-out infinite;">
+              <span style="width:46px; height:46px; border-radius:11px; overflow:hidden; flex-shrink:0; display:block; background:linear-gradient(135deg,#2F5BFF,#6C5CE7);">
+                <img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=200&q=80" alt="Flagship smartphone" style="width:100%; height:100%; object-fit:cover; display:block;" />
+              </span>
+              <div>
+                <div style="font-size:11px; color:#7B8499; font-weight:600;">In stock</div>
+                <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:16px; color:#0B1226;">Flagship 5G</div>
+              </div>
+            </div>
+            <div style="position:absolute; bottom:60px; right:0; background:#fff; border:1px solid #EDEFF6; border-radius:14px; padding:12px 15px; box-shadow:0 16px 34px rgba(11,18,38,.12); animation:fxFloat 7.5s ease-in-out infinite .4s;">
+              <div style="display:flex; align-items:center; gap:8px;"><span style="width:9px; height:9px; border-radius:50%; background:#1BC47D;"></span><span style="font-size:13px; font-weight:700; color:#0B1226;">Genuine guaranteed</span></div>
+            </div>
+          </div>
+        </section>
+        </sc-if>
+
+        <!-- ===== HERO B : CENTERED BOLD ===== -->
+        <sc-if value="{{ heroB }}" hint-placeholder-val="{{ true }}">
+        <section style="position:relative; overflow:hidden; padding:60px 28px 80px;">
+          <div style="position:absolute; inset:0; background-image:radial-gradient(circle, #DDE2F0 1px, transparent 1px); background-size:26px 26px; opacity:.6; -webkit-mask-image:radial-gradient(70% 60% at 50% 30%, #000, transparent 75%); mask-image:radial-gradient(70% 60% at 50% 30%, #000, transparent 75%);"></div>
+          <div style="position:absolute; top:-60px; left:50%; transform:translateX(-50%); width:600px; height:360px; background:radial-gradient(50% 50% at 50% 50%, rgba(47,91,255,.18), transparent 70%);"></div>
+          <div style="position:relative; max-width:880px; margin:0 auto; text-align:center; animation:fxUp .7s ease both;">
+            <div style="display:inline-flex; align-items:center; gap:9px; background:#fff; border:1px solid #E2E6F2; color:#2F5BFF; font-weight:700; font-size:12.5px; letter-spacing:.04em; padding:8px 16px; border-radius:999px; margin-bottom:26px; box-shadow:0 4px 14px rgba(11,18,38,.05);">
+              <span style="width:6px; height:6px; border-radius:50%; background:#16C2D5;"></span>
+              YOUR TRUSTED MOBILE SUPPLY PARTNER
+            </div>
+            <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:66px; line-height:1.02; letter-spacing:-.035em; color:#0B1226; margin-bottom:24px; text-wrap:balance;">The devices that <span style="background:linear-gradient(115deg,#2F5BFF,#16C2D5); -webkit-background-clip:text; background-clip:text; color:transparent;">power progress</span>, supplied with confidence.</h1>
+            <p style="font-size:19px; line-height:1.6; color:#4C566F; max-width:600px; margin:0 auto 34px;">From flagship smartphones to everyday accessories and spare parts — Fonex delivers authentic mobile technology to retailers, businesses, and people across East Africa.</p>
+            <div style="display:flex; gap:14px; justify-content:center; flex-wrap:wrap;">
+              <button onClick="{{ goProducts }}" style="display:inline-flex; align-items:center; gap:9px; background:#2F5BFF; color:#fff; border:none; font-family:'Manrope',sans-serif; font-weight:700; font-size:16px; padding:15px 28px; border-radius:13px; cursor:pointer; box-shadow:0 12px 28px rgba(47,91,255,.32);" style-hover="background:#2147E6;">Browse Products <span style="font-size:18px;">→</span></button>
+              <button onClick="{{ goContact }}" style="background:#fff; color:#0B1226; border:1px solid #DfE3EE; font-family:'Manrope',sans-serif; font-weight:700; font-size:16px; padding:15px 28px; border-radius:13px; cursor:pointer;" style-hover="border-color:#2F5BFF; color:#2F5BFF;">Request a Quote</button>
+            </div>
+          </div>
+          <div style="position:relative; max-width:760px; margin:54px auto 0; display:flex; align-items:flex-end; justify-content:center; gap:18px; animation:fxUp .8s ease .15s both;">
+            <div style="width:150px; height:200px; border-radius:22px; background:linear-gradient(160deg,#fff,#F1F4FC); border:1px solid #E7EAF3; box-shadow:0 24px 50px -18px rgba(11,18,38,.22); padding:16px;"><div style="width:38px; height:38px; border-radius:11px; background:linear-gradient(135deg,#16C2D5,#13A6c0); margin-bottom:14px;"></div><div style="height:8px; width:70%; background:#E7EAF3; border-radius:4px; margin-bottom:7px;"></div><div style="height:8px; width:50%; background:#EEF1FB; border-radius:4px;"></div></div>
+            <div style="width:188px; height:268px; border-radius:26px; background:#0B1226; box-shadow:0 36px 70px -22px rgba(11,18,38,.5); padding:14px;"><div style="width:100%; height:100%; border-radius:18px; background:linear-gradient(160deg,#2F5BFF,#6C5CE7); position:relative; overflow:hidden;"><div style="position:absolute; inset:0; background:radial-gradient(60% 40% at 30% 20%, rgba(255,255,255,.35), transparent 60%);"></div><div style="position:absolute; bottom:16px; left:16px; right:16px;"><div style="height:9px; width:60%; background:rgba(255,255,255,.7); border-radius:5px; margin-bottom:8px;"></div><div style="height:9px; width:85%; background:rgba(255,255,255,.35); border-radius:5px;"></div></div></div></div>
+            <div style="width:150px; height:200px; border-radius:22px; background:linear-gradient(160deg,#fff,#F1F4FC); border:1px solid #E7EAF3; box-shadow:0 24px 50px -18px rgba(11,18,38,.22); padding:16px;"><div style="width:38px; height:38px; border-radius:11px; background:linear-gradient(135deg,#FFB020,#F59300); margin-bottom:14px;"></div><div style="height:8px; width:70%; background:#E7EAF3; border-radius:4px; margin-bottom:7px;"></div><div style="height:8px; width:50%; background:#EEF1FB; border-radius:4px;"></div></div>
+          </div>
+        </section>
+        </sc-if>
+
+        <!-- ===== HERO C : DARK PREMIUM ===== -->
+        <sc-if value="{{ heroC }}" hint-placeholder-val="{{ true }}">
+        <section style="position:relative; overflow:hidden; background:#0B1226; border-radius:0;">
+          <div style="position:absolute; inset:0; background:radial-gradient(50% 60% at 78% 30%, rgba(47,91,255,.42), transparent 65%), radial-gradient(45% 55% at 20% 80%, rgba(108,92,231,.34), transparent 65%);"></div>
+          <div style="position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1px); background-size:30px 30px;"></div>
+          <div style="position:relative; max-width:1200px; margin:0 auto; padding:60px 28px 72px; display:grid; grid-template-columns:1.08fr .92fr; gap:44px; align-items:center;">
+            <div style="animation:fxUp .7s ease both;">
+              <div style="display:inline-flex; align-items:center; gap:9px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); color:#BFC8E4; font-weight:700; font-size:12.5px; letter-spacing:.04em; padding:8px 15px; border-radius:999px; margin-bottom:26px;">
+                <span style="width:6px; height:6px; border-radius:50%; background:#FFB020;"></span>
+                IMPORTING · DISTRIBUTING · DELIVERING
+              </div>
+              <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:60px; line-height:1.04; letter-spacing:-.03em; color:#fff; margin-bottom:22px; text-wrap:balance;">Mobile technology you can <span style="color:#FFB020;">trust</span>, supply you can rely on.</h1>
+              <p style="font-size:18px; line-height:1.6; color:#A9B2CC; max-width:500px; margin-bottom:34px;">Fonex Supply Limited is one of Somalia's first dedicated mobile supply companies — bringing authentic smartphones, accessories, and spare parts to East Africa's growing digital economy.</p>
+              <div style="display:flex; gap:14px; flex-wrap:wrap;">
+                <button onClick="{{ goProducts }}" style="display:inline-flex; align-items:center; gap:9px; background:#2F5BFF; color:#fff; border:none; font-family:'Manrope',sans-serif; font-weight:700; font-size:16px; padding:15px 26px; border-radius:13px; cursor:pointer; box-shadow:0 12px 30px rgba(47,91,255,.45);" style-hover="background:#2147E6;">Browse Products <span style="font-size:18px;">→</span></button>
+                <button onClick="{{ goAbout }}" style="background:rgba(255,255,255,.08); color:#fff; border:1px solid rgba(255,255,255,.18); font-family:'Manrope',sans-serif; font-weight:700; font-size:16px; padding:15px 26px; border-radius:13px; cursor:pointer;" style-hover="background:rgba(255,255,255,.14);">Our Story</button>
+              </div>
+            </div>
+            <div style="position:relative; height:460px; animation:fxUp .8s ease .1s both;">
+              <div style="position:absolute; top:40px; left:50%; transform:translateX(-50%); width:230px; height:466px; background:#05080F; border:1px solid rgba(255,255,255,.08); border-radius:38px; padding:11px; box-shadow:0 50px 90px -30px rgba(0,0,0,.7); animation:fxFloat 6s ease-in-out infinite;">
+                <div style="width:100%; height:100%; border-radius:28px; background:linear-gradient(160deg,#16224A,#0B1226); overflow:hidden; position:relative;">
+                  <div style="position:absolute; top:11px; left:50%; transform:translateX(-50%); width:90px; height:20px; background:#05080F; border-radius:999px;"></div>
+                  <div style="padding:44px 18px;">
+                    <div style="height:120px; border-radius:16px; background:linear-gradient(135deg,#2F5BFF,#6C5CE7); position:relative; overflow:hidden;"><div style="position:absolute; inset:0; background:radial-gradient(60% 50% at 70% 20%, rgba(255,255,255,.4), transparent 60%);"></div></div>
+                    <div style="margin-top:16px; display:flex; gap:9px;"><div style="flex:1; height:54px; border-radius:13px; background:rgba(255,255,255,.06);"></div><div style="flex:1; height:54px; border-radius:13px; background:rgba(255,176,32,.18); border:1px solid rgba(255,176,32,.3);"></div></div>
+                    <div style="margin-top:12px; height:9px; width:70%; background:rgba(255,255,255,.14); border-radius:5px;"></div>
+                    <div style="margin-top:9px; height:9px; width:48%; background:rgba(255,255,255,.09); border-radius:5px;"></div>
+                  </div>
+                </div>
+              </div>
+              <div style="position:absolute; top:90px; right:6px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:12px 15px; backdrop-filter:blur(8px); animation:fxFloat2 7s ease-in-out infinite;">
+                <div style="font-size:11px; color:#9AA3BE; font-weight:600;">Authentic</div>
+                <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:16px; color:#fff;">Global brands</div>
+              </div>
+            </div>
+          </div>
+        </section>
+        </sc-if>
+
+        <!-- TRUST / BRAND STRIP -->
+        <section style="background:#fff; border-top:1px solid #E7EAF3; border-bottom:1px solid #E7EAF3;">
+          <div style="max-width:1200px; margin:0 auto; padding:26px 28px; display:flex; align-items:center; gap:30px; flex-wrap:wrap; justify-content:space-between;">
+            <span style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#9098AE; white-space:nowrap;">Authentic stock from leading global brands</span>
+            <div style="display:flex; align-items:center; gap:38px; flex-wrap:wrap;">
+              <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:19px; color:#AEB6CA; letter-spacing:-.02em;">Flagship</span>
+              <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:19px; color:#AEB6CA; letter-spacing:-.02em;">Mid-Range</span>
+              <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:19px; color:#AEB6CA; letter-spacing:-.02em;">Accessories</span>
+              <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:19px; color:#AEB6CA; letter-spacing:-.02em;">Wearables</span>
+              <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:19px; color:#AEB6CA; letter-spacing:-.02em;">Spare Parts</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- SERVICES PREVIEW -->
+        <section style="max-width:1200px; margin:0 auto; padding:80px 28px 30px;">
+          <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:40px; flex-wrap:wrap;">
+            <div style="max-width:560px;">
+              <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#2F5BFF; margin-bottom:14px;">What we supply</div>
+              <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:40px; line-height:1.1; letter-spacing:-.025em; color:#0B1226;">Everything mobile, from one trusted source</h2>
+            </div>
+            <button onClick="{{ goProducts }}" style="display:inline-flex; align-items:center; gap:8px; background:#fff; border:1px solid #DfE3EE; color:#0B1226; font-family:'Manrope',sans-serif; font-weight:700; font-size:15px; padding:13px 20px; border-radius:12px; cursor:pointer; white-space:nowrap;" style-hover="border-color:#2F5BFF; color:#2F5BFF;">View all products →</button>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+            <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+              <div style="{{ s.card }}" style-hover="transform:translateY(-4px);">
+                <div style="{{ s.icon }}">{{ s.iconEl }}</div>
+                <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px; color:#0B1226; margin:18px 0 8px;">{{ s.title }}</div>
+                <div style="font-size:14.5px; line-height:1.6; color:#5A6480;">{{ s.body }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <!-- MISSION SPLIT -->
+        <section style="max-width:1200px; margin:0 auto; padding:70px 28px;">
+          <div style="display:grid; grid-template-columns:.92fr 1.08fr; gap:50px; align-items:center; background:#fff; border:1px solid #E7EAF3; border-radius:24px; padding:46px; box-shadow:0 10px 30px rgba(11,18,38,.04);">
+            <div style="position:relative; height:360px; border-radius:18px; overflow:hidden; background:linear-gradient(150deg,#0B1226,#1C2A55);">
+              <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=900&q=80" alt="Connected communities across East Africa" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
+              <div style="position:absolute; inset:0; background:linear-gradient(155deg, rgba(47,91,255,.62), rgba(108,92,231,.30) 45%, rgba(11,18,38,.85));"></div>
+              <div style="position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,.10) 1px, transparent 1px); background-size:24px 24px;"></div>
+              <div style="position:absolute; bottom:26px; left:26px; right:26px;">
+                <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:30px; color:#fff; letter-spacing:-.02em; line-height:1.1; text-shadow:0 2px 18px rgba(11,18,38,.4);">Digital inclusion, by design</div>
+                <div style="color:#EAEEFB; font-size:14px; margin-top:8px;">Connecting students, entrepreneurs & businesses to technology.</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#2F5BFF; margin-bottom:14px;">Our mission</div>
+              <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:34px; line-height:1.15; letter-spacing:-.025em; color:#0B1226; margin-bottom:18px; text-wrap:balance;">Empowering people and businesses through reliable mobile technology</h2>
+              <p style="font-size:16.5px; line-height:1.65; color:#4C566F; margin-bottom:26px;">We supply innovative smartphones, accessories, and spare parts that enhance communication, productivity, and digital inclusion — helping East Africa adapt and thrive in a connected world.</p>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div style="display:flex; gap:11px; align-items:flex-start;"><span style="width:9px; height:9px; border-radius:50%; background:#2F5BFF; margin-top:6px;"></span><span style="font-size:15px; font-weight:600; color:#27314B;">Authentic, warrantied products</span></div>
+                <div style="display:flex; gap:11px; align-items:flex-start;"><span style="width:9px; height:9px; border-radius:50%; background:#16C2D5; margin-top:6px;"></span><span style="font-size:15px; font-weight:600; color:#27314B;">Reliable regional distribution</span></div>
+                <div style="display:flex; gap:11px; align-items:flex-start;"><span style="width:9px; height:9px; border-radius:50%; background:#6C5CE7; margin-top:6px;"></span><span style="font-size:15px; font-weight:600; color:#27314B;">Competitive partner pricing</span></div>
+                <div style="display:flex; gap:11px; align-items:flex-start;"><span style="width:9px; height:9px; border-radius:50%; background:#FFB020; margin-top:6px;"></span><span style="font-size:15px; font-weight:600; color:#27314B;">Dependable after-sales support</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CTA BAND -->
+        <section style="max-width:1200px; margin:0 auto 80px; padding:0 28px;">
+          <div style="position:relative; overflow:hidden; background:linear-gradient(120deg,#2F5BFF,#6C5CE7); border-radius:24px; padding:56px 50px; display:flex; align-items:center; justify-content:space-between; gap:30px; flex-wrap:wrap;">
+            <div style="position:absolute; top:-40px; right:-20px; width:300px; height:300px; border:1.5px solid rgba(255,255,255,.16); border-radius:50%;"></div>
+            <div style="position:absolute; top:20px; right:60px; width:200px; height:200px; border:1.5px solid rgba(255,255,255,.12); border-radius:50%;"></div>
+            <div style="position:relative; max-width:560px;">
+              <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:36px; line-height:1.12; letter-spacing:-.025em; color:#fff; margin-bottom:12px;">Ready to stock authentic devices your customers can trust?</h2>
+              <p style="font-size:16.5px; color:rgba(255,255,255,.85); line-height:1.6;">Partner with Fonex for genuine products, competitive pricing, and dependable supply across East Africa.</p>
+            </div>
+            <div style="position:relative; display:flex; gap:14px; flex-wrap:wrap;">
+              <button onClick="{{ goContact }}" style="background:#fff; color:#2147E6; border:none; font-family:'Manrope',sans-serif; font-weight:700; font-size:16px; padding:15px 26px; border-radius:13px; cursor:pointer; box-shadow:0 12px 28px rgba(0,0,0,.18);">Request a Quote</button>
+              <button onClick="{{ goPartners }}" style="background:rgba(255,255,255,.14); color:#fff; border:1px solid rgba(255,255,255,.35); font-family:'Manrope',sans-serif; font-weight:700; font-size:16px; padding:15px 26px; border-radius:13px; cursor:pointer;" style-hover="background:rgba(255,255,255,.22);">Become a Partner</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </sc-if>
+
+    <!-- PAGE: ABOUT -->
+    <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="About">
+        <!-- PAGE HEADER -->
+        <section style="position:relative; overflow:hidden; background:#0B1226;">
+          <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1100&q=80" alt="" style="position:absolute; top:0; right:0; width:54%; height:100%; object-fit:cover; opacity:.7; -webkit-mask-image:linear-gradient(90deg, transparent, #000 58%); mask-image:linear-gradient(90deg, transparent, #000 58%);" />
+          <div style="position:absolute; inset:0; background:radial-gradient(50% 80% at 78% 25%, rgba(47,91,255,.55), transparent 62%), radial-gradient(45% 70% at 12% 90%, rgba(108,92,231,.45), transparent 62%), linear-gradient(90deg, #0B1226 38%, rgba(11,18,38,.35));"></div>
+          <div style="position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1px); background-size:30px 30px;"></div>
+          <div style="position:relative; max-width:1200px; margin:0 auto; padding:64px 28px 70px;">
+            <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#8B97C4; margin-bottom:16px;">About Fonex Supply Limited</div>
+            <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:50px; line-height:1.08; letter-spacing:-.03em; color:#fff; max-width:760px; text-wrap:balance;">A trusted partner in East Africa's mobile technology ecosystem</h1>
+            <p style="font-size:18px; line-height:1.65; color:#A9B2CC; max-width:640px; margin-top:22px;">Established in 2025 in Mogadishu, Somalia, Fonex Supply Limited was founded to meet the growing demand for reliable mobile technology and digital adaptation across the region.</p>
+          </div>
+        </section>
+
+        <!-- OVERVIEW -->
+        <section style="max-width:1200px; margin:0 auto; padding:74px 28px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:54px; align-items:center;">
+            <div>
+              <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#2F5BFF; margin-bottom:14px;">Company overview</div>
+              <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:36px; line-height:1.14; letter-spacing:-.025em; color:#0B1226; margin-bottom:20px; text-wrap:balance;">Specialists in authentic mobile technology</h2>
+              <p style="font-size:16.5px; line-height:1.7; color:#4C566F; margin-bottom:16px;">Fonex Supply Limited is a premier supplier of smartphones, mobile devices, and accessories. We specialize in importing, distributing, and delivering authentic products from global brands.</p>
+              <p style="font-size:16.5px; line-height:1.7; color:#4C566F;">From our base in Somalia, we've positioned ourselves as a dependable link between the world's leading manufacturers and the retailers, businesses, and people of East Africa.</p>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div style="background:#fff; border:1px solid #E7EAF3; border-radius:18px; padding:24px; box-shadow:0 6px 18px rgba(11,18,38,.04);"><div style="font-family:'Sora',sans-serif; font-weight:800; font-size:34px; color:#2F5BFF;">2025</div><div style="font-size:14px; color:#5A6480; margin-top:4px;">Year established</div></div>
+              <div style="background:#0B1226; border-radius:18px; padding:24px;"><div style="font-family:'Sora',sans-serif; font-weight:800; font-size:34px; color:#fff;">6+</div><div style="font-size:14px; color:#A9B2CC; margin-top:4px;">Cities reached in year one</div></div>
+              <div style="background:#0B1226; border-radius:18px; padding:24px;"><div style="font-family:'Sora',sans-serif; font-weight:800; font-size:34px; color:#16C2D5;">100%</div><div style="font-size:14px; color:#A9B2CC; margin-top:4px;">Authentic, sourced direct</div></div>
+              <div style="background:#fff; border:1px solid #E7EAF3; border-radius:18px; padding:24px; box-shadow:0 6px 18px rgba(11,18,38,.04);"><div style="font-family:'Sora',sans-serif; font-weight:800; font-size:34px; color:#6C5CE7;">4</div><div style="font-size:14px; color:#5A6480; margin-top:4px;">Partnership pillars</div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MISSION & VISION -->
+        <section style="background:#fff; border-top:1px solid #E7EAF3; border-bottom:1px solid #E7EAF3;">
+          <div style="max-width:1200px; margin:0 auto; padding:74px 28px; display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+            <div style="position:relative; overflow:hidden; border-radius:22px; padding:40px; background:linear-gradient(135deg,#EEF1FB,#F6F8FF); border:1px solid #E0E6FA;">
+              <div style="width:50px; height:50px; border-radius:14px; background:#2F5BFF; display:flex; align-items:center; justify-content:center; margin-bottom:22px; box-shadow:0 8px 20px rgba(47,91,255,.3);">{{ missionIcon }}</div>
+              <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:14px; letter-spacing:.06em; text-transform:uppercase; color:#2F5BFF; margin-bottom:12px;">Our Mission</div>
+              <p style="font-family:'Sora',sans-serif; font-weight:700; font-size:23px; line-height:1.35; letter-spacing:-.01em; color:#0B1226;">To empower individuals and businesses by supplying innovative smartphones and accessories that enhance communication, productivity, and digital inclusion — through high-quality mobiles and spare parts.</p>
+            </div>
+            <div style="position:relative; overflow:hidden; border-radius:22px; padding:40px; background:linear-gradient(135deg,#0B1226,#1C2A55);">
+              <div style="position:absolute; top:-30px; right:-30px; width:180px; height:180px; border:1.5px solid rgba(255,255,255,.1); border-radius:50%;"></div>
+              <div style="width:50px; height:50px; border-radius:14px; background:#FFB020; display:flex; align-items:center; justify-content:center; margin-bottom:22px; box-shadow:0 8px 20px rgba(255,176,32,.3);">{{ visionIcon }}</div>
+              <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:14px; letter-spacing:.06em; text-transform:uppercase; color:#FFB020; margin-bottom:12px;">Our Vision</div>
+              <p style="position:relative; font-family:'Sora',sans-serif; font-weight:700; font-size:23px; line-height:1.35; letter-spacing:-.01em; color:#fff;">To become East Africa's most trusted mobile supply company — recognized for reliability, affordability, and excellence in customer service.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- CORE VALUES -->
+        <section style="max-width:1200px; margin:0 auto; padding:80px 28px;">
+          <div style="text-align:center; max-width:640px; margin:0 auto 46px;">
+            <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#2F5BFF; margin-bottom:14px;">What we stand for</div>
+            <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:40px; line-height:1.1; letter-spacing:-.025em; color:#0B1226;">Core values that guide every decision</h2>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+            <sc-for list="{{ values }}" as="v" hint-placeholder-count="6">
+              <div style="background:#fff; border:1px solid #E7EAF3; border-radius:18px; padding:28px; box-shadow:0 6px 18px rgba(11,18,38,.04);">
+                <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;">
+                  <div style="{{ v.icon }}">{{ v.iconEl }}</div>
+                  <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px; color:#0B1226;">{{ v.title }}</div>
+                </div>
+                <div style="font-size:14.5px; line-height:1.6; color:#5A6480;">{{ v.body }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <!-- MILESTONES -->
+        <section style="background:#0B1226; position:relative; overflow:hidden;">
+          <div style="position:absolute; inset:0; background:radial-gradient(40% 60% at 85% 30%, rgba(47,91,255,.25), transparent 60%);"></div>
+          <div style="position:relative; max-width:1200px; margin:0 auto; padding:74px 28px;">
+            <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#8B97C4; margin-bottom:14px;">Achievements & milestones</div>
+            <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:36px; line-height:1.12; letter-spacing:-.025em; color:#fff; margin-bottom:46px; max-width:600px;">A strong first chapter, and a clear path ahead</h2>
+            <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0;">
+              <sc-for list="{{ milestones }}" as="m" hint-placeholder-count="4">
+                <div style="position:relative; padding:0 24px 0 0;">
+                  <div style="display:flex; align-items:center; gap:12px; margin-bottom:18px;">
+                    <span style="width:14px; height:14px; border-radius:50%; background:#2F5BFF; box-shadow:0 0 0 5px rgba(47,91,255,.2);"></span>
+                    <span style="flex:1; height:2px; background:rgba(255,255,255,.12);"></span>
+                  </div>
+                  <div style="font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:600; color:#16C2D5; margin-bottom:8px;">{{ m.tag }}</div>
+                  <div style="font-size:15.5px; line-height:1.55; color:#C3CADD; font-weight:500;">{{ m.text }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+      </div>
+    </sc-if>
+
+    <!-- PAGE: PRODUCTS -->
+    <sc-if value="{{ isProducts }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Products">
+        <!-- HEADER -->
+        <section style="background:#fff; border-bottom:1px solid #E7EAF3;">
+          <div style="max-width:1200px; margin:0 auto; padding:58px 28px 40px;">
+            <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#2F5BFF; margin-bottom:14px;">Products & Services</div>
+            <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:48px; line-height:1.08; letter-spacing:-.03em; color:#0B1226; max-width:720px; text-wrap:balance;">Browse our range of authentic mobile technology</h1>
+            <p style="font-size:17.5px; line-height:1.6; color:#4C566F; max-width:600px; margin-top:18px;">From flagship smartphones to everyday accessories, every product we supply is genuine, quality-checked, and backed by after-sales support.</p>
+            <!-- FILTER BAR -->
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:34px;">
+              <sc-for list="{{ cats }}" as="c" hint-placeholder-count="6">
+                <button onClick="{{ c.onClick }}" style="{{ c.style }}">{{ c.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+
+        <!-- GRID -->
+        <section style="max-width:1200px; margin:0 auto; padding:46px 28px 30px;">
+          <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
+            <sc-for list="{{ visibleProducts }}" as="p" hint-placeholder-count="9">
+              <div style="background:#fff; border:1px solid #E7EAF3; border-radius:20px; overflow:hidden; box-shadow:0 6px 18px rgba(11,18,38,.04);" style-hover="border-color:#CBD3E8;">
+                <div style="{{ p.visual }}">
+                  <div role="img" aria-label="{{ p.name }}" style="{{ p.imgStyle }}"></div>
+                  <div style="{{ p.tint }}"></div>
+                  <span style="position:absolute; top:14px; left:14px; z-index:2; background:rgba(255,255,255,.92); color:#27314B; font-size:11.5px; font-weight:700; padding:5px 11px; border-radius:999px; letter-spacing:.02em; box-shadow:0 4px 12px rgba(11,18,38,.12);">{{ p.catLabel }}</span>
+                  <span style="{{ p.statusStyle }}">{{ p.status }}</span>
+                </div>
+                <div style="padding:22px;">
+                  <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:19px; color:#0B1226; margin-bottom:7px;">{{ p.name }}</div>
+                  <div style="font-size:14px; line-height:1.55; color:#5A6480; margin-bottom:16px; min-height:43px;">{{ p.blurb }}</div>
+                  <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                    <span style="font-family:'JetBrains Mono',monospace; font-size:12.5px; color:#9098AE;">Price on request</span>
+                    <button onClick="{{ goContact }}" style="background:#EEF1FB; color:#2F5BFF; border:none; font-family:'Manrope',sans-serif; font-weight:700; font-size:13.5px; padding:9px 15px; border-radius:10px; cursor:pointer;" style-hover="background:#2F5BFF; color:#fff;">Enquire →</button>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <!-- SERVICES BAND -->
+        <section style="max-width:1200px; margin:0 auto; padding:40px 28px 84px;">
+          <div style="background:linear-gradient(135deg,#0B1226,#1C2A55); border-radius:24px; padding:48px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:30px; position:relative; overflow:hidden;">
+            <div style="position:absolute; inset:0; background:radial-gradient(40% 70% at 90% 20%, rgba(47,91,255,.3), transparent 60%);"></div>
+            <div style="position:relative; grid-column:1 / -1; margin-bottom:8px;">
+              <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#8B97C4; margin-bottom:10px;">Beyond the products</div>
+              <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:30px; letter-spacing:-.02em; color:#fff;">Services that keep you supplied</h2>
+            </div>
+            <div style="position:relative;"><div style="font-family:'Sora',sans-serif; font-weight:700; font-size:18px; color:#16C2D5; margin-bottom:8px;">Import & Distribution</div><div style="font-size:14.5px; line-height:1.6; color:#A9B2CC;">Sourcing authentic devices directly from global manufacturers and moving them across the region.</div></div>
+            <div style="position:relative;"><div style="font-family:'Sora',sans-serif; font-weight:700; font-size:18px; color:#16C2D5; margin-bottom:8px;">Wholesale Supply</div><div style="font-size:14.5px; line-height:1.6; color:#A9B2CC;">Reliable stock and competitive pricing for local retailers and business partners.</div></div>
+            <div style="position:relative;"><div style="font-family:'Sora',sans-serif; font-weight:700; font-size:18px; color:#16C2D5; margin-bottom:8px;">After-Sales Support</div><div style="font-size:14.5px; line-height:1.6; color:#A9B2CC;">Spare parts and dependable service that keep devices running long after purchase.</div></div>
+          </div>
+        </section>
+      </div>
+    </sc-if>
+
+    <!-- PAGE: PARTNERS -->
+    <sc-if value="{{ isPartners }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Partnerships">
+        <!-- HEADER -->
+        <section style="position:relative; overflow:hidden; background:#0B1226;">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1100&q=80" alt="" style="position:absolute; top:0; right:0; width:54%; height:100%; object-fit:cover; opacity:.62; -webkit-mask-image:linear-gradient(90deg, transparent, #000 58%); mask-image:linear-gradient(90deg, transparent, #000 58%);" />
+          <div style="position:absolute; inset:0; background:radial-gradient(50% 80% at 80% 25%, rgba(22,194,213,.42), transparent 62%), radial-gradient(45% 70% at 12% 85%, rgba(47,91,255,.5), transparent 62%), linear-gradient(90deg, #0B1226 38%, rgba(11,18,38,.4));"></div>
+          <div style="position:relative; max-width:1200px; margin:0 auto; padding:64px 28px 70px;">
+            <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#8B97C4; margin-bottom:16px;">Clientele & Partnerships</div>
+            <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:50px; line-height:1.08; letter-spacing:-.03em; color:#fff; max-width:740px; text-wrap:balance;">Built on strong, trusted relationships</h1>
+            <p style="font-size:18px; line-height:1.65; color:#A9B2CC; max-width:620px; margin-top:22px;">Our network connects global manufacturers, local retailers, technology providers, and community organizations — together building East Africa's mobile future.</p>
+          </div>
+        </section>
+
+        <!-- PILLARS -->
+        <section style="max-width:1200px; margin:0 auto; padding:74px 28px 30px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px;">
+            <sc-for list="{{ partners }}" as="p" hint-placeholder-count="4">
+              <div style="position:relative; overflow:hidden; background:#fff; border:1px solid #E7EAF3; border-radius:22px; padding:34px; box-shadow:0 6px 18px rgba(11,18,38,.04);">
+                <div style="{{ p.barStyle }}"></div>
+                <div style="display:flex; align-items:center; gap:16px; margin-bottom:18px;">
+                  <div style="{{ p.icon }}">{{ p.iconEl }}</div>
+                  <div>
+                    <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:22px; color:#0B1226;">{{ p.title }}</div>
+                    <div style="font-family:'JetBrains Mono',monospace; font-size:12px; color:#9098AE; margin-top:2px;">{{ p.tag }}</div>
+                  </div>
+                </div>
+                <p style="font-size:15.5px; line-height:1.65; color:#4C566F;">{{ p.body }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <!-- WHY PARTNER -->
+        <section style="max-width:1200px; margin:0 auto; padding:60px 28px;">
+          <div style="background:#fff; border:1px solid #E7EAF3; border-radius:24px; padding:48px; box-shadow:0 10px 30px rgba(11,18,38,.04);">
+            <div style="max-width:560px; margin-bottom:38px;">
+              <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#2F5BFF; margin-bottom:14px;">Why partner with Fonex</div>
+              <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:34px; line-height:1.14; letter-spacing:-.025em; color:#0B1226;">A supplier your business can build on</h2>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
+              <sc-for list="{{ partnerBenefits }}" as="b" hint-placeholder-count="6">
+                <div style="display:flex; gap:13px; align-items:flex-start;">
+                  <span style="width:28px; height:28px; border-radius:9px; background:#EEF1FB; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px;">{{ b.iconEl }}</span>
+                  <div>
+                    <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:16.5px; color:#0B1226; margin-bottom:5px;">{{ b.title }}</div>
+                    <div style="font-size:14px; line-height:1.55; color:#5A6480;">{{ b.body }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+
+        <!-- CTA -->
+        <section style="max-width:1200px; margin:0 auto 84px; padding:0 28px;">
+          <div style="position:relative; overflow:hidden; background:linear-gradient(120deg,#2F5BFF,#6C5CE7); border-radius:24px; padding:54px; text-align:center;">
+            <div style="position:absolute; top:-50px; left:50%; transform:translateX(-50%); width:360px; height:360px; border:1.5px solid rgba(255,255,255,.14); border-radius:50%;"></div>
+            <h2 style="position:relative; font-family:'Sora',sans-serif; font-weight:800; font-size:36px; letter-spacing:-.025em; color:#fff; margin-bottom:12px; max-width:560px; margin-left:auto; margin-right:auto;">Let's grow together</h2>
+            <p style="position:relative; font-size:16.5px; color:rgba(255,255,255,.85); max-width:480px; margin:0 auto 28px;">Whether you're a retailer, manufacturer, or community organization, we'd love to explore how we can work together.</p>
+            <button onClick="{{ goContact }}" style="position:relative; background:#fff; color:#2147E6; border:none; font-family:'Manrope',sans-serif; font-weight:700; font-size:16px; padding:15px 30px; border-radius:13px; cursor:pointer; box-shadow:0 12px 28px rgba(0,0,0,.18);">Start a Conversation</button>
+          </div>
+        </section>
+      </div>
+    </sc-if>
+
+    <!-- PAGE: WHY -->
+    <sc-if value="{{ isWhy }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Why Fonex">
+        <!-- HEADER -->
+        <section style="background:#fff; border-bottom:1px solid #E7EAF3;">
+          <div style="max-width:1200px; margin:0 auto; padding:58px 28px 44px; text-align:center;">
+            <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#2F5BFF; margin-bottom:14px;">Why Fonex</div>
+            <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:50px; line-height:1.08; letter-spacing:-.03em; color:#0B1226; max-width:760px; margin:0 auto; text-wrap:balance;">The reliable choice for mobile technology in East Africa</h1>
+            <p style="font-size:18px; line-height:1.6; color:#4C566F; max-width:600px; margin:20px auto 0;">We combine authentic products, regional reach, and dependable service into a supply partner you can count on.</p>
+          </div>
+        </section>
+
+        <!-- REASONS -->
+        <section style="max-width:1200px; margin:0 auto; padding:70px 28px 20px;">
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px;">
+            <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="4">
+              <div style="background:#fff; border:1px solid #E7EAF3; border-radius:20px; padding:30px 26px; box-shadow:0 6px 18px rgba(11,18,38,.04);">
+                <div style="{{ r.icon }}">{{ r.iconEl }}</div>
+                <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:20px; color:#0B1226; margin:20px 0 9px;">{{ r.title }}</div>
+                <div style="font-size:14.5px; line-height:1.6; color:#5A6480;">{{ r.body }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <!-- DIFFERENCE SPLIT -->
+        <section style="max-width:1200px; margin:0 auto; padding:64px 28px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;">
+            <div>
+              <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#2F5BFF; margin-bottom:14px;">The Fonex difference</div>
+              <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:36px; line-height:1.14; letter-spacing:-.025em; color:#0B1226; margin-bottom:20px; text-wrap:balance;">Not just a seller — a long-term technology partner</h2>
+              <p style="font-size:16.5px; line-height:1.7; color:#4C566F; margin-bottom:26px;">Anyone can sell a phone. We focus on the things that build lasting trust: authenticity, fair pricing, dependable supply, and support that doesn't end at checkout.</p>
+              <div style="display:flex; flex-direction:column; gap:14px;">
+                <sc-for list="{{ diffPoints }}" as="d" hint-placeholder-count="4">
+                  <div style="display:flex; align-items:center; gap:13px;">
+                    <span style="width:24px; height:24px; border-radius:7px; background:#2F5BFF; display:flex; align-items:center; justify-content:center; flex-shrink:0;">{{ checkWhite }}</span>
+                    <span style="font-size:16px; font-weight:600; color:#27314B;">{{ d }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="position:relative; height:380px; border-radius:24px; overflow:hidden; background:linear-gradient(150deg,#0B1226,#1C2A55);">
+              <div style="position:absolute; inset:0; background:radial-gradient(50% 50% at 70% 25%, rgba(47,91,255,.5), transparent 60%), radial-gradient(45% 45% at 25% 85%, rgba(22,194,213,.4), transparent 60%);"></div>
+              <div style="position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,.06) 1px, transparent 1px); background-size:26px 26px;"></div>
+              <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; width:78%;">
+                  <div style="background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:18px;"><div style="font-family:'Sora',sans-serif; font-weight:800; font-size:30px; color:#fff;">100%</div><div style="font-size:13px; color:#A9B2CC; margin-top:3px;">Authentic stock</div></div>
+                  <div style="background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:18px;"><div style="font-family:'Sora',sans-serif; font-weight:800; font-size:30px; color:#16C2D5;">24/7</div><div style="font-size:13px; color:#A9B2CC; margin-top:3px;">Support</div></div>
+                  <div style="background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:18px;"><div style="font-family:'Sora',sans-serif; font-weight:800; font-size:30px; color:#FFB020;">6+</div><div style="font-size:13px; color:#A9B2CC; margin-top:3px;">Cities served</div></div>
+                  <div style="background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:18px;"><div style="font-family:'Sora',sans-serif; font-weight:800; font-size:30px; color:#fff;">2025</div><div style="font-size:13px; color:#A9B2CC; margin-top:3px;">Trusted since</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- FAQ -->
+        <section style="background:#fff; border-top:1px solid #E7EAF3;">
+          <div style="max-width:840px; margin:0 auto; padding:74px 28px;">
+            <div style="text-align:center; margin-bottom:40px;">
+              <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#2F5BFF; margin-bottom:14px;">Questions, answered</div>
+              <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:38px; letter-spacing:-.025em; color:#0B1226;">Frequently asked questions</h2>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+                <div style="border:1px solid #E7EAF3; border-radius:16px; overflow:hidden; background:#fff;">
+                  <button onClick="{{ f.onClick }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px 24px; background:transparent; border:none; cursor:pointer; text-align:left;">
+                    <span style="font-family:'Sora',sans-serif; font-weight:700; font-size:17px; color:#0B1226;">{{ f.q }}</span>
+                    <span style="{{ f.signStyle }}">+</span>
+                  </button>
+                  <div style="{{ f.answerStyle }}">
+                    <div style="padding:0 24px 22px; font-size:15.5px; line-height:1.65; color:#4C566F;">{{ f.a }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </section>
+      </div>
+    </sc-if>
+
+    <!-- PAGE: CONTACT -->
+    <sc-if value="{{ isContact }}" hint-placeholder-val="{{ true }}">
+      <div data-screen-label="Contact">
+        <!-- HEADER -->
+        <section style="background:#fff; border-bottom:1px solid #E7EAF3;">
+          <div style="max-width:1200px; margin:0 auto; padding:58px 28px 44px;">
+            <div style="font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#2F5BFF; margin-bottom:14px;">Get in touch</div>
+            <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:48px; line-height:1.08; letter-spacing:-.03em; color:#0B1226; max-width:680px; text-wrap:balance;">Let's talk about what you need</h1>
+            <p style="font-size:17.5px; line-height:1.6; color:#4C566F; max-width:580px; margin-top:18px;">Whether you're a customer, a retailer, or a potential partner — we'd love to hear from you. Reach out and we'll respond promptly.</p>
+          </div>
+        </section>
+
+        <section style="max-width:1200px; margin:0 auto; padding:64px 28px 84px;">
+          <div style="display:grid; grid-template-columns:.9fr 1.1fr; gap:30px; align-items:start;">
+
+            <!-- INFO CARD -->
+            <div style="position:relative; overflow:hidden; background:linear-gradient(155deg,#0B1226,#1C2A55); border-radius:24px; padding:40px; color:#fff;">
+              <div style="position:absolute; top:-40px; right:-40px; width:220px; height:220px; border:1.5px solid rgba(255,255,255,.1); border-radius:50%;"></div>
+              <div style="position:absolute; top:10px; right:20px; width:140px; height:140px; border:1.5px solid rgba(255,255,255,.08); border-radius:50%;"></div>
+              <div style="position:relative;">
+                <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:24px; margin-bottom:8px;">Fonex Supply Limited</div>
+                <p style="color:#A9B2CC; font-size:15px; line-height:1.6; margin-bottom:30px; max-width:300px;">Your trusted mobile technology supplier in East Africa.</p>
+                <div style="display:flex; flex-direction:column; gap:20px;">
+                  <sc-for list="{{ contactInfo }}" as="c" hint-placeholder-count="4">
+                    <div style="display:flex; align-items:center; gap:15px;">
+                      <span style="width:46px; height:46px; border-radius:13px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; flex-shrink:0;">{{ c.iconEl }}</span>
+                      <div>
+                        <div style="font-size:12px; color:#8B97C4; font-weight:600; letter-spacing:.04em; text-transform:uppercase;">{{ c.label }}</div>
+                        <div style="font-size:16px; font-weight:600; color:#fff; margin-top:2px; {{ c.mono }}">{{ c.value }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="margin-top:34px; padding-top:26px; border-top:1px solid rgba(255,255,255,.1);">
+                  <div style="font-size:12px; color:#8B97C4; font-weight:600; letter-spacing:.04em; text-transform:uppercase; margin-bottom:8px;">Business hours</div>
+                  <div style="display:flex; justify-content:space-between; font-size:14.5px; color:#C3CADD; margin-bottom:6px;"><span>Saturday – Thursday</span><span style="font-weight:600; color:#fff;">8:00 – 18:00</span></div>
+                  <div style="display:flex; justify-content:space-between; font-size:14.5px; color:#C3CADD;"><span>Friday</span><span style="font-weight:600; color:#fff;">Closed</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FORM CARD -->
+            <div style="background:#fff; border:1px solid #E7EAF3; border-radius:24px; padding:40px; box-shadow:0 10px 30px rgba(11,18,38,.05);">
+              <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+              <div>
+                <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:24px; color:#0B1226; margin-bottom:6px;">Send us a message</div>
+                <p style="font-size:15px; color:#5A6480; margin-bottom:28px;">Fill in your details and we'll get back to you with availability and pricing.</p>
+                <form onSubmit="{{ submit }}">
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-bottom:18px;">
+                    <div>
+                      <label style="display:block; font-size:13.5px; font-weight:600; color:#27314B; margin-bottom:8px;">Full name</label>
+                      <input required placeholder="Your name" style="width:100%; padding:13px 15px; border:1px solid #DfE3EE; border-radius:11px; font-family:'Manrope',sans-serif; font-size:15px; color:#0B1226; background:#FBFCFE; outline:none;" style-focus="border-color:#2F5BFF; box-shadow:0 0 0 3px rgba(47,91,255,.14);" />
+                    </div>
+                    <div>
+                      <label style="display:block; font-size:13.5px; font-weight:600; color:#27314B; margin-bottom:8px;">Phone</label>
+                      <input placeholder="+252 ..." style="width:100%; padding:13px 15px; border:1px solid #DfE3EE; border-radius:11px; font-family:'Manrope',sans-serif; font-size:15px; color:#0B1226; background:#FBFCFE; outline:none;" style-focus="border-color:#2F5BFF; box-shadow:0 0 0 3px rgba(47,91,255,.14);" />
+                    </div>
+                  </div>
+                  <div style="margin-bottom:18px;">
+                    <label style="display:block; font-size:13.5px; font-weight:600; color:#27314B; margin-bottom:8px;">Email address</label>
+                    <input required type="email" placeholder="you@example.com" style="width:100%; padding:13px 15px; border:1px solid #DfE3EE; border-radius:11px; font-family:'Manrope',sans-serif; font-size:15px; color:#0B1226; background:#FBFCFE; outline:none;" style-focus="border-color:#2F5BFF; box-shadow:0 0 0 3px rgba(47,91,255,.14);" />
+                  </div>
+                  <div style="margin-bottom:18px;">
+                    <label style="display:block; font-size:13.5px; font-weight:600; color:#27314B; margin-bottom:8px;">I'm interested in</label>
+                    <select style="width:100%; padding:13px 15px; border:1px solid #DfE3EE; border-radius:11px; font-family:'Manrope',sans-serif; font-size:15px; color:#0B1226; background:#FBFCFE; outline:none; cursor:pointer;" style-focus="border-color:#2F5BFF; box-shadow:0 0 0 3px rgba(47,91,255,.14);">
+                      <option>Buying products</option>
+                      <option>Becoming a retail partner</option>
+                      <option>Wholesale / bulk supply</option>
+                      <option>Spare parts & support</option>
+                      <option>Something else</option>
+                    </select>
+                  </div>
+                  <div style="margin-bottom:24px;">
+                    <label style="display:block; font-size:13.5px; font-weight:600; color:#27314B; margin-bottom:8px;">Message</label>
+                    <textarea required rows="4" placeholder="Tell us what you're looking for..." style="width:100%; padding:13px 15px; border:1px solid #DfE3EE; border-radius:11px; font-family:'Manrope',sans-serif; font-size:15px; color:#0B1226; background:#FBFCFE; outline:none; resize:vertical;" style-focus="border-color:#2F5BFF; box-shadow:0 0 0 3px rgba(47,91,255,.14);"></textarea>
+                  </div>
+                  <button type="submit" style="width:100%; background:#2F5BFF; color:#fff; border:none; font-family:'Manrope',sans-serif; font-weight:700; font-size:16px; padding:15px; border-radius:13px; cursor:pointer; box-shadow:0 12px 28px rgba(47,91,255,.28);" style-hover="background:#2147E6;">Send Message</button>
+                </form>
+              </div>
+              </sc-if>
+              <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+              <div style="text-align:center; padding:40px 10px;">
+                <div style="width:72px; height:72px; border-radius:50%; background:#E2F6EF; display:flex; align-items:center; justify-content:center; margin:0 auto 22px;">{{ bigCheck }}</div>
+                <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:26px; color:#0B1226; margin-bottom:10px;">Message sent</div>
+                <p style="font-size:16px; line-height:1.6; color:#5A6480; max-width:360px; margin:0 auto 26px;">Thank you for reaching out to Fonex Supply. Our team will get back to you shortly with the details you need.</p>
+                <button onClick="{{ resetForm }}" style="background:#EEF1FB; color:#2F5BFF; border:none; font-family:'Manrope',sans-serif; font-weight:700; font-size:15px; padding:12px 22px; border-radius:11px; cursor:pointer;">Send another message</button>
+              </div>
+              </sc-if>
+            </div>
+          </div>
+        </section>
+      </div>
+    </sc-if>
+
+    <!-- FOOTER -->
+    <footer style="background:#0B1226; color:#fff; margin-top:0;">
+      <div style="max-width:1200px; margin:0 auto; padding:64px 28px 30px; display:grid; grid-template-columns:1.6fr 1fr 1fr 1.2fr; gap:40px;">
+        <div>
+          <div style="display:flex; align-items:center; gap:11px; margin-bottom:16px;">
+            <span style="width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg,#2F5BFF,#6C5CE7); display:inline-flex; align-items:flex-end; justify-content:center; gap:2px; padding:8px 7px;">
+              <span style="width:3.5px; height:8px; background:#fff; border-radius:2px; opacity:.7;"></span>
+              <span style="width:3.5px; height:12px; background:#fff; border-radius:2px; opacity:.85;"></span>
+              <span style="width:3.5px; height:17px; background:#fff; border-radius:2px;"></span>
+            </span>
+            <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:19px;">Fonex</span>
+          </div>
+          <p style="color:#9AA3BE; font-size:14.5px; line-height:1.65; max-width:300px;">Premier supplier of smartphones, mobile devices, and accessories — connecting East Africa to authentic global technology.</p>
+        </div>
+        <div>
+          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:#6F7A9B; margin-bottom:16px;">Explore</div>
+          <sc-for list="{{ footerNav }}" as="f" hint-placeholder-count="5">
+            <div onClick="{{ f.onClick }}" style="color:#C3CADD; font-size:14.5px; margin-bottom:11px; cursor:pointer;" style-hover="color:#fff;">{{ f.label }}</div>
+          </sc-for>
+        </div>
+        <div>
+          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:#6F7A9B; margin-bottom:16px;">Products</div>
+          <div style="color:#C3CADD; font-size:14.5px; margin-bottom:11px;">Flagship Smartphones</div>
+          <div style="color:#C3CADD; font-size:14.5px; margin-bottom:11px;">Mid-Range Devices</div>
+          <div style="color:#C3CADD; font-size:14.5px; margin-bottom:11px;">Accessories</div>
+          <div style="color:#C3CADD; font-size:14.5px; margin-bottom:11px;">Smart Wearables</div>
+        </div>
+        <div>
+          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:#6F7A9B; margin-bottom:16px;">Get in touch</div>
+          <div style="color:#C3CADD; font-size:14.5px; margin-bottom:11px;">Mogadishu, Somalia</div>
+          <div style="color:#C3CADD; font-size:14.5px; margin-bottom:11px; font-family:'JetBrains Mono',monospace;">+252-61-4511185</div>
+          <div style="color:#C3CADD; font-size:14.5px; margin-bottom:11px;">info@fonexsupply.com</div>
+          <div style="color:#C3CADD; font-size:14.5px;">www.fonexsupply.com</div>
+        </div>
+      </div>
+      <div style="border-top:1px solid rgba(255,255,255,.08);">
+        <div style="max-width:1200px; margin:0 auto; padding:20px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+          <span style="color:#6F7A9B; font-size:13px;">© 2026 Fonex Supply Limited. All rights reserved.</span>
+          <span style="color:#6F7A9B; font-size:13px;">Established 2025 · Mogadishu, Somalia</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+  </sc-if>
+
+  <!-- ===================== PLAN MODE ===================== -->
+  <sc-if value="{{ isPlan }}" hint-placeholder-val="{{ true }}">
+    <div style="background:#F4F6FB;">
+
+      <!-- PLAN HERO -->
+      <section style="position:relative; overflow:hidden; background:#0B1226;">
+        <div style="position:absolute; inset:0; background:radial-gradient(45% 70% at 84% 20%, rgba(47,91,255,.34), transparent 60%), radial-gradient(40% 60% at 10% 90%, rgba(108,92,231,.3), transparent 60%);"></div>
+        <div style="position:absolute; inset:0; background-image:radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 1px); background-size:30px 30px;"></div>
+        <div style="position:relative; max-width:1000px; margin:0 auto; padding:60px 28px 64px;">
+          <div style="display:inline-flex; align-items:center; gap:9px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.14); color:#BFC8E4; font-weight:700; font-size:12.5px; letter-spacing:.04em; padding:8px 15px; border-radius:999px; margin-bottom:24px;">
+            <span style="width:6px; height:6px; border-radius:50%; background:#16C2D5;"></span>
+            PROJECT PLAN · FOR CLIENT REVIEW
+          </div>
+          <h1 style="font-family:'Sora',sans-serif; font-weight:800; font-size:46px; line-height:1.08; letter-spacing:-.03em; color:#fff; max-width:780px; text-wrap:balance;">Website Plan & Content Strategy</h1>
+          <p style="font-size:18px; line-height:1.65; color:#A9B2CC; max-width:680px; margin-top:20px;">A complete blueprint for the Fonex Supply Limited website — what pages to build, what goes on each, the copy to use, and the design thinking behind it. Switch to <strong style="color:#fff; font-weight:700;">Website</strong> in the top bar to see it brought to life.</p>
+          <div style="display:flex; gap:14px; margin-top:30px; flex-wrap:wrap;">
+            <button onClick="{{ showSite }}" style="display:inline-flex; align-items:center; gap:9px; background:#2F5BFF; color:#fff; border:none; font-family:'Manrope',sans-serif; font-weight:700; font-size:15.5px; padding:14px 24px; border-radius:12px; cursor:pointer; box-shadow:0 12px 30px rgba(47,91,255,.4);">View the live website <span style="font-size:17px;">→</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SNAPSHOT + SITEMAP -->
+      <section style="max-width:1000px; margin:0 auto; padding:60px 28px 20px;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+          <div style="background:#fff; border:1px solid #E7EAF3; border-radius:20px; padding:32px; box-shadow:0 6px 18px rgba(11,18,38,.04);">
+            <div style="font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#2F5BFF; margin-bottom:16px;">Company snapshot</div>
+            <div style="display:flex; flex-direction:column; gap:13px;">
+              <div style="display:flex; justify-content:space-between; gap:16px; padding-bottom:13px; border-bottom:1px solid #EFF1F7;"><span style="color:#7B8499; font-size:14.5px;">Company</span><span style="font-weight:700; color:#0B1226; font-size:14.5px;">Fonex Supply Limited</span></div>
+              <div style="display:flex; justify-content:space-between; gap:16px; padding-bottom:13px; border-bottom:1px solid #EFF1F7;"><span style="color:#7B8499; font-size:14.5px;">Industry</span><span style="font-weight:700; color:#0B1226; font-size:14.5px;">Mobile technology supply</span></div>
+              <div style="display:flex; justify-content:space-between; gap:16px; padding-bottom:13px; border-bottom:1px solid #EFF1F7;"><span style="color:#7B8499; font-size:14.5px;">Founded</span><span style="font-weight:700; color:#0B1226; font-size:14.5px;">2025 · Mogadishu, Somalia</span></div>
+              <div style="display:flex; justify-content:space-between; gap:16px; padding-bottom:13px; border-bottom:1px solid #EFF1F7;"><span style="color:#7B8499; font-size:14.5px;">Audience</span><span style="font-weight:700; color:#0B1226; font-size:14.5px;">Retailers, businesses & people</span></div>
+              <div style="display:flex; justify-content:space-between; gap:16px;"><span style="color:#7B8499; font-size:14.5px;">Primary goal</span><span style="font-weight:700; color:#2F5BFF; font-size:14.5px;">Browse products & enquire</span></div>
+            </div>
+          </div>
+          <div style="background:#fff; border:1px solid #E7EAF3; border-radius:20px; padding:32px; box-shadow:0 6px 18px rgba(11,18,38,.04);">
+            <div style="font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#2F5BFF; margin-bottom:16px;">Recommended sitemap — 6 pages</div>
+            <div style="display:flex; flex-direction:column; gap:11px;">
+              <sc-for list="{{ sitemap }}" as="s" hint-placeholder-count="6">
+                <div onClick="{{ s.onClick }}" style="display:flex; align-items:center; gap:14px; padding:11px 14px; border-radius:12px; background:#F6F8FC; border:1px solid #EDF0F7; cursor:pointer;" style-hover="border-color:#CBD3E8;">
+                  <span style="font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; color:#9098AE; width:22px;">{{ s.num }}</span>
+                  <span style="flex:1; font-weight:700; color:#0B1226; font-size:15px;">{{ s.name }}</span>
+                  <span style="font-size:13px; color:#7B8499;">{{ s.note }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PER-PAGE BREAKDOWN -->
+      <section style="max-width:1000px; margin:0 auto; padding:46px 28px 20px;">
+        <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:30px; letter-spacing:-.02em; color:#0B1226; margin-bottom:8px;">Page-by-page breakdown</h2>
+        <p style="font-size:16px; color:#5A6480; margin-bottom:34px;">Each page below lists its purpose, the sections it should contain, suggested copy, and the design ideas that make it feel premium.</p>
+        <div style="display:flex; flex-direction:column; gap:24px;">
+          <sc-for list="{{ planPages }}" as="p" hint-placeholder-count="6">
+            <div style="background:#fff; border:1px solid #E7EAF3; border-radius:22px; overflow:hidden; box-shadow:0 8px 24px rgba(11,18,38,.05);">
+              <div style="display:flex; align-items:center; gap:18px; padding:26px 32px; background:linear-gradient(120deg,#0B1226,#1C2A55);">
+                <span style="font-family:'Sora',sans-serif; font-weight:800; font-size:20px; color:#fff; width:46px; height:46px; border-radius:13px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.16); display:flex; align-items:center; justify-content:center; flex-shrink:0;">{{ p.num }}</span>
+                <div style="flex:1;">
+                  <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:23px; color:#fff;">{{ p.name }}</div>
+                  <div style="font-size:14.5px; color:#A9B2CC; margin-top:3px;">{{ p.purpose }}</div>
+                </div>
+                <button onClick="{{ p.onClick }}" style="background:rgba(255,255,255,.1); color:#fff; border:1px solid rgba(255,255,255,.2); font-family:'Manrope',sans-serif; font-weight:700; font-size:13.5px; padding:9px 16px; border-radius:10px; cursor:pointer; white-space:nowrap;" style-hover="background:rgba(255,255,255,.18);">Preview →</button>
+              </div>
+              <div style="padding:30px 32px;">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:30px;">
+                  <div>
+                    <div style="font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#2F5BFF; margin-bottom:13px;">Sections to include</div>
+                    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:26px;">
+                      <sc-for list="{{ p.sections }}" as="sec" hint-placeholder-count="4">
+                        <span style="background:#EEF1FB; color:#2A3550; font-size:13px; font-weight:600; padding:6px 12px; border-radius:8px;">{{ sec }}</span>
+                      </sc-for>
+                    </div>
+                    <div style="font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#2F5BFF; margin-bottom:13px;">Design ideas</div>
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                      <sc-for list="{{ p.design }}" as="d" hint-placeholder-count="3">
+                        <div style="display:flex; gap:11px; align-items:flex-start;"><span style="width:7px; height:7px; border-radius:50%; background:#16C2D5; margin-top:7px; flex-shrink:0;"></span><span style="font-size:14.5px; line-height:1.55; color:#4C566F;">{{ d }}</span></div>
+                      </sc-for>
+                    </div>
+                  </div>
+                  <div>
+                    <div style="font-size:12px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#2F5BFF; margin-bottom:13px;">Suggested copy</div>
+                    <div style="display:flex; flex-direction:column; gap:14px;">
+                      <sc-for list="{{ p.copy }}" as="c" hint-placeholder-count="2">
+                        <div style="background:#F8FAFD; border:1px solid #EDF0F7; border-radius:13px; padding:16px 18px;">
+                          <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:16.5px; color:#0B1226; line-height:1.3; margin-bottom:6px;">{{ c.h }}</div>
+                          <div style="font-size:14px; line-height:1.6; color:#5A6480;">{{ c.sub }}</div>
+                        </div>
+                      </sc-for>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <!-- DESIGN LANGUAGE -->
+      <section style="max-width:1000px; margin:0 auto; padding:46px 28px;">
+        <div style="background:#fff; border:1px solid #E7EAF3; border-radius:22px; padding:38px; box-shadow:0 8px 24px rgba(11,18,38,.05);">
+          <div style="font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#2F5BFF; margin-bottom:10px;">Design language</div>
+          <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:28px; letter-spacing:-.02em; color:#0B1226; margin-bottom:28px;">A premium, trustworthy visual system</h2>
+          <div style="display:grid; grid-template-columns:1.3fr 1fr; gap:34px;">
+            <div>
+              <div style="font-size:13px; font-weight:700; color:#27314B; margin-bottom:14px;">Colour palette</div>
+              <div style="display:flex; flex-wrap:wrap; gap:14px;">
+                <sc-for list="{{ palette }}" as="c" hint-placeholder-count="6">
+                  <div style="text-align:center;">
+                    <div style="width:62px; height:62px; border-radius:15px; background:{{ c.hex }}; box-shadow:0 6px 16px rgba(11,18,38,.12); border:1px solid rgba(11,18,38,.06);"></div>
+                    <div style="font-size:11.5px; font-weight:700; color:#0B1226; margin-top:8px;">{{ c.name }}</div>
+                    <div style="font-family:'JetBrains Mono',monospace; font-size:10.5px; color:#9098AE;">{{ c.hex }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:13px; font-weight:700; color:#27314B; margin-bottom:14px;">Typography</div>
+              <div style="background:#F8FAFD; border:1px solid #EDF0F7; border-radius:14px; padding:22px; margin-bottom:14px;">
+                <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:30px; color:#0B1226; letter-spacing:-.02em;">Sora</div>
+                <div style="font-size:13px; color:#7B8499; margin-top:4px;">Headlines & display — bold, geometric, modern.</div>
+              </div>
+              <div style="background:#F8FAFD; border:1px solid #EDF0F7; border-radius:14px; padding:22px;">
+                <div style="font-family:'Manrope',sans-serif; font-weight:700; font-size:24px; color:#0B1226;">Manrope</div>
+                <div style="font-size:13px; color:#7B8499; margin-top:4px;">Body & UI — clean, friendly, highly readable.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NEXT STEPS -->
+      <section style="max-width:1000px; margin:0 auto; padding:20px 28px 80px;">
+        <div style="position:relative; overflow:hidden; background:linear-gradient(120deg,#2F5BFF,#6C5CE7); border-radius:22px; padding:44px;">
+          <div style="position:absolute; top:-50px; right:-20px; width:280px; height:280px; border:1.5px solid rgba(255,255,255,.14); border-radius:50%;"></div>
+          <div style="position:relative; display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px;">
+            <div style="grid-column:1 / -1; margin-bottom:6px;">
+              <div style="font-size:12.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.75); margin-bottom:10px;">Suggested next steps</div>
+              <h2 style="font-family:'Sora',sans-serif; font-weight:800; font-size:28px; letter-spacing:-.02em; color:#fff;">From plan to launch</h2>
+            </div>
+            <sc-for list="{{ nextSteps }}" as="n" hint-placeholder-count="3">
+              <div style="background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2); border-radius:16px; padding:22px;">
+                <div style="font-family:'Sora',sans-serif; font-weight:800; font-size:15px; color:#fff; width:34px; height:34px; border-radius:10px; background:rgba(255,255,255,.18); display:flex; align-items:center; justify-content:center; margin-bottom:14px;">{{ n.num }}</div>
+                <div style="font-family:'Sora',sans-serif; font-weight:700; font-size:16.5px; color:#fff; margin-bottom:6px;">{{ n.title }}</div>
+                <div style="font-size:14px; line-height:1.55; color:rgba(255,255,255,.82);">{{ n.body }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { mode:'site', page:'home', hero:'a', cat:'all', sent:false, openFaq:0 };
+
+  go(page){ this.setState({ page, mode:'site' }); try{ window.scrollTo({top:0,behavior:'instant'}); }catch(e){ window.scrollTo(0,0); } }
+  setMode(mode){ this.setState({ mode }); try{ window.scrollTo({top:0,behavior:'instant'}); }catch(e){ window.scrollTo(0,0); } }
+
+  rgba(hex, a){ const h=hex.replace('#',''); const n=parseInt(h,16); const r=(n>>16)&255, g=(n>>8)&255, b=n&255; return 'rgba('+r+','+g+','+b+','+a+')'; }
+
+  icon(paths, accent){
+    return React.createElement('svg', { width:24, height:24, viewBox:'0 0 24 24', fill:'none', stroke:accent, strokeWidth:2, strokeLinecap:'round', strokeLinejoin:'round' },
+      paths.map((d,i)=> d.c ? React.createElement(d.t, { key:i, ...d.a }) : React.createElement('path', { key:i, d })) );
+  }
+
+  renderVals(){
+    const { mode, page, hero, cat, sent, openFaq } = this.state;
+    const svcCard = (accent)=>({ background:'linear-gradient(170deg, #ffffff 35%, '+this.rgba(accent,.09)+')', border:'1px solid '+this.rgba(accent,.20), borderRadius:'18px', padding:'26px', boxShadow:'0 12px 30px '+this.rgba(accent,.12), transition:'transform .2s, box-shadow .2s' });
+    const iconBox = (tint)=>({ width:'52px', height:'52px', borderRadius:'14px', background:tint, display:'flex', alignItems:'center', justifyContent:'center' });
+    const services = [
+      { title:'Flagship Smartphones', body:'The latest premium devices from leading global brands — authentic, sealed, and warranty-backed.', accent:'#2F5BFF', tint:'#EEF1FB',
+        iconEl:this.icon([{c:1,t:'rect',a:{x:7,y:2,width:10,height:20,rx:2.5}},{c:1,t:'line',a:{x1:11,y1:18,x2:13,y2:18}}],'#2F5BFF') },
+      { title:'Mid-Range Devices', body:'Dependable, affordable smartphones that bring connectivity within reach for everyone.', accent:'#16C2D5', tint:'#E6F8FA',
+        iconEl:this.icon(['M12 2 2 7l10 5 10-5-10-5Z','m2 17 10 5 10-5','m2 12 10 5 10-5'],'#16C2D5') },
+      { title:'Essential Accessories', body:'Chargers, earphones, protective cases and more — the everyday essentials that keep devices running.', accent:'#6C5CE7', tint:'#EFEDFC',
+        iconEl:this.icon(['M3 11h3a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4a9 9 0 0 1 18 0v4a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h3'],'#6C5CE7') },
+      { title:'Smart Wearables', body:'Smartwatches and connected devices for the modern, mobile-first digital lifestyle.', accent:'#FFB020', tint:'#FFF4E0',
+        iconEl:this.icon([{c:1,t:'rect',a:{x:6,y:6,width:12,height:12,rx:3}},'M9 6V3h6v3','M9 18v3h6v-3'],'#F59300') },
+      { title:'Spare Parts', body:'Genuine replacement components for long-term reliability and easy repairs.', accent:'#2F5BFF', tint:'#EEF1FB',
+        iconEl:this.icon(['M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2-2 2.6-2.6Z'],'#2F5BFF') },
+      { title:'After-Sales Support', body:'Reliable service and guidance after every purchase — trust that lasts beyond the sale.', accent:'#16C2D5', tint:'#E6F8FA',
+        iconEl:this.icon(['M20 6 9 17l-5-5'],'#16C2D5') },
+    ].map(s=>({ ...s, card:svcCard(s.accent), icon:iconBox(s.tint) }));
+
+    const valBox = (tint)=>({ width:'46px', height:'46px', borderRadius:'13px', background:tint, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 });
+    const values = [
+      { title:'Integrity', body:'Transparent and ethical business practices in every transaction.', tint:'#EEF1FB', iconEl:this.icon(['M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z'],'#2F5BFF') },
+      { title:'Innovation', body:'Continually adapting to new technologies and market trends.', tint:'#FFF4E0', iconEl:this.icon(['M9 18h6','M10 22h4','M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V18h6v-1.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2Z'],'#F59300') },
+      { title:'Customer Focus', body:'Prioritizing client satisfaction and long-term trust.', tint:'#E6F8FA', iconEl:this.icon(['M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2',{c:1,t:'circle',a:{cx:9,cy:7,r:4}},'M22 21v-2a4 4 0 0 0-3-3.87','M16 3.13a4 4 0 0 1 0 7.75'],'#16C2D5') },
+      { title:'Reliability', body:'Consistent delivery and dependable product quality, every time.', tint:'#EFEDFC', iconEl:this.icon(['M20 6 9 17l-5-5'],'#6C5CE7') },
+      { title:'Partnership', body:'Building strong collaborations with suppliers and clients.', tint:'#EEF1FB', iconEl:this.icon(['m11 17 2 2a1 1 0 1 0 3-3','m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4','M11 14 8 11','M2 9l3 3'],'#2F5BFF') },
+      { title:'Sustainability', body:'Promoting responsible practices that benefit society and the environment.', tint:'#E6F8FA', iconEl:this.icon(['M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z','M2 21c0-3 1.85-5.36 5.08-6'],'#16C2D5') },
+    ].map(v=>({ ...v, icon:valBox(v.tint) }));
+
+    const milestones = [
+      { tag:'2025 · LAUNCH', text:'Established as one of Somalia\u2019s first dedicated mobile supply companies.' },
+      { tag:'YEAR ONE', text:'Expanded distribution networks across major Somali cities.' },
+      { tag:'PARTNERSHIPS', text:'Secured partnerships with international smartphone manufacturers.' },
+      { tag:'COMMUNITY', text:'Launched customer education programs to promote digital inclusion.' },
+    ];
+    const missionIcon = this.icon([{c:1,t:'circle',a:{cx:12,cy:12,r:10}},{c:1,t:'circle',a:{cx:12,cy:12,r:6}},{c:1,t:'circle',a:{cx:12,cy:12,r:2}}],'#fff');
+    const visionIcon = this.icon([{c:1,t:'path',a:{d:'M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z'}},{c:1,t:'circle',a:{cx:12,cy:12,r:3}}],'#fff');
+
+    // ---- PRODUCTS ----
+    const fam = {
+      blue:{ bgA:'#EAF0FF', bgB:'#DCE6FF', g1:'#2F5BFF', g2:'#5B7BFF' },
+      violet:{ bgA:'#F1EEFC', bgB:'#E6DEFB', g1:'#6C5CE7', g2:'#8A7BF0' },
+      cyan:{ bgA:'#E4F8FB', bgB:'#D2F2F6', g1:'#16C2D5', g2:'#3AD3E0' },
+      teal:{ bgA:'#E6F8F2', bgB:'#D4F2E8', g1:'#12B58E', g2:'#2FD0A6' },
+      amber:{ bgA:'#FFF6E6', bgB:'#FFEDC9', g1:'#FFB020', g2:'#F59300' },
+      slate:{ bgA:'#EEF1F6', bgB:'#E2E7F0', g1:'#5B6680', g2:'#7B8499' },
+    };
+    const dev = (type,f)=>{ const sc='linear-gradient(160deg,'+f.g1+','+f.g2+')'; const sh='0 18px 30px -12px rgba(11,18,38,.4)';
+      if(type==='phone') return { width:'92px', height:'150px', borderRadius:'20px', background:sc, border:'5px solid #0B1226', boxShadow:sh };
+      if(type==='watch') return { width:'80px', height:'92px', borderRadius:'24px', background:sc, border:'6px solid #0B1226', boxShadow:sh };
+      if(type==='charger') return { width:'74px', height:'104px', borderRadius:'16px', background:sc, boxShadow:sh };
+      if(type==='earbuds') return { width:'112px', height:'60px', borderRadius:'30px', background:sc, boxShadow:sh };
+      if(type==='case') return { width:'92px', height:'150px', borderRadius:'22px', background:'transparent', border:'7px solid '+f.g1, boxShadow:'0 16px 28px -12px rgba(11,18,38,.22)' };
+      if(type==='screen') return { width:'92px', height:'150px', borderRadius:'14px', background:sc, border:'2px solid rgba(255,255,255,.7)', boxShadow:sh };
+      return { width:'70px', height:'118px', borderRadius:'12px', background:sc, boxShadow:sh };
+    };
+    const visualBox = (f)=>({ position:'relative', height:'210px', overflow:'hidden', background:'linear-gradient(135deg,'+f.bgA+','+f.bgB+')' });
+    const imgStyleFor = (url)=>({ position:'absolute', inset:0, backgroundImage:'url('+url+')', backgroundSize:'cover', backgroundPosition:'center', backgroundRepeat:'no-repeat' });
+    const tintFor = (f)=>({ position:'absolute', inset:0, background:'linear-gradient(160deg, '+this.rgba(f.g1,.34)+', '+this.rgba(f.g2,.06)+' 55%, transparent)' });
+    const statusStyle = (s)=>{ const c = s==='In Stock'?['#067A55','#E2F6EF']:(s==='Limited'?['#9A6400','#FFF1D6']:['#5A3FC0','#EFEBFC']); return { position:'absolute', top:'14px', right:'14px', zIndex:2, whiteSpace:'nowrap', background:c[1], color:c[0], fontSize:'11.5px', fontWeight:700, padding:'5px 11px', borderRadius:'999px', boxShadow:'0 4px 12px rgba(11,18,38,.12)' }; };
+    const catLabels = { flagship:'Flagship', midrange:'Mid-Range', accessories:'Accessory', wearables:'Wearable', parts:'Spare Part' };
+    const IMG = {
+      phone1:'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=80',
+      phone2:'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&q=80',
+      phone3:'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&q=80',
+      phone4:'https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=800&q=80',
+      phone5:'https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=800&q=80',
+      phone6:'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800&q=80',
+      charger:'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=800&q=80',
+      earbuds:'https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&q=80',
+      case1:'https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=800&q=80',
+      watch1:'https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=800&q=80',
+      repair:'https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&q=80',
+      battery:'https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&q=80',
+    };
+    const rawProducts = [
+      { name:'Aurora Pro 5G', cat:'flagship', fam:'blue', img:IMG.phone1, status:'In Stock', blurb:'6.7\u2033 OLED flagship with pro-grade cameras and all-day battery.' },
+      { name:'Aurora Ultra', cat:'flagship', fam:'violet', img:IMG.phone2, status:'Limited', blurb:'Top-tier performance and premium glass build, 5G on every band.' },
+      { name:'Zenith 5G', cat:'flagship', fam:'cyan', img:IMG.phone3, status:'In Stock', blurb:'Flagship power at a sharper price, built for heavy multitaskers.' },
+      { name:'Everyday 4G', cat:'midrange', fam:'teal', img:IMG.phone4, status:'In Stock', blurb:'A dependable daily smartphone with a big, bright display.' },
+      { name:'Connect Lite', cat:'midrange', fam:'blue', img:IMG.phone5, status:'In Stock', blurb:'Affordable connectivity with reliable performance for daily life.' },
+      { name:'Vibe Plus', cat:'midrange', fam:'cyan', img:IMG.phone6, status:'In Stock', blurb:'Bigger battery and a smooth experience at an accessible price.' },
+      { name:'Power Charger 33W', cat:'accessories', fam:'amber', img:IMG.charger, status:'In Stock', blurb:'Fast, safe charging with broad device compatibility.' },
+      { name:'Wireless Earbuds', cat:'accessories', fam:'violet', img:IMG.earbuds, status:'In Stock', blurb:'Crisp wireless audio with long playback and quick pairing.' },
+      { name:'Protective Case', cat:'accessories', fam:'slate', img:IMG.case1, status:'In Stock', blurb:'Slim, shock-absorbing protection for everyday durability.' },
+      { name:'Active Smartwatch', cat:'wearables', fam:'blue', img:IMG.watch1, status:'Limited', blurb:'Track your health and stay connected on the move.' },
+      { name:'Display Module', cat:'parts', fam:'slate', img:IMG.repair, status:'In Stock', blurb:'Genuine replacement screens for fast, reliable repairs.' },
+      { name:'Battery Pack', cat:'parts', fam:'teal', img:IMG.battery, status:'In Stock', blurb:'Original-spec batteries for restored, long-lasting performance.' },
+    ];
+    const products = rawProducts.map(p=>{ const f=fam[p.fam]; return { ...p, catLabel:catLabels[p.cat], visual:visualBox(f), imgStyle:imgStyleFor(p.img), tint:tintFor(f), statusStyle:statusStyle(p.status) }; });
+    const visibleProducts = cat==='all' ? products : products.filter(p=>p.cat===cat);
+    const catBtn = (active)=>({ border:'1px solid '+(active?'#2F5BFF':'#DfE3EE'), cursor:'pointer', fontFamily:"'Manrope',sans-serif", fontWeight:700, fontSize:'14px', padding:'10px 18px', borderRadius:'999px', color: active?'#fff':'#4C566F', background: active?'#2F5BFF':'#fff' });
+    const catDefs = [['all','All Products'],['flagship','Flagship'],['midrange','Mid-Range'],['accessories','Accessories'],['wearables','Wearables'],['parts','Spare Parts']];
+    const cats = catDefs.map(([k,label])=>({ key:k, label, onClick:()=>this.setState({ cat:k }), style:catBtn(cat===k) }));
+
+    // ---- PARTNERS ----
+    const pBox = (tint)=>({ width:'56px', height:'56px', borderRadius:'15px', background:tint, display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0 });
+    const bar = (accent)=>({ position:'absolute', top:0, left:0, right:0, height:'5px', background:accent });
+    const partners = [
+      { title:'Global Manufacturers', tag:'GLOBAL SOURCING', accent:'#2F5BFF', tint:'#EEF1FB', body:'Ensuring authentic, high-quality smartphones and accessories sourced directly from the world\u2019s leading brands.', iconEl:this.icon([{c:1,t:'circle',a:{cx:12,cy:12,r:10}},'M2 12h20','M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20Z'],'#2F5BFF') },
+      { title:'Local Retailers', tag:'REGIONAL NETWORK', accent:'#16C2D5', tint:'#E6F8FA', body:'Supporting Somali businesses with reliable stock and competitive pricing to help them serve their customers and grow.', iconEl:this.icon(['M2 7l1.5-3h17L22 7','M4 7v13h16V7','M2 7h20','M9 20v-6h6v6'],'#16C2D5') },
+      { title:'Technology Providers', tag:'LOGISTICS & IT', accent:'#6C5CE7', tint:'#EFEDFC', body:'Partnering with logistics and IT firms to enhance efficiency and reliability across our supply chain.', iconEl:this.icon([{c:1,t:'rect',a:{x:2,y:3,width:20,height:7,rx:1.5}},{c:1,t:'rect',a:{x:2,y:14,width:20,height:7,rx:1.5}},'M6 6.5h.01','M6 17.5h.01'],'#6C5CE7') },
+      { title:'Community Organizations', tag:'SOCIAL IMPACT', accent:'#FFB020', tint:'#FFF4E0', body:'Collaborating on digital inclusion projects that bring technology and opportunity to students and entrepreneurs.', iconEl:this.icon(['M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78Z'],'#F59300') },
+    ].map(p=>({ ...p, icon:pBox(p.tint), barStyle:bar(p.accent) }));
+
+    const ck = ()=>this.icon(['M20 6 9 17l-5-5'],'#2F5BFF');
+    const partnerBenefits = [
+      { title:'Authentic Products', body:'Genuine devices, sourced direct \u2014 never grey-market.', iconEl:ck() },
+      { title:'Competitive Pricing', body:'Fair wholesale rates that protect your margins.', iconEl:ck() },
+      { title:'Reliable Delivery', body:'Consistent, dependable supply you can plan around.', iconEl:ck() },
+      { title:'After-Sales Support', body:'Spare parts and service that build customer trust.', iconEl:ck() },
+      { title:'Transparent Dealing', body:'Honest, ethical business in every transaction.', iconEl:ck() },
+      { title:'Long-Term Focus', body:'We invest in partnerships, not one-off sales.', iconEl:ck() },
+    ];
+
+    // ---- WHY ----
+    const rBox = (tint)=>({ width:'54px', height:'54px', borderRadius:'15px', background:tint, display:'flex', alignItems:'center', justifyContent:'center' });
+    const reasons = [
+      { title:'Authentic, Guaranteed', body:'Every product is genuine and sourced directly from global brands.', tint:'#EEF1FB', iconEl:this.icon(['M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z','m9 12 2 2 4-4'],'#2F5BFF') },
+      { title:'Regional Reach', body:'Reliable distribution across major Somali cities and beyond.', tint:'#E6F8FA', iconEl:this.icon(['M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z',{c:1,t:'circle',a:{cx:12,cy:10,r:3}}],'#16C2D5') },
+      { title:'Fair Pricing', body:'Competitive, transparent rates for customers and partners alike.', tint:'#EFEDFC', iconEl:this.icon(['M7.5 7.5h.01','M3 11V5a2 2 0 0 1 2-2h6l9 9a2 2 0 0 1 0 2.8l-5.2 5.2a2 2 0 0 1-2.8 0L3 11Z'],'#6C5CE7') },
+      { title:'Support That Lasts', body:'Spare parts and after-sales service long after the purchase.', tint:'#FFF4E0', iconEl:this.icon([{c:1,t:'circle',a:{cx:12,cy:12,r:9}},{c:1,t:'circle',a:{cx:12,cy:12,r:3.5}},'M5 5l3.6 3.6','M15.4 15.4 19 19','M19 5l-3.6 3.6','M8.6 15.4 5 19'],'#F59300') },
+    ].map(r=>({ ...r, icon:rBox(r.tint) }));
+    const checkWhite = this.icon(['M20 6 9 17l-5-5'],'#fff');
+    const diffPoints = [
+      'Genuine products, sourced directly from global brands',
+      'Competitive, transparent pricing for partners and customers',
+      'Dependable distribution across major Somali cities',
+      'Spare parts and after-sales support that last',
+    ];
+    const faqData = [
+      { q:'Are your products genuine?', a:'Yes \u2014 every device and accessory we supply is authentic, sourced directly from leading global manufacturers, and quality-checked before distribution.' },
+      { q:'Do you sell to retailers and businesses?', a:'Absolutely. We supply both individual customers and business partners, with competitive wholesale pricing and reliable stock for retailers.' },
+      { q:'Which areas do you serve?', a:'Based in Mogadishu, Somalia, we distribute across major Somali cities and are steadily expanding our reach across East Africa.' },
+      { q:'Do you offer after-sales support and spare parts?', a:'Yes. We provide genuine spare parts and dependable after-sales support to keep devices running long after purchase.' },
+      { q:'How do I request a quote or place an order?', a:'Reach out through our Contact page or by phone. Tell us what you need and we\u2019ll respond with availability and pricing.' },
+    ];
+    const faqs = faqData.map((f,i)=>{ const open = openFaq===i; return { ...f, onClick:()=>this.setState({ openFaq: open?-1:i }),
+      signStyle:{ fontFamily:"'Sora',sans-serif", fontSize:'26px', fontWeight:400, color: open?'#2F5BFF':'#9098AE', transform: open?'rotate(45deg)':'rotate(0deg)', transition:'transform .25s ease', lineHeight:1, flexShrink:0 },
+      answerStyle:{ maxHeight: open?'220px':'0px', overflow:'hidden', transition:'max-height .3s ease' } }; });
+
+    // ---- CONTACT ----
+    const ci = (paths)=>this.icon(paths,'#16C2D5');
+    const contactInfo = [
+      { label:'Visit us', value:'Mogadishu, Somalia', mono:'', iconEl:ci(['M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z',{c:1,t:'circle',a:{cx:12,cy:10,r:3}}]) },
+      { label:'Call us', value:'+252-61-4511185', mono:"font-family:'JetBrains Mono',monospace;", iconEl:ci(['M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z']) },
+      { label:'Email us', value:'info@fonexsupply.com', mono:'', iconEl:ci([{c:1,t:'rect',a:{x:2,y:4,width:20,height:16,rx:2}},'m22 7-10 6L2 7']) },
+      { label:'Online', value:'www.fonexsupply.com', mono:'', iconEl:ci([{c:1,t:'circle',a:{cx:12,cy:12,r:10}},'M2 12h20','M12 2a15.3 15.3 0 0 1 0 20 15.3 15.3 0 0 1 0-20Z']) },
+    ];
+    const bigCheck = React.createElement('svg',{ width:34, height:34, viewBox:'0 0 24 24', fill:'none', stroke:'#067A55', strokeWidth:2.4, strokeLinecap:'round', strokeLinejoin:'round' }, React.createElement('path',{ d:'M20 6 9 17l-5-5' }));
+
+    // ---- PLAN ----
+    const sitemap = [
+      ['home','Home','Landing & overview'],['about','About Us','Story & values'],['products','Products & Services','Browse & enquire'],
+      ['partners','Partnerships','B2B & clientele'],['why','Why Fonex','Reasons & FAQ'],['contact','Contact','Get in touch'],
+    ].map(([k,name,note],i)=>({ key:k, name, note, num:String(i+1).padStart(2,'0'), onClick:()=>this.go(k) }));
+
+    const planPages = [
+      { name:'Home / Landing', purpose:'First impression — explain who Fonex is and guide visitors to browse products.',
+        sections:['Hero','Trust / brand strip','Product categories','Mission highlight','CTA band','Footer'],
+        design:['Three hero concepts to choose from (editorial, centered, dark premium)','Floating device + signal-arc graphics instead of stock photos','A bold blue\u2192violet gradient reserved for key calls-to-action'],
+        copy:[{h:'Authentic mobile technology, delivered across East Africa.', sub:'Hero headline \u2014 a clear promise paired with the regional focus.'},{h:'Everything mobile, from one trusted source', sub:'Products intro that frames the full range at a glance.'}] },
+      { name:'About Us', purpose:'Build trust by telling the company story, mission, vision and values.',
+        sections:['Page header','Company overview','Mission & Vision','Core values','Milestones timeline'],
+        design:['Dark gradient header to feel established and premium','Mission & Vision as a paired light + dark card','Core values shown with clean line icons, no clutter'],
+        copy:[{h:'A trusted partner in East Africa\u2019s mobile technology ecosystem', sub:'About headline anchoring credibility and region.'},{h:'Empowering people and businesses through reliable mobile technology', sub:'Mission restated in a human, benefit-led way.'}] },
+      { name:'Products & Services', purpose:'Let visitors browse the full range and enquire — the website\u2019s primary goal.',
+        sections:['Header','Category filter','Product grid','Services band','Enquiry CTA'],
+        design:['Filterable grid by category (flagship, mid-range, accessories, wearables, parts)','CSS-rendered device graphics keep it brandable without photos','\u201CPrice on request\u201D + Enquire button suits a supplier model'],
+        copy:[{h:'Browse our range of authentic mobile technology', sub:'Clear, action-oriented page title.'},{h:'Services that keep you supplied', sub:'Reinforces import, wholesale and after-sales support.'}] },
+      { name:'Partnerships / Clientele', purpose:'Speak to B2B partners and showcase the clientele network.',
+        sections:['Header','Four partnership pillars','Why partner with us','Partner CTA'],
+        design:['Each pillar gets an accent colour bar and icon','A benefit checklist communicates value fast','A warm, collaborative tone vs. the sales pages'],
+        copy:[{h:'Built on strong, trusted relationships', sub:'Headline that leads with partnership, not selling.'},{h:'A supplier your business can build on', sub:'Sub-section framing the partner value proposition.'}] },
+      { name:'Why Fonex', purpose:'Convert undecided visitors by stacking up the reasons to choose Fonex.',
+        sections:['Header','Reason cards','The Fonex difference','FAQ accordion'],
+        design:['Four crisp reason cards with icons','A stat panel reinforcing authenticity & reach','Accordion FAQ keeps the page tidy and scannable'],
+        copy:[{h:'The reliable choice for mobile technology in East Africa', sub:'Confident, benefit-led headline.'},{h:'Not just a seller — a long-term technology partner', sub:'Differentiator that elevates above competitors.'}] },
+      { name:'Contact', purpose:'Make it effortless to get in touch or request a quote.',
+        sections:['Header','Contact details card','Enquiry form','Business hours'],
+        design:['A dark info card paired with a clean white form','A friendly success state after submitting','Interest dropdown routes B2B vs. consumer enquiries'],
+        copy:[{h:'Let\u2019s talk about what you need', sub:'Warm, open invitation as the page title.'},{h:'Send us a message', sub:'Form heading kept simple and low-friction.'}] },
+    ].map((p,i)=>({ ...p, num:String(i+1).padStart(2,'0'), onClick:()=>this.go(sitemap[i].key) }));
+
+    const palette = [
+      { name:'Ink', hex:'#0B1226' },{ name:'Fonex Blue', hex:'#2F5BFF' },{ name:'Cyan', hex:'#16C2D5' },
+      { name:'Violet', hex:'#6C5CE7' },{ name:'Amber', hex:'#FFB020' },{ name:'Mist', hex:'#F4F6FB' },
+    ];
+    const nextSteps = [
+      { num:'1', title:'Review & refine', body:'Confirm the page structure, pick a hero concept, and adjust any copy.' },
+      { num:'2', title:'Add real content', body:'Swap in real product names, photos, and final contact details.' },
+      { num:'3', title:'Build & launch', body:'Connect the enquiry form, point the domain, and go live.' },
+    ];
+    const tab = (active)=>({ border:'none', cursor:'pointer', fontFamily:"'Manrope',sans-serif", fontWeight:700, fontSize:'13px', padding:'7px 16px', borderRadius:'999px', color: active?'#0B1226':'#C3CADD', background: active?'#fff':'transparent' });
+    const mk = (key,label)=>({ key, label, onClick:()=>this.go(key), style:{ border:'none', cursor:'pointer', fontFamily:"'Manrope',sans-serif", fontWeight:600, fontSize:'14.5px', padding:'9px 13px', borderRadius:'10px', color: page===key?'#2F5BFF':'#4C566F', background: page===key?'#EEF1FB':'transparent' } });
+    const items = [ mk('home','Home'), mk('about','About'), mk('products','Products'), mk('partners','Partnerships'), mk('why','Why Fonex'), mk('contact','Contact') ];
+    return {
+      isSite: mode==='site', isPlan: mode==='plan',
+      isHome: page==='home', isAbout: page==='about', isProducts: page==='products',
+      isPartners: page==='partners', isWhy: page==='why', isContact: page==='contact',
+      heroA: hero==='a', heroB: hero==='b', heroC: hero==='c',
+      page, hero, cat, sent, openFaq,
+      navItems: items,
+      footerNav: items,
+      services, values, milestones, missionIcon, visionIcon,
+      visibleProducts, cats, partners, partnerBenefits,
+      reasons, checkWhite, diffPoints, faqs,
+      contactInfo, bigCheck, notSent: !sent,
+      resetForm: ()=>this.setState({ sent:false }),
+      sitemap, planPages, palette, nextSteps,
+      tabSiteStyle: tab(mode==='site'),
+      tabPlanStyle: tab(mode==='plan'),
+      showSite: ()=>this.setMode('site'),
+      showPlan: ()=>this.setMode('plan'),
+      goHome: ()=>this.go('home'),
+      goProducts: ()=>this.go('products'),
+      goContact: ()=>this.go('contact'),
+      goAbout: ()=>this.go('about'),
+      goPartners: ()=>this.go('partners'),
+      goWhy: ()=>this.go('why'),
+      setHero: (h)=>this.setState({ hero:h }),
+      pickA: ()=>this.setState({ hero:'a' }), pickB: ()=>this.setState({ hero:'b' }), pickC: ()=>this.setState({ hero:'c' }),
+      hABtn: { border:'none', cursor:'pointer', fontFamily:"'Manrope',sans-serif", fontWeight:700, fontSize:'12.5px', padding:'7px 13px', borderRadius:'999px', color: hero==='a'?'#fff':'#5C6680', background: hero==='a'?'#2F5BFF':'transparent' },
+      hBBtn: { border:'none', cursor:'pointer', fontFamily:"'Manrope',sans-serif", fontWeight:700, fontSize:'12.5px', padding:'7px 13px', borderRadius:'999px', color: hero==='b'?'#fff':'#5C6680', background: hero==='b'?'#2F5BFF':'transparent' },
+      hCBtn: { border:'none', cursor:'pointer', fontFamily:"'Manrope',sans-serif", fontWeight:700, fontSize:'12.5px', padding:'7px 13px', borderRadius:'999px', color: hero==='c'?'#fff':'#5C6680', background: hero==='c'?'#2F5BFF':'transparent' },
+      setCat: (c)=>this.setState({ cat:c }),
+      toggleFaq: (i)=>this.setState({ openFaq: openFaq===i?-1:i }),
+      submit: (e)=>{ if(e&&e.preventDefault) e.preventDefault(); this.setState({ sent:true }); },
+      // placeholders replaced by section edits
+      HOME_ANCHOR:'', ABOUT_ANCHOR:'', PRODUCTS_ANCHOR:'', PARTNERS_ANCHOR:'', WHY_ANCHOR:'', CONTACT_ANCHOR:'', PLAN_ANCHOR:''
+    };
+  }
+}
+</script>
+</body>
+</html>
