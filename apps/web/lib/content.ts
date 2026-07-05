@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Fonex Supply Limited",
   tagline: "Premier mobile technology supplier in East Africa",
   address: "Mogadishu, Somalia",
-  phone: "+252-61-4511185",
+  phone: "772000043",
   email: "info@fonexsupply.com",
   website: "www.fonexsupply.com",
   established: "2025",
@@ -128,21 +128,10 @@ export const milestones = [
 ];
 
 export type ProductCategory =
-  | "all"
-  | "flagship"
-  | "midrange"
-  | "accessories"
-  | "wearables"
-  | "parts";
+  "all" | "flagship" | "midrange" | "accessories" | "wearables" | "parts";
 export type ProductStatus = "In Stock" | "Limited" | "Pre-Order";
 export type DeviceType =
-  | "phone"
-  | "watch"
-  | "charger"
-  | "earbuds"
-  | "case"
-  | "screen"
-  | "battery";
+  "phone" | "watch" | "charger" | "earbuds" | "case" | "screen" | "battery";
 
 export type ColorFamily = {
   bgA: string;
