@@ -1,0 +1,14 @@
+diff --git a/node_modules/@better-auth/core/src/env/env-impl.ts b/node_modules/@better-auth/core/src/env/env-impl.ts
+index 6ab4a75..3ebf2d1 100644
+--- a/node_modules/@better-auth/core/src/env/env-impl.ts
++++ b/node_modules/@better-auth/core/src/env/env-impl.ts
+@@ -8,9 +8,7 @@ export type EnvObject = Record<string, string | undefined>;
+ 
+ const _getEnv = (useShim?: boolean) =>
+ 	globalThis.process?.env ||
+-	//@ts-expect-error
+ 	globalThis.Deno?.env.toObject() ||
+-	//@ts-expect-error
+ 	globalThis.__env__ ||
+ 	(useShim ? _envShim : globalThis);
+ 
