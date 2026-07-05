@@ -1,0 +1,30 @@
+enum ProductStatus {
+  in_stock
+  limited
+  pre_order
+}
+
+enum DeviceType {
+  phone
+  watch
+  charger
+  earbuds
+  case
+  screen
+  battery
+}
+
+model Product {
+  id         String        @id @default(cuid())
+  name       String
+  categoryId String
+  category   Category      @relation(fields: [categoryId], references: [id])
+  status     ProductStatus @default(in_stock)
+  type       DeviceType
+  imageUrl   String?
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@index([categoryId])
+  @@map("product")
+}
