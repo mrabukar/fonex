@@ -151,5 +151,5 @@ Nullable so the generic contact form (no product context) keeps working unchange
 - [~] Product photo thumbnail not rendering in admin table — data reaching browser is correct (verified via network tab), root cause not yet confirmed; waiting on console error text + network request check
 - [ ] `ContactSubmission.productId` field + migration
 - [ ] Email provider chosen and wired into contact/enquiry submit
-- [ ] Frontend: products grid wired to API (storefront still reads static `content.ts`)
+- [x] Frontend: products grid wired to API
 - [ ] Frontend: enquire flow (`productId` param + WhatsApp click-to-chat link)
