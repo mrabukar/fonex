@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { HeroSwitcher } from "@/components/hero-switcher";
+import { FeaturedDevices } from "@/components/home/featured-devices";
 import { CtaBand } from "@/components/cta-band";
 import { services } from "@/lib/content";
 import { Container } from "@/components/container";
@@ -144,6 +145,9 @@ export default function HomePage() {
           ))}
         </StaggerContainer>
       </Container>
+
+      {/* ===== FEATURED DEVICES ===== */}
+      <FeaturedDevices />
 
       {/* ===== MISSION SPLIT ===== */}
       <Container as="section" className="py-[70px]">
