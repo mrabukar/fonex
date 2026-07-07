@@ -17,6 +17,7 @@ export const productSchema = z.object({
   categoryId: z.string().min(1, "Category is required"),
   status: z.enum(productStatusValues).default("in_stock"),
   type: z.enum(deviceTypeValues),
+  description: z.string().trim().optional(),
 });
 
 export const updateProductSchema = productSchema.partial();
