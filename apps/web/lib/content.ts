@@ -18,6 +18,44 @@ export const navLinks = [
   { label: "Contact", href: "/contact" },
 ];
 
+// Homepage "Featured Devices" slider — manufacturer marketing banners for
+// devices we supply. Each banner already has its own text/specs baked in,
+// so no separate caption is rendered on top of these.
+export const featuredDevices = [
+  {
+    img: "/images/335fd095268330e06ec71c1d7a235135.png",
+    alt: "Classic A07 — 13MP+8MP camera, 6.6\" 90Hz display, 12GB+128GB",
+  },
+  {
+    img: "/images/348cecd1d208ec2eb74ea3474ca9e234 (1).png",
+    alt: "A16 Plus — innovative design, now available",
+  },
+  {
+    img: "/images/48c240e998501d89cd853aa67b4b1ff1 (1).jpg.jpeg",
+    alt: "KXD A5 — HD screen, 6.88\", 50MP camera, 5000mAh battery",
+  },
+  {
+    img: "/images/58a46ac54216d4f22c5c8c03c86735b7 (1).png",
+    alt: "S25 Plus — super clear large screen smartphone",
+  },
+  {
+    img: "/images/72c8346edeae6171735c8368447e89f6.jpg.jpeg",
+    alt: "KXD A17 Plus — HD screen, 50MP+8MP camera, 4500mAh battery",
+  },
+  {
+    img: "/images/9381c6c66daac4dc9813e098d4d2808e.png",
+    alt: "KXD 15C — 6.88\" HD screen, 50MP camera, 5000mAh battery",
+  },
+  {
+    img: "/images/ad182151dad7ee8360953fd3abaa5b09.png",
+    alt: "Classic 13C — 6.8\" HD+ display, 13MP+8MP AI camera, 90Hz",
+  },
+  {
+    img: "/images/a577b9b7363be3ac24c83a990fc8f34d.png",
+    alt: "A16 Plus — innovative design, available now",
+  },
+];
+
 export const services = [
   {
     title: "Flagship Smartphones",
@@ -127,9 +165,6 @@ export const milestones = [
   },
 ];
 
-export type ProductCategory =
-  "all" | "flagship" | "midrange" | "accessories" | "wearables" | "parts";
-export type ProductStatus = "In Stock" | "Limited" | "Pre-Order";
 export type DeviceType =
   "phone" | "watch" | "charger" | "earbuds" | "case" | "screen" | "battery";
 
@@ -149,133 +184,13 @@ export const colorFamilies: Record<string, ColorFamily> = {
   slate: { bgA: "#EEF1F6", bgB: "#E2E7F0", g1: "#5B6680", g2: "#7B8499" },
 };
 
-export const products = [
-  {
-    name: "Aurora Pro 5G",
-    cat: "flagship" as ProductCategory,
-    fam: "blue",
-    type: "phone" as DeviceType,
-    status: "In Stock" as ProductStatus,
-    blurb: "6.7″ OLED flagship with pro-grade cameras and all-day battery.",
-    img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=800&q=80",
-  },
-  {
-    name: "Aurora Ultra",
-    cat: "flagship" as ProductCategory,
-    fam: "violet",
-    type: "phone" as DeviceType,
-    status: "Limited" as ProductStatus,
-    blurb: "Top-tier performance and premium glass build, 5G on every band.",
-    img: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=800&q=80",
-  },
-  {
-    name: "Zenith 5G",
-    cat: "flagship" as ProductCategory,
-    fam: "cyan",
-    type: "phone" as DeviceType,
-    status: "In Stock" as ProductStatus,
-    blurb: "Flagship power at a sharper price, built for heavy multitaskers.",
-    img: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=800&q=80",
-  },
-  {
-    name: "Everyday 4G",
-    cat: "midrange" as ProductCategory,
-    fam: "teal",
-    type: "phone" as DeviceType,
-    status: "In Stock" as ProductStatus,
-    blurb: "A dependable daily smartphone with a big, bright display.",
-    img: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=800&q=80",
-  },
-  {
-    name: "Connect Lite",
-    cat: "midrange" as ProductCategory,
-    fam: "blue",
-    type: "phone" as DeviceType,
-    status: "In Stock" as ProductStatus,
-    blurb: "Affordable connectivity with reliable performance for daily life.",
-    img: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=800&q=80",
-  },
-  {
-    name: "Vibe Plus",
-    cat: "midrange" as ProductCategory,
-    fam: "cyan",
-    type: "phone" as DeviceType,
-    status: "In Stock" as ProductStatus,
-    blurb: "Bigger battery and a smooth experience at an accessible price.",
-    img: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=800&q=80",
-  },
-  {
-    name: "Power Charger 33W",
-    cat: "accessories" as ProductCategory,
-    fam: "amber",
-    type: "charger" as DeviceType,
-    status: "In Stock" as ProductStatus,
-    blurb: "Fast, safe charging with broad device compatibility.",
-    img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=800&q=80",
-  },
-  {
-    name: "Wireless Earbuds",
-    cat: "accessories" as ProductCategory,
-    fam: "violet",
-    type: "earbuds" as DeviceType,
-    status: "In Stock" as ProductStatus,
-    blurb: "Crisp wireless audio with long playback and quick pairing.",
-    img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&q=80",
-  },
-  {
-    name: "Protective Case",
-    cat: "accessories" as ProductCategory,
-    fam: "slate",
-    type: "case" as DeviceType,
-    status: "In Stock" as ProductStatus,
-    blurb: "Slim, shock-absorbing protection for everyday durability.",
-    img: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=800&q=80",
-  },
-  {
-    name: "Active Smartwatch",
-    cat: "wearables" as ProductCategory,
-    fam: "blue",
-    type: "watch" as DeviceType,
-    status: "Limited" as ProductStatus,
-    blurb: "Track your health and stay connected on the move.",
-    img: "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=800&q=80",
-  },
-  {
-    name: "Display Module",
-    cat: "parts" as ProductCategory,
-    fam: "slate",
-    type: "screen" as DeviceType,
-    status: "In Stock" as ProductStatus,
-    blurb: "Genuine replacement screens for fast, reliable repairs.",
-    img: "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=800&q=80",
-  },
-  {
-    name: "Battery Pack",
-    cat: "parts" as ProductCategory,
-    fam: "teal",
-    type: "battery" as DeviceType,
-    status: "In Stock" as ProductStatus,
-    blurb: "Original-spec batteries for restored, long-lasting performance.",
-    img: "https://images.unsplash.com/photo-1609091839311-d5365f9ff1c5?w=800&q=80",
-  },
-];
+const COLOR_FAMILY_KEYS = Object.keys(colorFamilies);
 
-export const categoryLabels: Record<string, string> = {
-  flagship: "Flagship",
-  midrange: "Mid-Range",
-  accessories: "Accessory",
-  wearables: "Wearable",
-  parts: "Spare Part",
-};
-
-export const categoryFilters = [
-  { key: "all", label: "All Products" },
-  { key: "flagship", label: "Flagship" },
-  { key: "midrange", label: "Mid-Range" },
-  { key: "accessories", label: "Accessories" },
-  { key: "wearables", label: "Wearables" },
-  { key: "parts", label: "Spare Parts" },
-];
+export function colorFamilyForId(id: string): string {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) hash += id.charCodeAt(i);
+  return COLOR_FAMILY_KEYS[hash % COLOR_FAMILY_KEYS.length];
+}
 
 export const partnerPillars = [
   {
