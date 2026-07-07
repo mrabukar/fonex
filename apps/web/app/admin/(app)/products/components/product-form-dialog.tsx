@@ -7,6 +7,7 @@ import {
   productStatusValues,
   type ProductInput,
 } from "@fonex/shared";
+import type { Category, Product } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -36,20 +37,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { apiClient, ApiError } from "@/lib/api-client";
+import { humanize } from "@/lib/utils";
 import { ProductImageUpload } from "./product-image-upload";
-import { humanize } from "./product-form-utils";
-
-type Category = { id: string; name: string; slug: string };
-
-export type Product = {
-  id: string;
-  name: string;
-  categoryId: string;
-  category: Category;
-  status: (typeof productStatusValues)[number];
-  type: (typeof deviceTypeValues)[number];
-  imageUrl: string | null;
-};
+import { Textarea } from "@/components/ui/textarea";
 
 export interface ProductFormDialogProps {
   open: boolean;
@@ -75,6 +65,7 @@ export function ProductFormDialog({
     initial?.status ?? "in_stock",
   );
   const [type, setType] = useState<Product["type"]>(initial?.type ?? "phone");
+  const [description, setDescription] = useState(initial?.description ?? "");
   const [submitting, setSubmitting] = useState(false);
   const [savedProduct, setSavedProduct] = useState<Product | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(
@@ -102,7 +93,13 @@ export function ProductFormDialog({
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitting(true);
-    const payload: ProductInput = { name, categoryId, status, type };
+    const payload: ProductInput = {
+      name,
+      categoryId,
+      status,
+      type,
+      description: description.trim() || undefined,
+    };
 
     try {
       if (isEdit && initial) {
@@ -229,6 +226,17 @@ export function ProductFormDialog({
                       </SelectContent>
                     </Select>
                   </div>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="p-description">Description</Label>
+                  <Textarea
+                    id="p-description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Optional short description shown on the storefront"
+                    rows={3}
+                  />
                 </div>
               </>
             )}
