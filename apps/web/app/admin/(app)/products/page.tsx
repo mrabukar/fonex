@@ -22,11 +22,10 @@ import { DataTableColumnHeader } from "@/components/data-table/data-table-column
 import { DataTableRowActions } from "@/components/data-table/data-table-row-actions";
 import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { apiClient, ApiError, buildQueryString, fetchAllPages } from "@/lib/api-client";
-import { ProductFormDialog, type Product } from "./components/product-form-dialog";
+import { humanize } from "@/lib/utils";
+import type { Category, Product } from "@/lib/types";
+import { ProductFormDialog } from "./components/product-form-dialog";
 import { ProductThumbnail } from "./components/product-thumbnail";
-import { humanize } from "./components/product-form-utils";
-
-type Category = { id: string; name: string; slug: string };
 
 function statusBadgeStyle(status: Product["status"]): React.CSSProperties {
   if (status === "in_stock") return { background: "#E2F6EF", color: "#067A55" };
