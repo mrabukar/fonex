@@ -183,6 +183,30 @@
   }
 }
 
+/* Storefront */
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.skeleton-shimmer {
+  flex-shrink: 0;
+  background: var(--color-line);
+  animation: dt-shimmer 1.4s ease-in-out infinite;
+}
+
+.pill-skeleton {
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: var(--color-line);
+  animation: dt-shimmer 1.4s ease-in-out infinite;
+}
+
 /* Admin shell */
 
 .admin-shell {
