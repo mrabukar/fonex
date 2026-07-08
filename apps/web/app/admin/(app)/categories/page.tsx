@@ -49,12 +49,13 @@ export default function AdminCategoriesPage() {
   const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
 
   useEffect(() => {
+    if (search === debouncedSearch) return;
+
     const timer = window.setTimeout(() => {
       setDebouncedSearch(search);
-      setLoading(true);
     }, 300);
     return () => window.clearTimeout(timer);
-  }, [search]);
+  }, [search, debouncedSearch]);
 
   const fetchCategories = useCallback(async () => {
     try {
