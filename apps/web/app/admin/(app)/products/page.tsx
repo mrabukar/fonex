@@ -47,12 +47,13 @@ export default function AdminProductsPage() {
   const [pagination, setPagination] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 });
 
   useEffect(() => {
+    if (search === debouncedSearch) return;
+
     const timer = window.setTimeout(() => {
       setDebouncedSearch(search);
-      setLoading(true);
     }, 300);
     return () => window.clearTimeout(timer);
-  }, [search]);
+  }, [search, debouncedSearch]);
 
   const fetchProducts = useCallback(async () => {
     try {
