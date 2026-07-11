@@ -14,6 +14,7 @@ export const navLinks = [
   { label: "About", href: "/about" },
   { label: "Products & Services", href: "/products" },
   { label: "Partnerships", href: "/partnerships" },
+  { label: "News", href: "/news" },
   { label: "Why Fonex", href: "/why-fonex" },
   { label: "Contact", href: "/contact" },
 ];
