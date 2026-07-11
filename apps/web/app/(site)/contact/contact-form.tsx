@@ -3,10 +3,27 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
 import { contactSchema, type ContactInput } from "@fonex/shared";
 import { CheckCircle } from "lucide-react";
+import { apiClient, ApiError } from "@/lib/api-client";
 
 type FormValues = ContactInput;
+
+type EnquiryProduct = { id: string; name: string };
+
+// Placeholder test number — swap for the real Fonex WhatsApp business number before launch.
+const WHATSAPP_NUMBER = "252619690705";
+
+function buildWhatsAppMessage(data: FormValues, product: EnquiryProduct | null): string {
+  const lines = [
+    "Hi Fonex Supply, I just sent an enquiry from your website.",
+    `Name: ${data.name}`,
+    product ? `Product: ${product.name}` : `Interest: ${data.interest}`,
+    `Message: ${data.message}`,
+  ];
+  return lines.join("\n");
+}
 
 const inputStyle: React.CSSProperties = {
   width: "100%",
@@ -28,7 +45,7 @@ const labelStyle: React.CSSProperties = {
   marginBottom: 8,
 };
 
-export function ContactForm() {
+export function ContactForm({ product = null }: { product?: EnquiryProduct | null }) {
   const [sent, setSent] = useState(false);
 
   const {
@@ -36,11 +53,27 @@ export function ContactForm() {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<FormValues>({ resolver: zodResolver(contactSchema) });
+  } = useForm<FormValues>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: product
+      ? {
+          interest: "Buying products",
+          message: `Hi, I'm interested in the ${product.name}. Please share more details on availability and pricing.`,
+        }
+      : undefined,
+  });
 
-  async function onSubmit(_data: FormValues) {
-    await new Promise((r) => setTimeout(r, 600));
-    setSent(true);
+  async function onSubmit(data: FormValues) {
+    try {
+      await apiClient.post("/api/contact", { ...data, productId: product?.id });
+      window.open(
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildWhatsAppMessage(data, product))}`,
+        "_blank",
+      );
+      setSent(true);
+    } catch (err) {
+      toast.error(err instanceof ApiError ? err.message : "Failed to send message. Please try again.");
+    }
   }
 
   if (sent) {
@@ -81,9 +114,25 @@ export function ContactForm() {
       >
         Send us a message
       </div>
-      <p className="text-[15px] mb-7" style={{ color: "#5A6480" }}>
+      <p className="text-[15px] mb-5" style={{ color: "#5A6480" }}>
         Fill in your details and we&apos;ll get back to you with availability and pricing.
       </p>
+      {product && (
+        <div
+          className="inline-flex items-center gap-2 rounded-full mb-6 px-4 py-2"
+          style={{ background: "#EEF1FB", border: "1px solid #E0E6FA" }}
+        >
+          <span className="text-[12.5px] font-semibold" style={{ color: "#5A6480" }}>
+            Enquiring about
+          </span>
+          <span
+            className="text-[13.5px] font-bold"
+            style={{ color: "#1A1C74", fontFamily: "var(--font-sora)" }}
+          >
+            {product.name}
+          </span>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
