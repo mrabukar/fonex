@@ -6,6 +6,7 @@ export const contactSchema = z.object({
   email: z.string().email("Please enter a valid email"),
   interest: z.string().min(1, "Please select an option"),
   message: z.string().min(10, "Please tell us a bit more"),
+  productId: z.string().optional(),
 });
 
 export type ContactInput = z.infer<typeof contactSchema>;
