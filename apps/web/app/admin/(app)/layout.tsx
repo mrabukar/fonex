@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LogOut, Package, ShieldAlert, Tags } from "lucide-react";
+import { Handshake, LogOut, Newspaper, Package, ShieldAlert, Tags } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AdminShell, AdminShellRoot } from "@/components/admin/admin-shell";
@@ -14,6 +14,8 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { href: "/admin/categories", label: "Categories", icon: Tags },
   { href: "/admin/products", label: "Products", icon: Package },
+  { href: "/admin/partners", label: "Partners", icon: Handshake },
+  { href: "/admin/news", label: "News", icon: Newspaper },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
