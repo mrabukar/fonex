@@ -1,0 +1,20 @@
+enum PartnerType {
+  manufacturer
+  retailer
+  tech_provider
+  community
+}
+
+model Partner {
+  id          String      @id @default(cuid())
+  name        String
+  type        PartnerType
+  logoUrl     String?
+  websiteUrl  String?
+  description String?
+  order       Int         @default(0)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("partner")
+}
