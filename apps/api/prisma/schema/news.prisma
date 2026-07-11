@@ -1,0 +1,19 @@
+enum NewsStatus {
+  draft
+  published
+}
+
+model NewsArticle {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  excerpt     String?
+  body        String
+  imageUrl    String?
+  status      NewsStatus @default(draft)
+  publishedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@map("news_article")
+}
