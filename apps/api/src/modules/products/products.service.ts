@@ -66,7 +66,7 @@ export class ProductsService {
   async createImageUploadUrl(id: string, contentType: string) {
     const product = await this.ensureExists(id);
     const previousImageUrl = product.imageUrl;
-    const { uploadUrl, publicUrl } = await this.r2.createUploadUrl(contentType);
+    const { uploadUrl, publicUrl } = await this.r2.createUploadUrl(contentType, 'products');
     await this.prisma.product.update({ where: { id }, data: { imageUrl: publicUrl } });
     if (previousImageUrl && previousImageUrl !== publicUrl) {
       try {
