@@ -170,14 +170,26 @@ export default async function ProductDetailPage({
               </dl>
             </div>
 
-            {/* Enquire / Price on request — hidden until the enquiry backend flow is built (see docs/products-and-enquiries-plan.md §5)
+            {/* Enquire / Price on request */}
             <div className="flex items-center gap-3">
-              <span style={{ fontFamily: "var(--font-jetbrains)", color: "#9098AE" }}>
+              <span
+                className="text-[13px]"
+                style={{ fontFamily: "var(--font-jetbrains)", color: "#9098AE" }}
+              >
                 Price on request
               </span>
-              <Link href={`/contact?productId=${product.id}`}>Enquire →</Link>
+              <Link
+                href={`/contact?productId=${product.id}`}
+                className="font-bold text-[14.5px] px-5 py-3 rounded-[11px] transition-colors hover:bg-[#1A1C74] hover:text-white"
+                style={{
+                  background: "#EEF1FB",
+                  color: "#1A1C74",
+                  fontFamily: "var(--font-manrope)",
+                }}
+              >
+                Enquire →
+              </Link>
             </div>
-            */}
           </FadeIn>
         </div>
       </Container>
