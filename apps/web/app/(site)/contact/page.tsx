@@ -4,6 +4,8 @@ import { contactInfo, siteConfig } from "@/lib/content";
 import { ContactForm } from "./contact-form";
 import { Container } from "@/components/container";
 import { FadeIn } from "@/components/motion/fade-in";
+import { apiClient, ApiError } from "@/lib/api-client";
+import type { Product } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -17,7 +19,23 @@ const iconMap: Record<string, React.ReactNode> = {
   globe: <Globe size={20} strokeWidth={2} />,
 };
 
-export default function ContactPage() {
+async function getProduct(id: string): Promise<Product | null> {
+  try {
+    return await apiClient.get<Product>(`/api/products/${id}`);
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 404) return null;
+    throw err;
+  }
+}
+
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ productId?: string }>;
+}) {
+  const { productId } = await searchParams;
+  const product = productId ? await getProduct(productId) : null;
+
   return (
     <div>
       {/* ===== HEADER ===== */}
@@ -164,7 +182,7 @@ export default function ContactPage() {
                 boxShadow: "0 10px 30px rgba(11,18,38,.05)",
               }}
             >
-              <ContactForm />
+              <ContactForm product={product ? { id: product.id, name: product.name } : null} />
             </div>
           </FadeIn>
         </div>
