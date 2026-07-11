@@ -38,7 +38,7 @@ import {
 } from "@/components/ui/select";
 import { apiClient, ApiError } from "@/lib/api-client";
 import { humanize } from "@/lib/utils";
-import { ProductImageUpload } from "./product-image-upload";
+import { ImageUpload } from "@/components/admin/image-upload";
 import { Textarea } from "@/components/ui/textarea";
 
 export interface ProductFormDialogProps {
@@ -244,14 +244,15 @@ export function ProductFormDialog({
             {activeProduct && (isPhotoStep || isEdit) && (
               <div className="flex flex-col gap-1.5">
                 <Label>Photo</Label>
-                <ProductImageUpload
-                  productId={activeProduct.id}
+                <ImageUpload
+                  uploadUrl={`/api/products/${activeProduct.id}/image-upload-url`}
                   imageUrl={imageUrl}
                   onUploaded={(url) => {
                     setImageUrl(url);
                     onSaved();
                   }}
                   onPendingChange={setHasPendingImage}
+                  label="photo"
                 />
               </div>
             )}
