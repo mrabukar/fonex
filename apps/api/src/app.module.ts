@@ -8,6 +8,8 @@ import { ContactModule } from './modules/contact/contact.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { CategoriesModule } from './modules/categories/categories.module';
 import { ProductsModule } from './modules/products/products.module';
+import { PartnersModule } from './modules/partners/partners.module';
+import { NewsModule } from './modules/news/news.module';
 
 @Module({
   imports: [
@@ -17,6 +19,8 @@ import { ProductsModule } from './modules/products/products.module';
     AdminModule,
     CategoriesModule,
     ProductsModule,
+    PartnersModule,
+    NewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
