@@ -15,16 +15,17 @@ enum DeviceType {
 }
 
 model Product {
-  id          String        @id @default(cuid())
+  id          String              @id @default(cuid())
   name        String
   categoryId  String
-  category    Category      @relation(fields: [categoryId], references: [id])
-  status      ProductStatus @default(in_stock)
+  category    Category            @relation(fields: [categoryId], references: [id])
+  status      ProductStatus       @default(in_stock)
   type        DeviceType
   description String?
   imageUrl    String?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  enquiries   ContactSubmission[]
 
   @@index([categoryId])
   @@map("product")
