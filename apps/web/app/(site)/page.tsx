@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { HeroSwitcher } from "@/components/hero-switcher";
 import { FeaturedDevices } from "@/components/home/featured-devices";
+import { LatestNews } from "@/components/home/latest-news";
 import { CtaBand } from "@/components/cta-band";
 import { services } from "@/lib/content";
 import { Container } from "@/components/container";
@@ -38,44 +39,11 @@ export default function HomePage() {
       {/* ===== HERO ===== */}
       <HeroSwitcher />
 
-      {/* ===== TRUST STRIP ===== */}
-      <section
-        style={{
-          background: "#fff",
-          borderTop: "1px solid #E7EAF3",
-          borderBottom: "1px solid #E7EAF3",
-        }}
-      >
-        <Container className="py-6 flex items-center gap-8 flex-wrap justify-between">
-          <span
-            className="text-[13px] font-bold tracking-[.08em] uppercase whitespace-nowrap"
-            style={{ color: "#9098AE" }}
-          >
-            Authentic stock from leading global brands
-          </span>
-          <div className="flex items-center gap-10 flex-wrap">
-            {[
-              "Flagship",
-              "Mid-Range",
-              "Accessories",
-              "Wearables",
-              "Spare Parts",
-            ].map((cat) => (
-              <span
-                key={cat}
-                className="font-extrabold text-[19px]"
-                style={{
-                  fontFamily: "var(--font-sora)",
-                  color: "#AEB6CA",
-                  letterSpacing: "-.02em",
-                }}
-              >
-                {cat}
-              </span>
-            ))}
-          </div>
-        </Container>
-      </section>
+      {/* ===== FEATURED DEVICES ===== */}
+      <FeaturedDevices />
+
+      {/* ===== LATEST NEWS ===== */}
+      {/* <LatestNews /> */}
 
       {/* ===== SERVICES PREVIEW ===== */}
       <Container as="section" className="pt-20 pb-8">
@@ -128,7 +96,12 @@ export default function HomePage() {
             >
               <div
                 className="inline-flex items-center justify-center rounded-[14px]"
-                style={{ width: 52, height: 52, background: s.tint, color: s.accent }}
+                style={{
+                  width: 52,
+                  height: 52,
+                  background: s.tint,
+                  color: s.accent,
+                }}
               >
                 {iconMap[s.icon]}
               </div>
@@ -138,16 +111,16 @@ export default function HomePage() {
               >
                 {s.title}
               </div>
-              <div className="text-[14.5px] leading-[1.6]" style={{ color: "#5A6480" }}>
+              <div
+                className="text-[14.5px] leading-[1.6]"
+                style={{ color: "#5A6480" }}
+              >
                 {s.body}
               </div>
             </StaggerItem>
           ))}
         </StaggerContainer>
       </Container>
-
-      {/* ===== FEATURED DEVICES ===== */}
-      <FeaturedDevices />
 
       {/* ===== MISSION SPLIT ===== */}
       <Container as="section" className="py-[70px]">
@@ -163,7 +136,10 @@ export default function HomePage() {
           <FadeIn direction="left">
             <div
               className="relative rounded-[18px] overflow-hidden"
-              style={{ height: 360, background: "linear-gradient(150deg,#0B1226,#1C2A55)" }}
+              style={{
+                height: 360,
+                background: "linear-gradient(150deg,#0B1226,#1C2A55)",
+              }}
             >
               <Image
                 src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=900&q=80"
@@ -173,16 +149,32 @@ export default function HomePage() {
               />
               <div
                 className="absolute inset-0"
-                style={{ background: "linear-gradient(155deg, rgba(26,28,116,.62), rgba(245,166,35,.30) 45%, rgba(11,18,38,.85))" }}
+                style={{
+                  background:
+                    "linear-gradient(155deg, rgba(26,28,116,.62), rgba(245,166,35,.30) 45%, rgba(11,18,38,.85))",
+                }}
               />
               <div
                 className="absolute inset-0"
-                style={{ backgroundImage: "radial-gradient(circle, rgba(255,255,255,.10) 1px, transparent 1px)", backgroundSize: "24px 24px" }}
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle, rgba(255,255,255,.10) 1px, transparent 1px)",
+                  backgroundSize: "24px 24px",
+                }}
               />
-              <div className="absolute" style={{ bottom: 26, left: 26, right: 26 }}>
+              <div
+                className="absolute"
+                style={{ bottom: 26, left: 26, right: 26 }}
+              >
                 <div
                   className="font-extrabold text-white"
-                  style={{ fontFamily: "var(--font-sora)", fontSize: 30, letterSpacing: "-.02em", lineHeight: 1.1, textShadow: "0 2px 18px rgba(11,18,38,.4)" }}
+                  style={{
+                    fontFamily: "var(--font-sora)",
+                    fontSize: 30,
+                    letterSpacing: "-.02em",
+                    lineHeight: 1.1,
+                    textShadow: "0 2px 18px rgba(11,18,38,.4)",
+                  }}
                 >
                   Digital inclusion, by design
                 </div>
@@ -203,14 +195,24 @@ export default function HomePage() {
             </div>
             <h2
               className="font-extrabold text-balance mb-5"
-              style={{ fontFamily: "var(--font-sora)", fontSize: 34, lineHeight: 1.15, letterSpacing: "-.025em", color: "#0B1226" }}
+              style={{
+                fontFamily: "var(--font-sora)",
+                fontSize: 34,
+                lineHeight: 1.15,
+                letterSpacing: "-.025em",
+                color: "#0B1226",
+              }}
             >
-              Empowering people and businesses through reliable mobile technology
+              Empowering people and businesses through reliable mobile
+              technology
             </h2>
-            <p className="text-[16.5px] leading-[1.65] mb-6" style={{ color: "#4C566F" }}>
-              We supply innovative smartphones, accessories, and spare parts that enhance
-              communication, productivity, and digital inclusion — helping East Africa adapt and
-              thrive in a connected world.
+            <p
+              className="text-[16.5px] leading-[1.65] mb-6"
+              style={{ color: "#4C566F" }}
+            >
+              We supply innovative smartphones, accessories, and spare parts
+              that enhance communication, productivity, and digital inclusion —
+              helping East Africa adapt and thrive in a connected world.
             </p>
             <StaggerContainer className="grid grid-cols-2 gap-4">
               {[
@@ -219,11 +221,25 @@ export default function HomePage() {
                 { color: "#F5A623", text: "Competitive partner pricing" },
                 { color: "#F5A623", text: "Dependable after-sales support" },
               ].map((item) => (
-                <StaggerItem key={item.text} className="flex gap-2.5 items-start">
+                <StaggerItem
+                  key={item.text}
+                  className="flex gap-2.5 items-start"
+                >
                   <span
-                    style={{ width: 9, height: 9, borderRadius: "50%", background: item.color, marginTop: 6, flexShrink: 0, display: "block" }}
+                    style={{
+                      width: 9,
+                      height: 9,
+                      borderRadius: "50%",
+                      background: item.color,
+                      marginTop: 6,
+                      flexShrink: 0,
+                      display: "block",
+                    }}
                   />
-                  <span className="text-[15px] font-semibold" style={{ color: "#27314B" }}>
+                  <span
+                    className="text-[15px] font-semibold"
+                    style={{ color: "#27314B" }}
+                  >
                     {item.text}
                   </span>
                 </StaggerItem>
