@@ -12,8 +12,7 @@ type FormValues = ContactInput;
 
 type EnquiryProduct = { id: string; name: string };
 
-// Placeholder test number — swap for the real Fonex WhatsApp business number before launch.
-const WHATSAPP_NUMBER = "252619690705";
+const WHATSAPP_NUMBER = "252614511185";
 
 function buildWhatsAppMessage(data: FormValues, product: EnquiryProduct | null): string {
   const lines = [
