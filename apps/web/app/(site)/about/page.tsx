@@ -128,6 +128,45 @@ export default function AboutPage() {
         </Container>
       </section>
 
+      {/* ===== TRUST STRIP ===== */}
+      <section
+        style={{
+          background: "#fff",
+          borderTop: "1px solid #E7EAF3",
+          borderBottom: "1px solid #E7EAF3",
+        }}
+      >
+        <Container className="py-6 flex items-center gap-8 flex-wrap justify-between">
+          <span
+            className="text-[13px] font-bold tracking-[.08em] uppercase whitespace-nowrap"
+            style={{ color: "#9098AE" }}
+          >
+            Authentic stock from leading global brands
+          </span>
+          <div className="flex items-center gap-10 flex-wrap">
+            {[
+              "Flagship",
+              "Mid-Range",
+              "Accessories",
+              "Wearables",
+              "Spare Parts",
+            ].map((cat) => (
+              <span
+                key={cat}
+                className="font-extrabold text-[19px]"
+                style={{
+                  fontFamily: "var(--font-sora)",
+                  color: "#AEB6CA",
+                  letterSpacing: "-.02em",
+                }}
+              >
+                {cat}
+              </span>
+            ))}
+          </div>
+        </Container>
+      </section>
+
       {/* ===== OVERVIEW ===== */}
       <Container as="section" className="py-18.5">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
