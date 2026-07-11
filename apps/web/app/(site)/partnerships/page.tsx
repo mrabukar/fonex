@@ -6,6 +6,9 @@ import { CtaBand } from "@/components/cta-band";
 import { Container } from "@/components/container";
 import { FadeIn } from "@/components/motion/fade-in";
 import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
+import type { PaginatedResult } from "@fonex/shared";
+import { apiClient, ApiError } from "@/lib/api-client";
+import type { Partner } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "Partnerships",
@@ -20,7 +23,40 @@ const iconMap: Record<string, React.ReactNode> = {
   heart: <Heart size={24} strokeWidth={2} />,
 };
 
-export default function PartnershipsPage() {
+const PARTNER_TYPE_LABELS: Record<Partner["type"], string> = {
+  manufacturer: "Global Manufacturers",
+  retailer: "Local Retailers",
+  tech_provider: "Technology Providers",
+  community: "Community Organizations",
+};
+
+const PARTNER_TYPE_ORDER: Partner["type"][] = [
+  "manufacturer",
+  "retailer",
+  "tech_provider",
+  "community",
+];
+
+async function getPartners(): Promise<Partner[]> {
+  try {
+    const result = await apiClient.get<PaginatedResult<Partner>>(
+      "/api/partners?pageSize=100",
+    );
+    return result.data;
+  } catch (err) {
+    if (err instanceof ApiError) return [];
+    throw err;
+  }
+}
+
+export default async function PartnershipsPage() {
+  const partners = await getPartners();
+  const partnerGroups = PARTNER_TYPE_ORDER.map((type) => ({
+    type,
+    label: PARTNER_TYPE_LABELS[type],
+    partners: partners.filter((p) => p.type === type),
+  })).filter((group) => group.partners.length > 0);
+
   return (
     <div>
       {/* ===== HEADER ===== */}
@@ -109,6 +145,80 @@ export default function PartnershipsPage() {
           ))}
         </StaggerContainer>
       </Container>
+
+      {/* ===== OUR PARTNERS ===== */}
+      {partnerGroups.length > 0 && (
+        <Container as="section" className="pb-16">
+          <FadeIn className="mb-8">
+            <div
+              className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
+              style={{ color: "#1A1C74" }}
+            >
+              Our Partners
+            </div>
+            <h2
+              className="font-extrabold"
+              style={{ fontFamily: "var(--font-sora)", fontSize: 30, letterSpacing: "-.02em", color: "#0B1226" }}
+            >
+              Organizations we work alongside
+            </h2>
+          </FadeIn>
+
+          <div className="flex flex-col gap-10">
+            {partnerGroups.map((group) => (
+              <div key={group.type}>
+                <div
+                  className="text-[12.5px] font-bold uppercase mb-4"
+                  style={{ color: "#9098AE", letterSpacing: ".06em" }}
+                >
+                  {group.label}
+                </div>
+                <StaggerContainer className="flex flex-wrap gap-4">
+                  {group.partners.map((partner) => {
+                    const tile = (
+                      <div
+                        className="flex items-center gap-3 rounded-[14px] px-5 py-4 h-full"
+                        style={{ background: "#fff", border: "1px solid #E7EAF3" }}
+                      >
+                        {partner.logoUrl && (
+                          <div className="relative h-10 w-24 shrink-0">
+                            <Image
+                              src={partner.logoUrl}
+                              alt={partner.name}
+                              fill
+                              sizes="96px"
+                              style={{ objectFit: "contain" }}
+                            />
+                          </div>
+                        )}
+                        <span className="font-semibold text-[14.5px]" style={{ color: "#27314B" }}>
+                          {partner.name}
+                        </span>
+                      </div>
+                    );
+                    return (
+                      <StaggerItem key={partner.id} hover>
+                        {partner.websiteUrl ? (
+                          <a
+                            href={partner.websiteUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="block transition-opacity hover:opacity-80"
+                          >
+                            {tile}
+                          </a>
+                        ) : (
+                          tile
+                        )}
+                      </StaggerItem>
+                    );
+                  })}
+                </StaggerContainer>
+              </div>
+            ))}
+          </div>
+        </Container>
+      )}
 
       {/* ===== WHY PARTNER ===== */}
       <Container as="section" className="py-[60px]">
