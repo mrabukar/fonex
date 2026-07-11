@@ -634,3 +634,32 @@
   font-family: var(--font-mono);
   font-size: 0.9em;
 }
+
+/* Homepage featured devices carousel — scales up on large monitors */
+.featured-devices-carousel {
+  height: clamp(380px, 50vw, 620px);
+}
+
+@media (min-width: 1280px) {
+  .featured-devices-carousel {
+    height: clamp(480px, 40vh, 720px);
+  }
+}
+
+@media (min-width: 1536px) {
+  .featured-devices-carousel {
+    height: clamp(540px, 44vh, 800px);
+  }
+}
+
+@media (min-width: 1920px) {
+  .featured-devices-carousel {
+    height: clamp(580px, 46vh, 880px);
+  }
+}
+
+@media (min-width: 2560px) {
+  .featured-devices-carousel {
+    height: clamp(640px, 48vh, 960px);
+  }
+}

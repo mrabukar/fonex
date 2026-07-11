@@ -37,7 +37,7 @@ export default function HomePage() {
   return (
     <div>
       {/* ===== HERO ===== */}
-      <HeroSwitcher />
+      {/*<HeroSwitcher />*/}
 
       {/* ===== FEATURED DEVICES ===== */}
       <FeaturedDevices />
