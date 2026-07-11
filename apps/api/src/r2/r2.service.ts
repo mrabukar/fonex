@@ -54,8 +54,8 @@ export class R2Service {
     this.publicUrl = publicUrl.replace(/\/+$/, '');
   }
 
-  async createUploadUrl(contentType: string) {
-    const key = `products/${randomUUID()}.${EXTENSIONS_BY_CONTENT_TYPE[contentType]}`;
+  async createUploadUrl(contentType: string, prefix: string) {
+    const key = `${prefix}/${randomUUID()}.${EXTENSIONS_BY_CONTENT_TYPE[contentType]}`;
     const uploadUrl = await getSignedUrl(
       this.client,
       new PutObjectCommand({ Bucket: this.bucket, Key: key, ContentType: contentType }),
