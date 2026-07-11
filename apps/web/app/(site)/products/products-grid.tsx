@@ -244,7 +244,7 @@ export function ProductsGrid() {
                   </div>
 
                   {/* Info */}
-                  <div className="p-6">
+                  <div className="p-6 pb-0">
                     <div
                       className="font-bold text-[19px] mb-2"
                       style={{ fontFamily: "var(--font-sora)", color: "#0B1226" }}
@@ -265,32 +265,31 @@ export function ProductsGrid() {
                         See more
                       </span>
                     </div>
-                    {/* Enquire / Price on request — hidden until the enquiry backend flow is built (see docs/products-and-enquiries-plan.md §5)
-                  <div className="flex items-center justify-between gap-3">
-                    <span
-                      className="text-[12.5px]"
-                      style={{
-                        fontFamily: "var(--font-jetbrains)",
-                        color: "#9098AE",
-                      }}
-                    >
-                      Price on request
-                    </span>
-                    <Link
-                      href="/contact"
-                      className="font-bold text-[13.5px] px-4 py-2.5 rounded-[10px] transition-colors hover:bg-[#1A1C74] hover:text-white"
-                      style={{
-                        background: "#EEF1FB",
-                        color: "#1A1C74",
-                        fontFamily: "var(--font-manrope)",
-                      }}
-                    >
-                      Enquire →
-                    </Link>
-                  </div>
-                  */}
                   </div>
                 </Link>
+                {/* Enquire / Price on request — sibling of the card Link, not nested inside it */}
+                <div className="px-6 pb-6 flex items-center justify-between gap-3">
+                  <span
+                    className="text-[12.5px]"
+                    style={{
+                      fontFamily: "var(--font-jetbrains)",
+                      color: "#9098AE",
+                    }}
+                  >
+                    Price on request
+                  </span>
+                  <Link
+                    href={`/contact?productId=${p.id}`}
+                    className="font-bold text-[13.5px] px-4 py-2.5 rounded-[10px] transition-colors hover:bg-[#1A1C74] hover:text-white"
+                    style={{
+                      background: "#EEF1FB",
+                      color: "#1A1C74",
+                      fontFamily: "var(--font-manrope)",
+                    }}
+                  >
+                    Enquire →
+                  </Link>
+                </div>
               </StaggerItem>
             ))}
           </StaggerContainer>
