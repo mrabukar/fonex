@@ -9,8 +9,9 @@ import { Container } from "@/components/container";
 import { FadeIn } from "@/components/motion/fade-in";
 
 const ease = [0.21, 0.47, 0.32, 0.98] as const;
-const AUTOPLAY_MS = 5000;
-const TRANSITION_S = 0.5;
+const AUTOPLAY_MS = 3000;
+// const TRANSITION_S = 0.5;
+const TRANSITION_S = 1;
 const PEEK = 15; // % of viewport width peeking in from each neighbor
 const GAP = 2; // % gap between cards
 const SLIDE_WIDTH = 100 - PEEK * 2 - GAP; // %
@@ -19,7 +20,11 @@ const STEP = SLIDE_WIDTH + GAP; // % advanced per slide
 const total = featuredDevices.length;
 // Clone the last slide before the first, and the first slide after the last,
 // so the strip can slide seamlessly past either end before snapping back.
-const extended = [featuredDevices[total - 1], ...featuredDevices, featuredDevices[0]];
+const extended = [
+  featuredDevices[total - 1],
+  ...featuredDevices,
+  featuredDevices[0],
+];
 
 export function FeaturedDevices() {
   const [renderIndex, setRenderIndex] = useState(1); // 1..total → real slides 0..total-1
@@ -41,16 +46,21 @@ export function FeaturedDevices() {
   // slide with the transition disabled so the loop looks seamless.
   useEffect(() => {
     if (renderIndex !== 0 && renderIndex !== extended.length - 1) return;
-    const id = setTimeout(() => {
-      setSmooth(false);
-      setRenderIndex(renderIndex === 0 ? total : 1);
-    }, TRANSITION_S * 1000 + 20);
+    const id = setTimeout(
+      () => {
+        setSmooth(false);
+        setRenderIndex(renderIndex === 0 ? total : 1);
+      },
+      TRANSITION_S * 1000 + 20,
+    );
     return () => clearTimeout(id);
   }, [renderIndex]);
 
   useEffect(() => {
     if (smooth) return;
-    const id = requestAnimationFrame(() => requestAnimationFrame(() => setSmooth(true)));
+    const id = requestAnimationFrame(() =>
+      requestAnimationFrame(() => setSmooth(true)),
+    );
     return () => cancelAnimationFrame(id);
   }, [smooth]);
 
@@ -59,7 +69,7 @@ export function FeaturedDevices() {
     setRenderIndex(realIndex + 1);
   }
 
-  const activeReal = ((renderIndex - 1) % total + total) % total;
+  const activeReal = (((renderIndex - 1) % total) + total) % total;
   const x = PEEK - renderIndex * STEP;
 
   return (
@@ -114,7 +124,7 @@ export function FeaturedDevices() {
           >
             {extended.map((slide, i) => {
               const isActive = i === renderIndex;
-              const realIdx = ((i - 1) % total + total) % total;
+              const realIdx = (((i - 1) % total) + total) % total;
               return (
                 <div
                   key={`${slide.img}-${i}`}
@@ -136,7 +146,10 @@ export function FeaturedDevices() {
                     priority={i === 1}
                   />
                   {!isActive && (
-                    <div className="absolute inset-0" style={{ background: "rgba(11,18,38,.45)" }} />
+                    <div
+                      className="absolute inset-0"
+                      style={{ background: "rgba(11,18,38,.45)" }}
+                    />
                   )}
                 </div>
               );
