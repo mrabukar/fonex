@@ -5,5 +5,9 @@ model ContactSubmission {
   email     String
   interest  String
   message   String
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
   createdAt DateTime @default(now())
+
+  @@index([productId])
 }
