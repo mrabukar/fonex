@@ -46,7 +46,7 @@ export default function HomePage() {
       {/* <LatestNews /> */}
 
       {/* ===== SERVICES PREVIEW ===== */}
-      <Container as="section" className="pt-20 pb-8">
+      {/* <Container as="section" className="pt-20 pb-8">
         <FadeIn className="flex items-end justify-between gap-6 mb-10 flex-wrap">
           <div className="max-w-[560px]">
             <div
@@ -120,134 +120,11 @@ export default function HomePage() {
             </StaggerItem>
           ))}
         </StaggerContainer>
-      </Container>
+      </Container> */}
 
       {/* ===== MISSION SPLIT ===== */}
-      <Container as="section" className="py-[70px]">
-        <div
-          className="grid grid-cols-1 lg:grid-cols-[.92fr_1.08fr] gap-12 items-center rounded-[24px] p-11"
-          style={{
-            background: "#fff",
-            border: "1px solid #E7EAF3",
-            boxShadow: "0 10px 30px rgba(11,18,38,.04)",
-          }}
-        >
-          {/* Dark visual panel */}
-          <FadeIn direction="left">
-            <div
-              className="relative rounded-[18px] overflow-hidden"
-              style={{
-                height: 360,
-                background: "linear-gradient(150deg,#0B1226,#1C2A55)",
-              }}
-            >
-              <Image
-                src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=900&q=80"
-                alt="Connected communities across East Africa"
-                fill
-                style={{ objectFit: "cover" }}
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(155deg, rgba(26,28,116,.62), rgba(245,166,35,.30) 45%, rgba(11,18,38,.85))",
-                }}
-              />
-              <div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(circle, rgba(255,255,255,.10) 1px, transparent 1px)",
-                  backgroundSize: "24px 24px",
-                }}
-              />
-              <div
-                className="absolute"
-                style={{ bottom: 26, left: 26, right: 26 }}
-              >
-                <div
-                  className="font-extrabold text-white"
-                  style={{
-                    fontFamily: "var(--font-sora)",
-                    fontSize: 30,
-                    letterSpacing: "-.02em",
-                    lineHeight: 1.1,
-                    textShadow: "0 2px 18px rgba(11,18,38,.4)",
-                  }}
-                >
-                  Digital inclusion, by design
-                </div>
-                <div className="text-[14px] mt-2" style={{ color: "#EAEEFB" }}>
-                  Connecting students, entrepreneurs & businesses to technology.
-                </div>
-              </div>
-            </div>
-          </FadeIn>
 
-          {/* Text */}
-          <FadeIn direction="right">
-            <div
-              className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
-              style={{ color: "#1A1C74" }}
-            >
-              Our mission
-            </div>
-            <h2
-              className="font-extrabold text-balance mb-5"
-              style={{
-                fontFamily: "var(--font-sora)",
-                fontSize: 34,
-                lineHeight: 1.15,
-                letterSpacing: "-.025em",
-                color: "#0B1226",
-              }}
-            >
-              Empowering people and businesses through reliable mobile
-              technology
-            </h2>
-            <p
-              className="text-[16.5px] leading-[1.65] mb-6"
-              style={{ color: "#4C566F" }}
-            >
-              We supply innovative smartphones, accessories, and spare parts
-              that enhance communication, productivity, and digital inclusion —
-              helping East Africa adapt and thrive in a connected world.
-            </p>
-            <StaggerContainer className="grid grid-cols-2 gap-4">
-              {[
-                { color: "#1A1C74", text: "Authentic, warrantied products" },
-                { color: "#F5A623", text: "Reliable regional distribution" },
-                { color: "#F5A623", text: "Competitive partner pricing" },
-                { color: "#F5A623", text: "Dependable after-sales support" },
-              ].map((item) => (
-                <StaggerItem
-                  key={item.text}
-                  className="flex gap-2.5 items-start"
-                >
-                  <span
-                    style={{
-                      width: 9,
-                      height: 9,
-                      borderRadius: "50%",
-                      background: item.color,
-                      marginTop: 6,
-                      flexShrink: 0,
-                      display: "block",
-                    }}
-                  />
-                  <span
-                    className="text-[15px] font-semibold"
-                    style={{ color: "#27314B" }}
-                  >
-                    {item.text}
-                  </span>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </FadeIn>
-        </div>
-      </Container>
+      {/* <MissionSPlit /> */}
 
       {/* ===== CTA BAND ===== */}
       <Container as="section" className="mb-20">
@@ -263,5 +140,131 @@ export default function HomePage() {
         </FadeIn>
       </Container>
     </div>
+  );
+}
+
+function MissionSPlit() {
+  return (
+    <Container as="section" className="py-[70px]">
+      <div
+        className="grid grid-cols-1 lg:grid-cols-[.92fr_1.08fr] gap-12 items-center rounded-[24px] p-11"
+        style={{
+          background: "#fff",
+          border: "1px solid #E7EAF3",
+          boxShadow: "0 10px 30px rgba(11,18,38,.04)",
+        }}
+      >
+        {/* Dark visual panel */}
+        <FadeIn direction="left">
+          <div
+            className="relative rounded-[18px] overflow-hidden"
+            style={{
+              height: 360,
+              background: "linear-gradient(150deg,#0B1226,#1C2A55)",
+            }}
+          >
+            <Image
+              src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=900&q=80"
+              alt="Connected communities across East Africa"
+              fill
+              style={{ objectFit: "cover" }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(155deg, rgba(26,28,116,.62), rgba(245,166,35,.30) 45%, rgba(11,18,38,.85))",
+              }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle, rgba(255,255,255,.10) 1px, transparent 1px)",
+                backgroundSize: "24px 24px",
+              }}
+            />
+            <div
+              className="absolute"
+              style={{ bottom: 26, left: 26, right: 26 }}
+            >
+              <div
+                className="font-extrabold text-white"
+                style={{
+                  fontFamily: "var(--font-sora)",
+                  fontSize: 30,
+                  letterSpacing: "-.02em",
+                  lineHeight: 1.1,
+                  textShadow: "0 2px 18px rgba(11,18,38,.4)",
+                }}
+              >
+                Digital inclusion, by design
+              </div>
+              <div className="text-[14px] mt-2" style={{ color: "#EAEEFB" }}>
+                Connecting students, entrepreneurs & businesses to technology.
+              </div>
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Text */}
+        <FadeIn direction="right">
+          <div
+            className="text-[13px] font-bold tracking-[.08em] uppercase mb-3.5"
+            style={{ color: "#1A1C74" }}
+          >
+            Our mission
+          </div>
+          <h2
+            className="font-extrabold text-balance mb-5"
+            style={{
+              fontFamily: "var(--font-sora)",
+              fontSize: 34,
+              lineHeight: 1.15,
+              letterSpacing: "-.025em",
+              color: "#0B1226",
+            }}
+          >
+            Empowering people and businesses through reliable mobile technology
+          </h2>
+          <p
+            className="text-[16.5px] leading-[1.65] mb-6"
+            style={{ color: "#4C566F" }}
+          >
+            We supply innovative smartphones, accessories, and spare parts that
+            enhance communication, productivity, and digital inclusion — helping
+            East Africa adapt and thrive in a connected world.
+          </p>
+          <StaggerContainer className="grid grid-cols-2 gap-4">
+            {[
+              { color: "#1A1C74", text: "Authentic, warrantied products" },
+              { color: "#F5A623", text: "Reliable regional distribution" },
+              { color: "#F5A623", text: "Competitive partner pricing" },
+              { color: "#F5A623", text: "Dependable after-sales support" },
+            ].map((item) => (
+              <StaggerItem key={item.text} className="flex gap-2.5 items-start">
+                <span
+                  style={{
+                    width: 9,
+                    height: 9,
+                    borderRadius: "50%",
+                    background: item.color,
+                    marginTop: 6,
+                    flexShrink: 0,
+                    display: "block",
+                  }}
+                />
+                <span
+                  className="text-[15px] font-semibold"
+                  style={{ color: "#27314B" }}
+                >
+                  {item.text}
+                </span>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </FadeIn>
+      </div>
+    </Container>
   );
 }
