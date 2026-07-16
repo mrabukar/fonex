@@ -190,7 +190,7 @@ export default function AboutPage() {
               Specialists in authentic mobile technology
             </h2>
             <p className="text-[16.5px] leading-[1.7] mb-4" style={{ color: "#4C566F" }}>
-              Fonex Supply Limited is a premier supplier of smartphones, mobile devices, and
+              Fonex Supply Limited is a premier supplier of electronics, mobile devices, and
               accessories. We specialize in importing, distributing, and delivering authentic
               products from global brands.
             </p>
