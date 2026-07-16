@@ -12,9 +12,13 @@ type FormValues = ContactInput;
 
 type EnquiryProduct = { id: string; name: string };
 
-const WHATSAPP_NUMBER = "252614511185";
+// const WHATSAPP_NUMBER = "252614511185";
+const WHATSAPP_NUMBER = "252772000043";
 
-function buildWhatsAppMessage(data: FormValues, product: EnquiryProduct | null): string {
+function buildWhatsAppMessage(
+  data: FormValues,
+  product: EnquiryProduct | null,
+): string {
   const lines = [
     "Hi Fonex Supply, I just sent an enquiry from your website.",
     `Name: ${data.name}`,
@@ -44,7 +48,11 @@ const labelStyle: React.CSSProperties = {
   marginBottom: 8,
 };
 
-export function ContactForm({ product = null }: { product?: EnquiryProduct | null }) {
+export function ContactForm({
+  product = null,
+}: {
+  product?: EnquiryProduct | null;
+}) {
   const [sent, setSent] = useState(false);
 
   const {
@@ -71,7 +79,11 @@ export function ContactForm({ product = null }: { product?: EnquiryProduct | nul
       );
       setSent(true);
     } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : "Failed to send message. Please try again.");
+      toast.error(
+        err instanceof ApiError
+          ? err.message
+          : "Failed to send message. Please try again.",
+      );
     }
   }
 
@@ -80,7 +92,12 @@ export function ContactForm({ product = null }: { product?: EnquiryProduct | nul
       <div className="text-center py-10 px-2">
         <div
           className="inline-flex items-center justify-center rounded-full mb-6"
-          style={{ width: 72, height: 72, background: "#E2F6EF", color: "#067A55" }}
+          style={{
+            width: 72,
+            height: 72,
+            background: "#E2F6EF",
+            color: "#067A55",
+          }}
         >
           <CheckCircle size={34} strokeWidth={2} />
         </div>
@@ -90,14 +107,26 @@ export function ContactForm({ product = null }: { product?: EnquiryProduct | nul
         >
           Message sent
         </div>
-        <p className="text-[16px] leading-[1.6] max-w-[360px] mx-auto mb-6" style={{ color: "#5A6480" }}>
-          Thank you for reaching out to Fonex Supply. Our team will get back to you shortly with the
-          details you need.
+        <p
+          className="text-[16px] leading-[1.6] max-w-[360px] mx-auto mb-6"
+          style={{ color: "#5A6480" }}
+        >
+          Thank you for reaching out to Fonex Supply. Our team will get back to
+          you shortly with the details you need.
         </p>
         <button
-          onClick={() => { setSent(false); reset(); }}
+          onClick={() => {
+            setSent(false);
+            reset();
+          }}
           className="font-bold text-[15px] px-6 py-3 rounded-[11px]"
-          style={{ background: "#EEF1FB", color: "#1A1C74", fontFamily: "var(--font-manrope)", cursor: "pointer", border: "none" }}
+          style={{
+            background: "#EEF1FB",
+            color: "#1A1C74",
+            fontFamily: "var(--font-manrope)",
+            cursor: "pointer",
+            border: "none",
+          }}
         >
           Send another message
         </button>
@@ -114,14 +143,18 @@ export function ContactForm({ product = null }: { product?: EnquiryProduct | nul
         Send us a message
       </div>
       <p className="text-[15px] mb-5" style={{ color: "#5A6480" }}>
-        Fill in your details and we&apos;ll get back to you with availability and pricing.
+        Fill in your details and we&apos;ll get back to you with availability
+        and pricing.
       </p>
       {product && (
         <div
           className="inline-flex items-center gap-2 rounded-full mb-6 px-4 py-2"
           style={{ background: "#EEF1FB", border: "1px solid #E0E6FA" }}
         >
-          <span className="text-[12.5px] font-semibold" style={{ color: "#5A6480" }}>
+          <span
+            className="text-[12.5px] font-semibold"
+            style={{ color: "#5A6480" }}
+          >
             Enquiring about
           </span>
           <span
@@ -212,7 +245,9 @@ export function ContactForm({ product = null }: { product?: EnquiryProduct | nul
               e.target.style.boxShadow = "none";
             }}
           >
-            <option value="" disabled>Select an option</option>
+            <option value="" disabled>
+              Select an option
+            </option>
             <option>Buying products</option>
             <option>Becoming a retail partner</option>
             <option>Wholesale / bulk supply</option>

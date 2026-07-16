@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Fonex Supply Limited",
   tagline: "Premier mobile technology supplier in East Africa",
   address: "Mogadishu, Somalia",
-  phone: "772000043",
+  phone: "+252-77-2000043",
   email: "info@fonexsupply.com",
   website: "www.fonexsupply.com",
   established: "2025",
@@ -25,7 +25,7 @@ export const navLinks = [
 export const featuredDevices = [
   {
     img: "/images/335fd095268330e06ec71c1d7a235135.png",
-    alt: "Classic A07 — 13MP+8MP camera, 6.6\" 90Hz display, 12GB+128GB",
+    alt: 'Classic A07 — 13MP+8MP camera, 6.6" 90Hz display, 12GB+128GB',
   },
   {
     img: "/images/348cecd1d208ec2eb74ea3474ca9e234 (1).png",
@@ -33,7 +33,7 @@ export const featuredDevices = [
   },
   {
     img: "/images/48c240e998501d89cd853aa67b4b1ff1 (1).jpg.jpeg",
-    alt: "KXD A5 — HD screen, 6.88\", 50MP camera, 5000mAh battery",
+    alt: 'KXD A5 — HD screen, 6.88", 50MP camera, 5000mAh battery',
   },
   {
     img: "/images/58a46ac54216d4f22c5c8c03c86735b7 (1).png",
@@ -45,11 +45,11 @@ export const featuredDevices = [
   },
   {
     img: "/images/9381c6c66daac4dc9813e098d4d2808e.png",
-    alt: "KXD 15C — 6.88\" HD screen, 50MP camera, 5000mAh battery",
+    alt: 'KXD 15C — 6.88" HD screen, 50MP camera, 5000mAh battery',
   },
   {
     img: "/images/ad182151dad7ee8360953fd3abaa5b09.png",
-    alt: "Classic 13C — 6.8\" HD+ display, 13MP+8MP AI camera, 90Hz",
+    alt: 'Classic 13C — 6.8" HD+ display, 13MP+8MP AI camera, 90Hz',
   },
   {
     img: "/images/a577b9b7363be3ac24c83a990fc8f34d.png",
@@ -318,7 +318,8 @@ export const faqs = [
 
 export const contactInfo = [
   { label: "Visit us", value: "Mogadishu, Somalia", icon: "map-pin" },
-  { label: "Call us", value: "+252-61-4511185", icon: "phone", mono: true },
+  // { label: "Call us", value: "+252-61-4511185", icon: "phone", mono: true },
+  { label: "Call us", value: "+252-77-2000043", icon: "phone", mono: true },
   { label: "Email us", value: "info@fonexsupply.com", icon: "mail" },
   { label: "Online", value: "www.fonexsupply.com", icon: "globe" },
 ];
