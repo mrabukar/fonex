@@ -1,13 +1,6 @@
 import Image from "next/image";
 import { colorFamilies, type ColorFamily, type DeviceType } from "@/lib/content";
 
-function hexToRgba(hex: string, alpha: number): string {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return `rgba(${r},${g},${b},${alpha})`;
-}
-
 function getDeviceStyle(type: DeviceType, f: ColorFamily, scale: number): React.CSSProperties {
   const sc = `linear-gradient(160deg,${f.g1},${f.g2})`;
   const sh = "0 18px 30px -12px rgba(11,18,38,.4)";
@@ -52,18 +45,22 @@ export function DeviceTile({ fam, type, img, size = "sm" }: DeviceTileProps) {
     : "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw";
 
   if (img) {
-    const tint = `linear-gradient(160deg, ${hexToRgba(f.g1, 0.34)}, ${hexToRgba(f.g2, 0.06)} 55%, transparent)`;
     return (
       <div
         style={{
           position: "relative",
           height: isLg ? 440 : 210,
           overflow: "hidden",
-          background: `linear-gradient(135deg,${f.bgA},${f.bgB})`,
+          background: "#F7F8FC",
         }}
       >
-        <Image src={img} alt="" fill sizes={sizes} style={{ objectFit: "cover" }} />
-        <div style={{ position: "absolute", inset: 0, background: tint }} />
+        <Image
+          src={img}
+          alt=""
+          fill
+          sizes={sizes}
+          style={{ objectFit: "cover", objectPosition: "center" }}
+        />
       </div>
     );
   }
