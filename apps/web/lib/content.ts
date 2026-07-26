@@ -55,6 +55,10 @@ export const featuredDevices = [
     img: "/images/a577b9b7363be3ac24c83a990fc8f34d.png",
     alt: "A16 Plus — innovative design, available now",
   },
+  {
+    img: "/images/A09.jpg.jpeg",
+    alt: 'Classic A09 - 6.54" HD+ display 8(4+4)+128 octa core 1.6Ghz | 90Hz',
+  },
 ];
 
 export const services = [
