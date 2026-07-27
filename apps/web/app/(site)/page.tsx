@@ -130,7 +130,8 @@ export default function HomePage() {
       <Container as="section" className="mb-20">
         <FadeIn>
           <CtaBand
-            title="Ready to stock authentic devices your customers can trust?"
+            // title="Ready to stock authentic devices your customers can trust?"
+            title="THE RIGHT DEVICE, THE RIGHT PRICE"
             subtitle="Partner with Fonex for genuine products, competitive pricing, and dependable supply across East Africa."
             primaryLabel="Request a Quote"
             primaryHref="/contact"
