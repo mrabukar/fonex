@@ -1,13 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Handshake, LogOut, Newspaper, Package, ShieldAlert, Tags } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ChevronDown, Handshake, KeyRound, LogOut, Newspaper, Package, ShieldAlert, Tags, User } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { AdminShell, AdminShellRoot } from "@/components/admin/admin-shell";
+import { ChangePasswordDialog } from "@/components/admin/change-password-dialog";
 import { useSession, signOut } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
@@ -22,6 +29,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter();
   const pathname = usePathname();
   const { data: session, isPending } = useSession();
+  const [changePasswordOpen, setChangePasswordOpen] = useState(false);
 
   useEffect(() => {
     if (!isPending && !session) {
@@ -67,24 +75,42 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
           <div className="ml-auto flex items-center gap-4">
             {session ? (
-              <>
-                <div className="hidden text-right sm:block">
-                  <p className="text-[13px] font-semibold leading-tight text-foreground">{session.user.email}</p>
-                  <p className="text-[11.5px] font-medium capitalize leading-tight text-muted-foreground">{session.user.role ?? "user"}</p>
-                </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="gap-1.5"
-                  onClick={async () => {
-                    await signOut();
-                    router.replace("/login");
-                  }}
+              <DropdownMenu>
+                <DropdownMenuTrigger
+                  render={
+                    <button
+                      type="button"
+                      className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors hover:bg-[#F4F6FB]"
+                    />
+                  }
                 >
-                  <LogOut size={14} />
-                  Sign out
-                </Button>
-              </>
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#EEF1FB] text-[#1A1C74] sm:hidden">
+                    <User size={16} />
+                  </span>
+                  <span className="hidden text-right sm:block">
+                    <p className="text-[13px] font-semibold leading-tight text-foreground">{session.user.email}</p>
+                    <p className="text-[11.5px] font-medium capitalize leading-tight text-muted-foreground">{session.user.role ?? "user"}</p>
+                  </span>
+                  <ChevronDown size={14} className="hidden text-muted-foreground sm:block" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem onClick={() => setChangePasswordOpen(true)}>
+                    <KeyRound size={14} />
+                    Change password
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    variant="destructive"
+                    onClick={async () => {
+                      await signOut();
+                      router.replace("/login");
+                    }}
+                  >
+                    <LogOut size={14} />
+                    Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <Skeleton className="h-8 w-24 rounded-lg" />
             )}
@@ -107,6 +133,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           )}
         </AdminShell>
       </main>
+
+      {session && <ChangePasswordDialog open={changePasswordOpen} onOpenChange={setChangePasswordOpen} />}
     </AdminShellRoot>
   );
 }
