@@ -22,42 +22,104 @@ export const navLinks = [
 // Homepage "Featured Devices" slider — manufacturer marketing banners for
 // devices we supply. Each banner already has its own text/specs baked in,
 // so no separate caption is rendered on top of these.
+// Each slide's `bg` matches the source photo's own background color
+// (sampled from its corners) so the card frame blends into the image
+// instead of showing a visible seam around it.
 export const featuredDevices = [
   {
-    img: "/images/335fd095268330e06ec71c1d7a235135.png",
-    alt: 'Classic A07 — 13MP+8MP camera, 6.6" 90Hz display, 12GB+128GB',
+    img: "/images/new/1-e4ec4854a5-p9cm5zs.webp",
+    alt: "Wireless earbuds with charging case — blue, white, black, and rose gold",
+    bg: "#FFFFFF",
   },
   {
-    img: "/images/348cecd1d208ec2eb74ea3474ca9e234 (1).png",
-    alt: "A16 Plus — innovative design, now available",
+    img: "/images/new/17066330c08334e8cf01cb23f4db7c33.jpg.jpeg",
+    alt: "Security display stand with alarm for mobile phones",
+    bg: "#B4D1E8",
   },
   {
-    img: "/images/48c240e998501d89cd853aa67b4b1ff1 (1).jpg.jpeg",
-    alt: 'KXD A5 — HD screen, 6.88", 50MP camera, 5000mAh battery',
+    img: "/images/new/440x440-1000x1000.png",
+    alt: "Wireless earbuds charging case — black",
+    bg: "#FFFFFF",
   },
   {
-    img: "/images/58a46ac54216d4f22c5c8c03c86735b7 (1).png",
-    alt: "S25 Plus — super clear large screen smartphone",
+    img: "/images/new/51IUDy2NLRL._AC_UF1000,1000_QL80_.jpg.jpeg",
+    alt: "Wireless earbuds charging case — silver",
+    bg: "#FFFFFF",
   },
   {
-    img: "/images/72c8346edeae6171735c8368447e89f6.jpg.jpeg",
-    alt: "KXD A17 Plus — HD screen, 50MP+8MP camera, 4500mAh battery",
+    img: "/images/new/Cell-Phone-Alarm-Stand-Security-Display-Anti-Theft-Device-for-Mobile-Phone.webp",
+    alt: "Anti-theft security display stand for mobile phones",
+    bg: "#EBE9E7",
   },
   {
-    img: "/images/9381c6c66daac4dc9813e098d4d2808e.png",
-    alt: 'KXD 15C — 6.88" HD screen, 50MP camera, 5000mAh battery',
+    img: "/images/new/htb1hyc3jfxxxxxoxxxxq6xxfxxx5.jpg.jpeg",
+    alt: "Security display stand with mobile phone",
+    bg: "#FFFFFF",
   },
   {
-    img: "/images/ad182151dad7ee8360953fd3abaa5b09.png",
-    alt: 'Classic 13C — 6.8" HD+ display, 13MP+8MP AI camera, 90Hz',
+    img: "/images/new/HUAWEI-FreeClip-2-Teaser-C-bridge-Design-2.jpeg",
+    alt: "HUAWEI FreeClip 2 open-ear earbuds — blue, white, black, and pink",
+    bg: "#FFFFFF",
   },
   {
-    img: "/images/a577b9b7363be3ac24c83a990fc8f34d.png",
-    alt: "A16 Plus — innovative design, available now",
+    img: "/images/new/images (1).jpg.jpeg",
+    alt: "Security display stand with mobile phone, rear view",
+    bg: "#DBFBF4",
   },
   {
-    img: "/images/A09.jpg.jpeg",
-    alt: 'Classic A09 - 6.54" HD+ display 8(4+4)+128 octa core 1.6Ghz | 90Hz',
+    img: "/images/new/images (11).jpg.jpeg",
+    alt: "Open-ear earbuds charging case — rose gold",
+    bg: "#EDEDED",
+  },
+  {
+    img: "/images/new/images (12).jpg.jpeg",
+    alt: "Open-ear earbuds charging case — black",
+    bg: "#FFFFFF",
+  },
+  {
+    img: "/images/new/images (4).jpg.jpeg",
+    alt: "Open-ear earbuds charging case — purple",
+    bg: "#FFFFFF",
+  },
+  {
+    img: "/images/new/images (5).jpg.jpeg",
+    alt: "Open-ear earbuds charging case — beige",
+    bg: "#FFFFFF",
+  },
+  {
+    img: "/images/new/images (6).jpg.jpeg",
+    alt: "Open-ear earbuds — pink, black, purple, and beige",
+    bg: "#FFFFFF",
+  },
+  {
+    img: "/images/new/images (7).jpg.jpeg",
+    alt: "HUAWEI open-ear earbuds — white, black, and blue",
+    bg: "#554032",
+  },
+  {
+    img: "/images/new/IMG-20260810-WA0028(1).jpg.jpeg",
+    alt: "Security display stand with iPhone, rear view",
+    bg: "#FFFFFF",
+  },
+  {
+    img: "/images/new/IMG-20260810-WA0029(1).jpg.jpeg",
+    alt: "Security display stand with price tag holder, shown with iPhone 15 Pro",
+    bg: "#FFFFFF",
+  },
+  {
+    img: "/images/new/IMG-20260810-WA0030(1).jpg.jpeg",
+    alt: "Price tag holder for security display stand — iPhone 15 Pro spec card",
+    bg: "#FFFFFF",
+  },
+  {
+    img: "/images/new/IMG-20260810-WA0031(1).jpg.jpeg",
+    alt: "Security display stand with price tag holder, front view, shown with iPhone 15 Pro",
+    bg: "#FFFFFF",
+  },
+  {
+    img: "/images/new/IMG-20260810-WA0032(1).jpg.jpeg",
+    alt: "Security display stand with price tag holder, angled view, shown with iPhone 15 Pro",
+    bg: "#FFFFFF",
   },
 ];
 

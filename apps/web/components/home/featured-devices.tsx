@@ -131,6 +131,7 @@ export function FeaturedDevices() {
                   className="relative h-full shrink-0 overflow-hidden rounded-[24px]"
                   style={{
                     width: `${SLIDE_WIDTH}%`,
+                    background: slide.bg ?? "#fff",
                     border: "1px solid #E7EAF3",
                     boxShadow: isActive
                       ? "0 24px 56px rgba(11,18,38,.14)"
@@ -144,7 +145,11 @@ export function FeaturedDevices() {
                     alt={slide.alt}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1536px) 92vw, (max-width: 2560px) 1400px, 1800px"
-                    style={{ objectFit: "cover" }}
+                    style={{
+                      objectFit: "contain",
+                      padding: "4%",
+                      boxSizing: "border-box",
+                    }}
                     priority={i === 1}
                   />
                   {!isActive && (
