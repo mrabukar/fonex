@@ -121,6 +121,21 @@ export const featuredDevices = [
     alt: "Security display stand with price tag holder, angled view, shown with iPhone 15 Pro",
     bg: "#FFFFFF",
   },
+  {
+    img: "/images/new/images (4n).jpg.jpeg",
+    alt: "Acrylic slanted sign holder, A5 size — 6-pack",
+    bg: "#FFFFFF",
+  },
+  {
+    img: "/images/new/images (5n).jpg.jpeg",
+    alt: "Acrylic slanted sign holder, 8.5\" x 11\" — 6-pack",
+    bg: "#FFFFFF",
+  },
+  {
+    img: "/images/new/images (6n).jpg.jpeg",
+    alt: "Acrylic slanted sign holder, 8.5\" x 11\" — 6-pack",
+    bg: "#FFFFFF",
+  },
 ];
 
 export const services = [
