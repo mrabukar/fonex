@@ -3,13 +3,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Container } from "@/components/container";
 import { FadeIn } from "@/components/motion/fade-in";
 import { isLegacyHomepageImage } from "@/lib/crop-image";
 import type { PublicHomepageSlide } from "@/lib/types";
 
-const ease = [0.21, 0.47, 0.32, 0.98] as const;
 const TRANSITION_S = 1;
 const PEEK = 6;
 const GAP = 1.5;
@@ -37,6 +35,7 @@ export function FeaturedDevices({
   const [renderIndex, setRenderIndex] = useState(looping ? 1 : 0);
   const [paused, setPaused] = useState(false);
   const [smooth, setSmooth] = useState(true);
+  const [autoplayReady, setAutoplayReady] = useState(false);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const slideKey = visible.map((slide) => slide.id).join(",");
   const [seenKey, setSeenKey] = useState(slideKey);
@@ -47,7 +46,11 @@ export function FeaturedDevices({
   }
 
   useEffect(() => {
-    if (!looping || paused) return;
+    setAutoplayReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (!autoplayReady || !looping || paused) return;
     const wait = Number.isFinite(autoplayMs) && autoplayMs >= 1000 ? autoplayMs : 3000;
     timerRef.current = setInterval(() => {
       setRenderIndex((i) => i + 1);
@@ -55,7 +58,7 @@ export function FeaturedDevices({
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [paused, looping, autoplayMs]);
+  }, [autoplayReady, paused, looping, autoplayMs]);
 
   useEffect(() => {
     if (!looping) return;
@@ -95,11 +98,16 @@ export function FeaturedDevices({
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
-          <motion.div
+          <div
             className="flex h-full"
-            style={{ gap: `${GAP}%` }}
-            animate={{ x: `${x}%` }}
-            transition={{ duration: smooth && looping ? TRANSITION_S : 0, ease }}
+            style={{
+              gap: `${GAP}%`,
+              transform: `translateX(${x}%)`,
+              transition:
+                smooth && looping
+                  ? `transform ${TRANSITION_S}s cubic-bezier(0.21, 0.47, 0.32, 0.98)`
+                  : "none",
+            }}
           >
             {extended.map((slide, i) => {
               const isActive = looping ? i === renderIndex : true;
@@ -114,6 +122,7 @@ export function FeaturedDevices({
                     alt={slide.imageDescription || ""}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1536px) 92vw, (max-width: 2560px) 1400px, 1800px"
+                    unoptimized={!legacy}
                     style={{
                       objectFit: legacy ? "contain" : "cover",
                       padding: legacy ? "4%" : 0,
@@ -161,7 +170,12 @@ export function FeaturedDevices({
                   onClick={() => !isActive && goToReal(realIdx)}
                 >
                   {href ? (
-                    <Link href={href} className="absolute inset-0" aria-label={slide.imageDescription || "View product"}>
+                    <Link
+                      href={href}
+                      prefetch={false}
+                      className="absolute inset-0"
+                      aria-label={slide.imageDescription || "View product"}
+                    >
                       {media}
                     </Link>
                   ) : (
@@ -170,7 +184,7 @@ export function FeaturedDevices({
                 </div>
               );
             })}
-          </motion.div>
+          </div>
         </div>
 
         {looping ? (
