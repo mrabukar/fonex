@@ -15,8 +15,31 @@ function r2PublicHostname(): string | undefined {
 
 const r2Hostname = r2PublicHostname();
 
+function apiOrigin(): string {
+  const fromEnv = process.env.NEXT_PUBLIC_API_URL;
+  if (fromEnv) {
+    try {
+      return new URL(fromEnv).origin;
+    } catch {
+      // fall through
+    }
+  }
+  return "http://localhost:8000";
+}
+
 const nextConfig: NextConfig = {
   devIndicators: isDev ? { position: "bottom-left" } : false,
+  async rewrites() {
+    if (!isDev) return [];
+    return {
+      beforeFiles: [
+        {
+          source: "/api/:path*",
+          destination: `${apiOrigin()}/api/:path*`,
+        },
+      ],
+    };
+  },
   turbopack: {
     root: path.join(__dirname, "..", ".."),
   },
