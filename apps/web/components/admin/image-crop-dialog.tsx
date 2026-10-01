@@ -13,7 +13,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { CROP_ASPECT, getCroppedImageFile } from "@/lib/crop-image";
+import {
+  CROP_ASPECT_SQUARE,
+  CROP_ASPECT_TALL,
+  CROP_ASPECT_WIDE,
+  aspectToHeightT,
+  getCroppedImageFile,
+  heightTToAspect,
+} from "@/lib/crop-image";
 
 export function ImageCropDialog({
   file,
@@ -58,13 +65,28 @@ function ImageCropDialogBody({
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
+  const [heightT, setHeightT] = useState(0);
+  const [photoAspect, setPhotoAspect] = useState<number | null>(null);
   const [area, setArea] = useState<Area | null>(null);
   const [saving, setSaving] = useState(false);
   const [cropperReady, setCropperReady] = useState(false);
+  const tallEnd = photoAspect == null ? CROP_ASPECT_TALL : Math.min(photoAspect, CROP_ASPECT_TALL);
+  const wideEnd = photoAspect == null ? CROP_ASPECT_WIDE : Math.max(photoAspect, CROP_ASPECT_WIDE);
+  const aspect = heightTToAspect(heightT, tallEnd, wideEnd);
 
   useEffect(() => {
     const url = URL.createObjectURL(file);
-    setImageSrc(url);
+    const img = new window.Image();
+    img.onload = () => {
+      const nextAspect = img.naturalWidth / Math.max(1, img.naturalHeight);
+      const nextTall = Math.min(nextAspect, CROP_ASPECT_TALL);
+      const nextWide = Math.max(nextAspect, CROP_ASPECT_WIDE);
+      setPhotoAspect(nextAspect);
+      setHeightT(aspectToHeightT(nextAspect, nextTall, nextWide));
+      setImageSrc(url);
+    };
+    img.onerror = () => setImageSrc(url);
+    img.src = url;
     return () => {
       URL.revokeObjectURL(url);
       setImageSrc(null);
@@ -83,6 +105,17 @@ function ImageCropDialogBody({
       cancelAnimationFrame(frame);
     };
   }, []);
+
+  async function confirmOriginal() {
+    setSaving(true);
+    try {
+      await onConfirm(file);
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Failed to use that image");
+    } finally {
+      setSaving(false);
+    }
+  }
 
   async function confirm() {
     if (!area || !imageSrc) return;
@@ -108,17 +141,17 @@ function ImageCropDialogBody({
             <DialogTitle>Frame the image</DialogTitle>
             <DialogDescription>
               {progressLabel ? `${progressLabel}. ` : ""}
-              Drag and zoom until the important part is inside the box. This is how the image will look on the homepage.
+              Drag, zoom, or raise the frame height to keep more of a tall photo.
             </DialogDescription>
           </DialogHeader>
 
-          <div className="relative h-[min(50vh,420px)] min-h-60 overflow-hidden rounded-xl bg-[#0B1226]">
+          <div className="relative h-[min(58vh,560px)] min-h-60 overflow-hidden rounded-xl bg-[#0B1226]">
             {cropperReady && imageSrc ? (
               <Cropper
                 image={imageSrc}
                 crop={crop}
                 zoom={zoom}
-                aspect={CROP_ASPECT}
+                aspect={aspect}
                 objectFit="contain"
                 onCropChange={setCrop}
                 onZoomChange={setZoom}
@@ -135,24 +168,75 @@ function ImageCropDialogBody({
             )}
           </div>
 
-          <div className="flex flex-col gap-2">
-            <label className="text-xs font-medium text-muted-foreground" htmlFor="crop-zoom">
-              Zoom
-            </label>
-            <input
-              id="crop-zoom"
-              type="range"
-              min={1}
-              max={3}
-              step={0.05}
-              value={zoom}
-              onChange={(e) => setZoom(Number(e.target.value))}
-              className="w-full"
-              disabled={!cropperReady}
-            />
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-wrap gap-1.5">
+              {(
+                [
+                  ["wide", "Wide", CROP_ASPECT_WIDE],
+                  ["square", "Square", CROP_ASPECT_SQUARE],
+                  ["tall", "Tall", CROP_ASPECT_TALL],
+                  ...(photoAspect != null
+                    ? ([["full", "Full photo", photoAspect]] as const)
+                    : []),
+                ] as const
+              ).map(([id, label, value]) => (
+                <Button
+                  key={id}
+                  type="button"
+                  size="sm"
+                  variant={Math.abs(aspect - value) < 0.02 ? "default" : "outline"}
+                  disabled={saving || !cropperReady}
+                  onClick={() => {
+                    setHeightT(aspectToHeightT(value, tallEnd, wideEnd));
+                    setCrop({ x: 0, y: 0 });
+                    setZoom(1);
+                  }}
+                >
+                  {label}
+                </Button>
+              ))}
+            </div>
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <label className="text-xs font-medium text-muted-foreground" htmlFor="crop-height">
+                  Frame height
+                </label>
+                <span className="text-xs text-muted-foreground">Wide → Tall</span>
+              </div>
+              <input
+                id="crop-height"
+                type="range"
+                min={0}
+                max={1}
+                step={0.01}
+                value={heightT}
+                onChange={(e) => {
+                  setHeightT(Number(e.target.value));
+                  setCrop({ x: 0, y: 0 });
+                }}
+                className="w-full"
+                disabled={!cropperReady}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-medium text-muted-foreground" htmlFor="crop-zoom">
+                Zoom
+              </label>
+              <input
+                id="crop-zoom"
+                type="range"
+                min={1}
+                max={3}
+                step={0.05}
+                value={zoom}
+                onChange={(e) => setZoom(Number(e.target.value))}
+                className="w-full"
+                disabled={!cropperReady}
+              />
+            </div>
           </div>
 
-          <DialogFooter className="gap-2 sm:gap-2">
+          <DialogFooter className="gap-2 sm:flex-wrap">
             {onSkipRemaining ? (
               <Button type="button" variant="ghost" disabled={saving} onClick={onSkipRemaining}>
                 Cancel remaining
@@ -162,6 +246,9 @@ function ImageCropDialogBody({
                 Cancel
               </Button>
             )}
+            <Button type="button" variant="outline" disabled={saving} onClick={confirmOriginal}>
+              Use original
+            </Button>
             <Button type="button" disabled={saving || !area} onClick={confirm} className="gap-1.5">
               {saving ? (
                 <>
@@ -169,7 +256,7 @@ function ImageCropDialogBody({
                   Saving…
                 </>
               ) : (
-                "Use this image"
+                "Use cropped"
               )}
             </Button>
           </DialogFooter>
