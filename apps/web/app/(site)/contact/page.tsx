@@ -23,7 +23,7 @@ async function getProduct(id: string): Promise<Product | null> {
   try {
     return await apiClient.get<Product>(`/api/products/${id}`);
   } catch (err) {
-    if (err instanceof ApiError && err.status === 404) return null;
+    if (err instanceof ApiError && (err.status === 404 || err.status === 503)) return null;
     throw err;
   }
 }
