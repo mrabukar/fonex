@@ -14,8 +14,8 @@ import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
+  rectSortingStrategy,
   useSortable,
-  verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import {
@@ -34,6 +34,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "@/components/ui/empty-state";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -49,11 +50,15 @@ import { ImageCropDialog } from "@/components/admin/image-crop-dialog";
 import { apiClient, ApiError, fetchAllPages } from "@/lib/api-client";
 import { titleFromFilename, validateHomepageSource } from "@/lib/crop-image";
 import type { HomepageSettings, HomepageSlide, Product } from "@/lib/types";
-import { SlideEditDialog } from "./components/slide-edit-dialog";
+import {
+  SlideEditDialog,
+  type SlideFormValues,
+} from "./components/slide-edit-dialog";
 
 function statusStyle(status: HomepageSlide["status"]): React.CSSProperties {
   if (status === "visible") return { background: "#E2F6EF", color: "#067A55" };
-  if (status === "scheduled") return { background: "#EEF1FB", color: "#1A1C74" };
+  if (status === "scheduled")
+    return { background: "#EEF1FB", color: "#1A1C74" };
   if (status === "ended") return { background: "#FFF1D6", color: "#9A6400" };
   return { background: "#EEF0F4", color: "#5A6480" };
 }
@@ -64,6 +69,8 @@ function statusLabel(status: HomepageSlide["status"]) {
   if (status === "ended") return "Ended";
   return "Hidden";
 }
+
+const PAGE_SIZE = 12;
 
 export default function AdminHomepagePage() {
   const [slides, setSlides] = useState<HomepageSlide[]>([]);
@@ -76,16 +83,25 @@ export default function AdminHomepagePage() {
   const [deleteTarget, setDeleteTarget] = useState<HomepageSlide | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [queue, setQueue] = useState<File[]>([]);
-  const [replaceTarget, setReplaceTarget] = useState<HomepageSlide | null>(null);
+  const [replaceTarget, setReplaceTarget] = useState<HomepageSlide | null>(
+    null,
+  );
+  const [draft, setDraft] = useState<{ file: File; title: string } | null>(
+    null,
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
   const replaceInputRef = useRef<HTMLInputElement>(null);
+  const [draftPreviewUrl, setDraftPreviewUrl] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
 
-  const load = useCallback(async () => {
+  const load = useCallback(async (opts?: { revealNew?: boolean }) => {
     const [nextSlides, nextSettings] = await Promise.all([
       apiClient.get<HomepageSlide[]>("/api/homepage-slides/admin"),
       apiClient.get<HomepageSettings>("/api/homepage-settings"),
@@ -93,6 +109,11 @@ export default function AdminHomepagePage() {
     setSlides(nextSlides);
     setSettings(nextSettings);
     setSpeedSeconds(String(Math.round(nextSettings.autoplayMs / 1000)));
+    setVisibleCount((count) => {
+      if (opts?.revealNew) return Math.max(count, nextSlides.length);
+      if (nextSlides.length <= PAGE_SIZE) return PAGE_SIZE;
+      return Math.min(Math.max(count, PAGE_SIZE), nextSlides.length);
+    });
   }, []);
 
   useEffect(() => {
@@ -111,7 +132,11 @@ export default function AdminHomepagePage() {
       })
       .catch((err) => {
         if (!cancelled) {
-          toast.error(err instanceof ApiError ? err.message : "Failed to load homepage images");
+          toast.error(
+            err instanceof ApiError
+              ? err.message
+              : "Failed to load homepage images",
+          );
         }
       })
       .finally(() => {
@@ -121,6 +146,18 @@ export default function AdminHomepagePage() {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    if (!draft) {
+      setDraftPreviewUrl(null);
+      return;
+    }
+    const url = URL.createObjectURL(draft.file);
+    setDraftPreviewUrl(url);
+    return () => {
+      URL.revokeObjectURL(url);
+    };
+  }, [draft]);
 
   async function enqueueFiles(files: File[]) {
     const accepted: File[] = [];
@@ -136,21 +173,30 @@ export default function AdminHomepagePage() {
     setQueue(accepted);
   }
 
-  const currentFile = queue[0] ?? null;
+  const currentFile = draft ? null : (queue[0] ?? null);
   const progressLabel =
-    queue.length > 1 ? `Image 1 of ${queue.length}` : queue.length === 1 && !replaceTarget ? "Image 1 of 1" : undefined;
+    queue.length > 1
+      ? `Image 1 of ${queue.length}`
+      : queue.length === 1 && !replaceTarget
+        ? "Image 1 of 1"
+        : undefined;
 
   async function persistOrder(next: HomepageSlide[]) {
     const previous = slides;
     setSlides(next);
     try {
-      const saved = await apiClient.patch<HomepageSlide[]>("/api/homepage-slides/reorder", {
-        ids: next.map((slide) => slide.id),
-      });
+      const saved = await apiClient.patch<HomepageSlide[]>(
+        "/api/homepage-slides/reorder",
+        {
+          ids: next.map((slide) => slide.id),
+        },
+      );
       setSlides(saved);
     } catch (err) {
       setSlides(previous);
-      toast.error(err instanceof ApiError ? err.message : "Failed to save order");
+      toast.error(
+        err instanceof ApiError ? err.message : "Failed to save order",
+      );
     }
   }
 
@@ -173,20 +219,27 @@ export default function AdminHomepagePage() {
     const seconds = Number(speedSeconds);
     if (!Number.isFinite(seconds) || seconds < 1 || seconds > 15) {
       toast.error("Use a time between 1 and 15 seconds");
-      setSpeedSeconds(String(Math.round((settings?.autoplayMs ?? 3000) / 1000)));
+      setSpeedSeconds(
+        String(Math.round((settings?.autoplayMs ?? 3000) / 1000)),
+      );
       return;
     }
     if (Math.round((settings?.autoplayMs ?? 3000) / 1000) === seconds) return;
     setSavingSpeed(true);
     try {
-      const next = await apiClient.patch<HomepageSettings>("/api/homepage-settings", {
-        autoplayMs: Math.round(seconds * 1000),
-      });
+      const next = await apiClient.patch<HomepageSettings>(
+        "/api/homepage-settings",
+        {
+          autoplayMs: Math.round(seconds * 1000),
+        },
+      );
       setSettings(next);
       setSpeedSeconds(String(Math.round(next.autoplayMs / 1000)));
       toast.success("Homepage speed updated");
     } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : "Failed to save speed");
+      toast.error(
+        err instanceof ApiError ? err.message : "Failed to save speed",
+      );
     } finally {
       setSavingSpeed(false);
     }
@@ -196,7 +249,9 @@ export default function AdminHomepagePage() {
     const { uploadUrl, imageUrl } = await apiClient.post<{
       uploadUrl: string;
       imageUrl: string;
-    }>(`/api/homepage-slides/${slideId}/image-upload-url`, { contentType: file.type });
+    }>(`/api/homepage-slides/${slideId}/image-upload-url`, {
+      contentType: file.type,
+    });
 
     const putRes = await fetch(uploadUrl, {
       method: "PUT",
@@ -208,11 +263,33 @@ export default function AdminHomepagePage() {
   }
 
   async function onCroppedNew(file: File) {
-    const created = await apiClient.post<HomepageSlide>("/api/homepage-slides", {
+    setDraft({
+      file,
       title: titleFromFilename(queue[0]?.name ?? file.name),
     });
+  }
+
+  function discardDraft() {
+    setDraft(null);
+    setQueue((prev) => prev.slice(1));
+  }
+
+  async function onCreateFromDraft(values: SlideFormValues) {
+    if (!draft) return;
+    const created = await apiClient.post<HomepageSlide>(
+      "/api/homepage-slides",
+      {
+        title: values.title,
+        imageDescription: values.imageDescription ?? undefined,
+        caption: values.caption ?? undefined,
+        isActive: values.isActive,
+        startsAt: values.startsAt,
+        endsAt: values.endsAt,
+        productId: values.productId,
+      },
+    );
     try {
-      await uploadCropped(created.id, file);
+      await uploadCropped(created.id, draft.file);
     } catch (err) {
       try {
         await apiClient.delete(`/api/homepage-slides/${created.id}`);
@@ -221,9 +298,9 @@ export default function AdminHomepagePage() {
       }
       throw err;
     }
-    toast.success("Image added");
+    setDraft(null);
     setQueue((prev) => prev.slice(1));
-    await load();
+    await load({ revealNew: true });
   }
 
   async function onCroppedReplace(file: File) {
@@ -237,10 +314,14 @@ export default function AdminHomepagePage() {
 
   async function toggleVisible(slide: HomepageSlide) {
     try {
-      await apiClient.patch(`/api/homepage-slides/${slide.id}`, { isActive: !slide.isActive });
+      await apiClient.patch(`/api/homepage-slides/${slide.id}`, {
+        isActive: !slide.isActive,
+      });
       await load();
     } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : "Failed to update visibility");
+      toast.error(
+        err instanceof ApiError ? err.message : "Failed to update visibility",
+      );
     }
   }
 
@@ -253,13 +334,23 @@ export default function AdminHomepagePage() {
       setDeleteTarget(null);
       await load();
     } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : "Failed to delete image");
+      toast.error(
+        err instanceof ApiError ? err.message : "Failed to delete image",
+      );
     } finally {
       setDeleting(false);
     }
   }
 
-  const slideIds = useMemo(() => slides.map((slide) => slide.id), [slides]);
+  const visibleSlides = useMemo(
+    () => slides.slice(0, visibleCount),
+    [slides, visibleCount],
+  );
+  const slideIds = useMemo(
+    () => visibleSlides.map((slide) => slide.id),
+    [visibleSlides],
+  );
+  const remaining = Math.max(0, slides.length - visibleSlides.length);
 
   return (
     <div className="space-y-6">
@@ -278,7 +369,10 @@ export default function AdminHomepagePage() {
               <ExternalLink size={16} />
               View homepage
             </Button>
-            <Button className="gap-1.5" onClick={() => fileInputRef.current?.click()}>
+            <Button
+              className="gap-1.5"
+              onClick={() => fileInputRef.current?.click()}
+            >
               <ImagePlus size={16} />
               Add image
             </Button>
@@ -286,7 +380,9 @@ export default function AdminHomepagePage() {
         }
         footer={
           <div className="flex max-w-sm flex-col gap-1.5">
-            <Label htmlFor="homepage-speed">Seconds each image stays on screen</Label>
+            <Label htmlFor="homepage-speed">
+              Seconds each image stays on screen
+            </Label>
             <div className="flex items-center gap-2">
               <Input
                 id="homepage-speed"
@@ -304,7 +400,9 @@ export default function AdminHomepagePage() {
                   }
                 }}
               />
-              {savingSpeed ? <span className="text-xs text-muted-foreground">Saving…</span> : null}
+              {savingSpeed ? (
+                <span className="text-xs text-muted-foreground">Saving…</span>
+              ) : null}
             </div>
           </div>
         }
@@ -321,6 +419,7 @@ export default function AdminHomepagePage() {
           e.target.value = "";
           if (files.length === 0) return;
           setReplaceTarget(null);
+          setDraft(null);
           void enqueueFiles(files);
         }}
       />
@@ -338,47 +437,92 @@ export default function AdminHomepagePage() {
       />
 
       {loading ? (
-        <div className="rounded-2xl border border-[#E7EAF3] bg-white px-4 py-16 text-center text-sm text-muted-foreground">
-          Loading homepage images…
-        </div>
+        <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          {Array.from({ length: 12 }, (_, i) => (
+            <li
+              key={i}
+              className="flex gap-2.5 rounded-xl border border-[#E7EAF3] bg-white p-2.5"
+            >
+              <Skeleton className="mt-1 hidden h-4 w-4 shrink-0 rounded sm:block" />
+              <Skeleton className="aspect-video w-28 shrink-0 rounded-lg sm:w-32" />
+              <div className="min-w-0 flex-1 space-y-2">
+                <div className="flex items-center gap-1.5">
+                  <Skeleton className="h-4 w-28" />
+                  <Skeleton className="h-4 w-12 rounded-full" />
+                </div>
+                <Skeleton className="h-3 w-40" />
+                <div className="flex flex-wrap gap-1 pt-1">
+                  <Skeleton className="h-7 w-7 rounded-md" />
+                  <Skeleton className="h-7 w-7 rounded-md" />
+                  <Skeleton className="h-7 w-14 rounded-md" />
+                  <Skeleton className="h-7 w-16 rounded-md" />
+                  <Skeleton className="h-7 w-12 rounded-md" />
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       ) : slides.length === 0 ? (
         <div className="rounded-2xl border border-[#E7EAF3] bg-white">
           <EmptyState
             icon={Images}
             title="No homepage images yet"
-            sub="Add your first image. You will crop it to the homepage size before it goes live."
+            sub="Add your first image. You will crop it, then fill in the details before it goes live."
           />
           <div className="pb-8 text-center">
-            <Button className="gap-1.5" onClick={() => fileInputRef.current?.click()}>
+            <Button
+              className="gap-1.5"
+              onClick={() => fileInputRef.current?.click()}
+            >
               <ImagePlus size={16} />
               Add image
             </Button>
           </div>
         </div>
       ) : (
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
-          <SortableContext items={slideIds} strategy={verticalListSortingStrategy}>
-            <ul className="space-y-3">
-              {slides.map((slide, index) => (
-                <SortableSlideCard
-                  key={slide.id}
-                  slide={slide}
-                  index={index}
-                  total={slides.length}
-                  onEdit={() => setEditing(slide)}
-                  onReplace={() => {
-                    setReplaceTarget(slide);
-                    replaceInputRef.current?.click();
-                  }}
-                  onToggle={() => void toggleVisible(slide)}
-                  onDelete={() => setDeleteTarget(slide)}
-                  onMoveUp={() => move(index, -1)}
-                  onMoveDown={() => move(index, 1)}
-                />
-              ))}
-            </ul>
-          </SortableContext>
-        </DndContext>
+        <div className="space-y-3">
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={onDragEnd}
+          >
+            <SortableContext items={slideIds} strategy={rectSortingStrategy}>
+              <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                {visibleSlides.map((slide, index) => (
+                  <SortableSlideCard
+                    key={slide.id}
+                    slide={slide}
+                    index={index}
+                    total={slides.length}
+                    onEdit={() => {
+                      if (draft) discardDraft();
+                      setEditing(slide);
+                    }}
+                    onReplace={() => {
+                      setReplaceTarget(slide);
+                      replaceInputRef.current?.click();
+                    }}
+                    onToggle={() => void toggleVisible(slide)}
+                    onDelete={() => setDeleteTarget(slide)}
+                    onMoveUp={() => move(index, -1)}
+                    onMoveDown={() => move(index, 1)}
+                  />
+                ))}
+              </ul>
+            </SortableContext>
+          </DndContext>
+          {remaining > 0 ? (
+            <div className="flex justify-center">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}
+              >
+                Load more ({remaining} remaining)
+              </Button>
+            </div>
+          ) : null}
+        </div>
       )}
 
       <ImageCropDialog
@@ -392,17 +536,29 @@ export default function AdminHomepagePage() {
           }
           setQueue((prev) => prev.slice(1));
         }}
-        onSkipRemaining={replaceTarget || queue.length <= 1 ? undefined : () => setQueue([])}
+        onSkipRemaining={
+          replaceTarget || queue.length <= 1 ? undefined : () => setQueue([])
+        }
         onConfirm={replaceTarget ? onCroppedReplace : onCroppedNew}
       />
 
       <SlideEditDialog
-        key={editing?.id ?? "closed"}
+        key={
+          editing?.id ??
+          (draft
+            ? `draft-${draft.file.name}-${draft.file.lastModified}`
+            : "closed")
+        }
         slide={editing}
+        previewUrl={draftPreviewUrl}
+        defaultTitle={draft?.title}
         products={products}
-        open={Boolean(editing)}
+        open={Boolean(editing) || Boolean(draft)}
+        onCreate={draft ? onCreateFromDraft : undefined}
         onOpenChange={(open) => {
-          if (!open) setEditing(null);
+          if (open) return;
+          if (draft) discardDraft();
+          setEditing(null);
         }}
         onSaved={load}
       />
@@ -416,7 +572,9 @@ export default function AdminHomepagePage() {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Remove “{deleteTarget?.title}”?</AlertDialogTitle>
-            <AlertDialogDescription>This will disappear from the homepage.</AlertDialogDescription>
+            <AlertDialogDescription>
+              This will disappear from the homepage.
+            </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={deleting}>Cancel</AlertDialogCancel>
@@ -455,7 +613,14 @@ function SortableSlideCard({
   onMoveUp: () => void;
   onMoveDown: () => void;
 }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
     id: slide.id,
   });
 
@@ -467,79 +632,131 @@ function SortableSlideCard({
         transition,
         opacity: isDragging ? 0.7 : 1,
       }}
-      className="flex flex-col gap-4 rounded-2xl border border-[#E7EAF3] bg-white p-4 sm:flex-row sm:items-center"
+      className="flex gap-2.5 rounded-xl border border-[#E7EAF3] bg-white p-2.5"
     >
       <button
         type="button"
-        className="hidden cursor-grab touch-none text-[#9AA3B8] hover:text-[#0B1226] sm:block"
+        className="mt-1 hidden h-fit cursor-grab touch-none text-[#9AA3B8] hover:text-[#0B1226] sm:block"
         aria-label="Drag to reorder"
         {...attributes}
         {...listeners}
       >
-        <GripVertical size={20} />
+        <GripVertical size={16} />
       </button>
 
-      <div
-        className="relative w-full shrink-0 overflow-hidden rounded-xl bg-[#F4F6FB] sm:w-48"
-        style={{ aspectRatio: "16 / 9" }}
-      >
+      <div className="relative aspect-video w-28 shrink-0 overflow-hidden rounded-lg bg-[#F4F6FB] sm:w-32">
         {slide.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={slide.imageUrl} alt="" className="h-full w-full object-cover" />
+          <img
+            src={slide.imageUrl}
+            alt=""
+            className="h-full w-full object-cover"
+          />
         ) : (
-          <div className="flex h-full items-center justify-center text-xs text-muted-foreground">
-            No photo yet
+          <div className="flex h-full items-center justify-center text-[10px] text-muted-foreground">
+            No photo
           </div>
         )}
+        <span
+          className="absolute left-1 top-1 flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-[11px] font-bold text-white"
+          style={{ background: "rgba(11,18,38,.82)" }}
+          aria-label={`Position ${index + 1} of ${total}`}
+        >
+          {index + 1}
+        </span>
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-center gap-2">
-          <h2 className="font-semibold text-[#0B1226]">{slide.title}</h2>
-          <Badge style={statusStyle(slide.status)}>{statusLabel(slide.status)}</Badge>
-          <span className="text-xs text-muted-foreground">
-            {index + 1} of {total}
-          </span>
+        <div className="flex flex-wrap items-center gap-1.5">
+          <h2 className="truncate text-sm font-semibold text-[#0B1226]">
+            {slide.title}
+          </h2>
+          <Badge
+            className="px-1.5 py-0 text-[10px]"
+            style={statusStyle(slide.status)}
+          >
+            {statusLabel(slide.status)}
+          </Badge>
         </div>
         {slide.product?.name ? (
-          <p className="mt-1 text-sm text-[#1A1C74]">Opens {slide.product.name}</p>
+          <p className="mt-0.5 truncate text-xs text-[#1A1C74]">
+            Opens {slide.product.name}
+          </p>
         ) : null}
         {slide.caption ? (
-          <p className="mt-1 truncate text-sm text-muted-foreground">Caption: {slide.caption}</p>
+          <p className="mt-0.5 truncate text-xs text-muted-foreground">
+            {slide.caption}
+          </p>
         ) : null}
         {slide.startsAt || slide.endsAt ? (
-          <p className="mt-1 text-xs text-muted-foreground">
+          <p className="mt-0.5 truncate text-[11px] text-muted-foreground">
             {slide.startsAt ? `From ${slide.startsAt}` : "From now"}
             {slide.endsAt ? ` · until ${slide.endsAt}` : ""}
           </p>
         ) : null}
-      </div>
 
-      <div className="flex flex-wrap gap-1.5 sm:flex-col sm:items-stretch">
-        <div className="flex gap-1.5">
-          <Button type="button" variant="outline" size="sm" disabled={index === 0} onClick={onMoveUp}>
-            <ArrowUp size={14} />
-            <span className="sm:hidden">Up</span>
+        <div className="mt-2 flex flex-wrap gap-1">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="h-7 px-2"
+            disabled={index === 0}
+            onClick={onMoveUp}
+            aria-label="Move up"
+          >
+            <ArrowUp size={12} />
           </Button>
-          <Button type="button" variant="outline" size="sm" disabled={index === total - 1} onClick={onMoveDown}>
-            <ArrowDown size={14} />
-            <span className="sm:hidden">Down</span>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="h-7 px-2"
+            disabled={index === total - 1}
+            onClick={onMoveDown}
+            aria-label="Move down"
+          >
+            <ArrowDown size={12} />
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="h-7 gap-1 px-2"
+            onClick={onEdit}
+          >
+            <Pencil size={12} />
+            Edit
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="h-7 px-2"
+            onClick={onReplace}
+          >
+            Replace
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="h-7 px-2"
+            onClick={onToggle}
+          >
+            {slide.isActive ? "Hide" : "Show"}
+          </Button>
+          <Button
+            type="button"
+            variant="destructive"
+            size="sm"
+            className="h-7 px-2"
+            onClick={onDelete}
+            aria-label="Delete"
+          >
+            <Trash2 size={12} />
           </Button>
         </div>
-        <Button type="button" variant="outline" size="sm" className="gap-1.5" onClick={onEdit}>
-          <Pencil size={14} />
-          Edit
-        </Button>
-        <Button type="button" variant="outline" size="sm" onClick={onReplace}>
-          Replace
-        </Button>
-        <Button type="button" variant="outline" size="sm" onClick={onToggle}>
-          {slide.isActive ? "Hide" : "Show"}
-        </Button>
-        <Button type="button" variant="destructive" size="sm" className="gap-1.5" onClick={onDelete}>
-          <Trash2 size={14} />
-          Delete
-        </Button>
       </div>
     </li>
   );
