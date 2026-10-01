@@ -358,7 +358,7 @@ export default function AdminHomepagePage() {
         title="Homepage images"
         count={loading ? undefined : slides.length}
         countTone="navy"
-        description="Add, crop, and reorder the photos on the homepage slider. New images always go to the bottom — drag them into place."
+        description="Add and reorder the photos on the homepage slider. Cropping is optional. New images always go to the bottom — drag them into place."
         action={
           <div className="flex flex-wrap gap-2">
             <Button
@@ -467,7 +467,7 @@ export default function AdminHomepagePage() {
           <EmptyState
             icon={Images}
             title="No homepage images yet"
-            sub="Add your first image. You will crop it, then fill in the details before it goes live."
+            sub="Add your first image. You can crop it if you want, then fill in the details before it goes live."
           />
           <div className="pb-8 text-center">
             <Button
