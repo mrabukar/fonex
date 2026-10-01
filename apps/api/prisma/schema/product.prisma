@@ -21,11 +21,12 @@ model Product {
   category    Category            @relation(fields: [categoryId], references: [id])
   status      ProductStatus       @default(in_stock)
   type        DeviceType
-  description String?
-  imageUrl    String?
-  createdAt   DateTime            @default(now())
-  updatedAt   DateTime            @updatedAt
-  enquiries   ContactSubmission[]
+  description     String?
+  imageUrl        String?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  enquiries       ContactSubmission[]
+  homepageSlides  HomepageSlide[]
 
   @@index([categoryId])
   @@map("product")

@@ -10,6 +10,7 @@ import { CategoriesModule } from './modules/categories/categories.module';
 import { ProductsModule } from './modules/products/products.module';
 import { PartnersModule } from './modules/partners/partners.module';
 import { NewsModule } from './modules/news/news.module';
+import { HomepageSlidesModule } from './modules/homepage-slides/homepage-slides.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { NewsModule } from './modules/news/news.module';
     ProductsModule,
     PartnersModule,
     NewsModule,
+    HomepageSlidesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

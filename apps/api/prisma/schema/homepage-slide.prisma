@@ -1,0 +1,28 @@
+model HomepageSlide {
+  id               String    @id @default(cuid())
+  title            String
+  imageUrl         String?
+  imageDescription String?
+  caption          String?
+  bg               String    @default("#FFFFFF")
+  order            Int       @default(0)
+  isActive         Boolean   @default(true)
+  startsAt         DateTime?
+  endsAt           DateTime?
+  productId        String?
+  product          Product?  @relation(fields: [productId], references: [id], onDelete: SetNull)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([order])
+  @@index([productId])
+  @@map("homepage_slide")
+}
+
+model HomepageSettings {
+  id         String   @id
+  autoplayMs Int      @default(3000)
+  updatedAt  DateTime @updatedAt
+
+  @@map("homepage_settings")
+}
