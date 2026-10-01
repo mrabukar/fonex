@@ -1,10 +1,40 @@
 import type { Area } from "react-easy-crop";
 
-export const CROP_ASPECT = 16 / 9;
-export const CROP_OUTPUT_WIDTH = 1920;
-export const CROP_OUTPUT_HEIGHT = 1080;
-export const MIN_SOURCE_EDGE = 800;
+export const CROP_ASPECT_WIDE = 16 / 9;
+export const CROP_ASPECT_SQUARE = 1;
+export const CROP_ASPECT_TALL = 9 / 16;
+export const CROP_ASPECT = CROP_ASPECT_WIDE;
+export const CROP_MAX_EDGE = 1920;
 export const MAX_SOURCE_BYTES = 15 * 1024 * 1024;
+
+export function aspectToHeightT(
+  aspect: number,
+  tall = CROP_ASPECT_TALL,
+  wide = CROP_ASPECT_WIDE,
+): number {
+  if (wide <= tall) return 0;
+  const clamped = Math.min(wide, Math.max(tall, aspect));
+  return (wide - clamped) / (wide - tall);
+}
+
+export function heightTToAspect(
+  t: number,
+  tall = CROP_ASPECT_TALL,
+  wide = CROP_ASPECT_WIDE,
+): number {
+  const clamped = Math.min(1, Math.max(0, t));
+  return wide + (tall - wide) * clamped;
+}
+
+function outputSizeForCrop(crop: Area): { width: number; height: number } {
+  const srcW = Math.max(1, crop.width);
+  const srcH = Math.max(1, crop.height);
+  const scale = Math.min(1, CROP_MAX_EDGE / Math.max(srcW, srcH));
+  return {
+    width: Math.max(1, Math.round(srcW * scale)),
+    height: Math.max(1, Math.round(srcH * scale)),
+  };
+}
 
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -34,9 +64,10 @@ export async function getCroppedImageFile(
   originalName: string,
 ): Promise<File> {
   const image = await loadImage(imageSrc);
+  const { width, height } = outputSizeForCrop(crop);
   const canvas = document.createElement("canvas");
-  canvas.width = CROP_OUTPUT_WIDTH;
-  canvas.height = CROP_OUTPUT_HEIGHT;
+  canvas.width = width;
+  canvas.height = height;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("Could not crop this image");
 
@@ -48,8 +79,8 @@ export async function getCroppedImageFile(
     crop.height,
     0,
     0,
-    CROP_OUTPUT_WIDTH,
-    CROP_OUTPUT_HEIGHT,
+    width,
+    height,
   );
 
   let blob: Blob;
@@ -96,8 +127,8 @@ export async function validateHomepageSource(file: File): Promise<string | null>
       img.onerror = () => reject(new Error("Could not read that image"));
       img.src = url;
     });
-    if (Math.min(image.naturalWidth, image.naturalHeight) < MIN_SOURCE_EDGE) {
-      return `Image is too small — use one at least ${MIN_SOURCE_EDGE}px on the short side`;
+    if (image.naturalWidth < 1 || image.naturalHeight < 1) {
+      return "Image file looks invalid — please choose a real photo";
     }
     return null;
   } catch {
