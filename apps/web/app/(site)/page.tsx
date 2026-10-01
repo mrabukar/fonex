@@ -9,6 +9,8 @@ import { services } from "@/lib/content";
 import { Container } from "@/components/container";
 import { FadeIn } from "@/components/motion/fade-in";
 import { StaggerContainer, StaggerItem } from "@/components/motion/stagger";
+import { apiClient } from "@/lib/api-client";
+import type { HomepageSettings, PublicHomepageSlide } from "@/lib/types";
 import {
   Smartphone,
   Layers,
@@ -33,14 +35,34 @@ const iconMap: Record<string, React.ReactNode> = {
   "check-circle": <CheckCircle size={24} strokeWidth={2} />,
 };
 
-export default function HomePage() {
+async function getHomepageCarousel(): Promise<{
+  slides: PublicHomepageSlide[];
+  autoplayMs: number;
+}> {
+  try {
+    const [slides, settings] = await Promise.all([
+      apiClient.get<PublicHomepageSlide[]>("/api/homepage-slides"),
+      apiClient.get<HomepageSettings>("/api/homepage-settings"),
+    ]);
+    return {
+      slides: slides.filter((slide) => Boolean(slide.imageUrl)),
+      autoplayMs: settings.autoplayMs || 3000,
+    };
+  } catch {
+    return { slides: [], autoplayMs: 3000 };
+  }
+}
+
+export default async function HomePage() {
+  const { slides, autoplayMs } = await getHomepageCarousel();
+
   return (
     <div>
       {/* ===== HERO ===== */}
       {/*<HeroSwitcher />*/}
 
       {/* ===== FEATURED DEVICES ===== */}
-      <FeaturedDevices />
+      <FeaturedDevices slides={slides} autoplayMs={autoplayMs} />
 
       {/* ===== LATEST NEWS ===== */}
       {/* <LatestNews /> */}

@@ -1,6 +1,19 @@
 # Homepage Images (Carousel) — Plan
 
-**Status: locked and ready to implement — no feature code written yet.** This doc is the source of truth for what we decided. Use it to implement later without re-deriving context.
+**Status: implemented, pending deploy.** This doc is the source of truth for what we decided.
+
+## Apply on a server / local DB
+
+```bash
+# from repo root
+npx prisma migrate deploy --schema apps/api/prisma/schema
+# or, from apps/api:
+npx prisma migrate deploy
+
+npm run seed:homepage-slides -w @fonex/api
+```
+
+The seed is idempotent: it creates the settings row and inserts the current public-folder banners only when the table is empty. It does **not** upload those banners to R2 (so the homepage does not change shape on day one). New admin uploads go to R2 under `homepage/`.
 
 Related current code:
 
@@ -355,19 +368,19 @@ Delete confirm: “This will disappear from the homepage.”
 
 ## 8. Progress tracker
 
-- [ ] Prisma schema + migration (`HomepageSlide`, `HomepageSettings`, Product relation)
-- [ ] Seed HomepageSettings singleton (3s default)
-- [ ] `@fonex/shared` Zod schemas
-- [ ] NestJS homepage-slides + settings module
-- [ ] Migrate existing 21 `featuredDevices` images into R2 + rows
-- [ ] Admin: Homepage images page (card list, not DataTable)
-- [ ] Admin: 16:9 crop-before-upload (single + multi-file queue)
-- [ ] Admin: edit fields (name, description, caption, visible, dates, product picker)
-- [ ] Admin: drag + move up/down reorder (save on drop)
-- [ ] Admin: speed setting + View homepage + delete confirm
-- [ ] Public carousel fetches API; hide when empty; caption overlay; product link
-- [ ] Remove hardcoded `featuredDevices` from `content.ts`
-- [ ] Admin nav entry
+- [x] Prisma schema + migration (`HomepageSlide`, `HomepageSettings`, Product relation)
+- [x] Seed HomepageSettings singleton (3s default)
+- [x] `@fonex/shared` Zod schemas
+- [x] NestJS homepage-slides + settings module
+- [x] Migrate existing `featuredDevices` images as local `/images/new/...` rows (not R2 — keeps current photos intact; new uploads go to R2)
+- [x] Admin: Homepage images page (card list, not DataTable)
+- [x] Admin: 16:9 crop-before-upload (single + multi-file queue)
+- [x] Admin: edit fields (name, description, caption, visible, dates, product picker)
+- [x] Admin: drag + move up/down reorder (save on drop)
+- [x] Admin: speed setting + View homepage + delete confirm
+- [x] Public carousel fetches API; hide when empty; caption overlay; product link
+- [x] Remove hardcoded `featuredDevices` from `content.ts`
+- [x] Admin nav entry
 
 ---
 

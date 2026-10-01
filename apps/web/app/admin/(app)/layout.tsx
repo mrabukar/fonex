@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ChevronDown, Handshake, KeyRound, LogOut, Newspaper, Package, ShieldAlert, Tags, User } from "lucide-react";
+import { ChevronDown, Handshake, Images, KeyRound, LogOut, Newspaper, Package, ShieldAlert, Tags, User } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   DropdownMenu,
@@ -19,6 +19,7 @@ import { useSession, signOut } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
 const navItems = [
+  { href: "/admin/homepage", label: "Homepage images", icon: Images },
   { href: "/admin/categories", label: "Categories", icon: Tags },
   { href: "/admin/products", label: "Products", icon: Package },
   { href: "/admin/partners", label: "Partners", icon: Handshake },

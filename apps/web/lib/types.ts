@@ -1,5 +1,6 @@
 import type {
   deviceTypeValues,
+  homepageSlideStatusValues,
   newsStatusValues,
   partnerTypeValues,
   productStatusValues,
@@ -33,6 +34,45 @@ export type Partner = {
   description: string | null;
   order: number;
   createdAt: string;
+  updatedAt: string;
+};
+
+export type HomepageSlideProduct = {
+  id: string;
+  name: string;
+  imageUrl: string | null;
+};
+
+export type HomepageSlide = {
+  id: string;
+  title: string;
+  imageUrl: string | null;
+  imageDescription: string | null;
+  caption: string | null;
+  bg: string;
+  order: number;
+  isActive: boolean;
+  startsAt: string | null;
+  endsAt: string | null;
+  productId: string | null;
+  product: HomepageSlideProduct | null;
+  status: (typeof homepageSlideStatusValues)[number];
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type PublicHomepageSlide = {
+  id: string;
+  imageUrl: string;
+  imageDescription: string | null;
+  caption: string | null;
+  bg: string;
+  productId: string | null;
+};
+
+export type HomepageSettings = {
+  id: string;
+  autoplayMs: number;
   updatedAt: string;
 };
 
