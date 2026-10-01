@@ -1,6 +1,11 @@
 import type { PaginatedResult } from "@fonex/shared";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+// Browser: relative `/api/*` so cookies work on fonex.so and fonexsupply.com.
+// Server: absolute API URL for SSR.
+const API_URL =
+  typeof window !== "undefined"
+    ? ""
+    : process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
 export class ApiError extends Error {
   status: number;
