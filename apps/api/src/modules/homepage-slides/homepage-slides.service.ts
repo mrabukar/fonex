@@ -141,6 +141,7 @@ export class HomepageSlidesService {
       incoming.map((id, order) =>
         this.prisma.homepageSlide.update({ where: { id }, data: { order } }),
       ),
+      { timeout: 20_000 },
     );
 
     return this.findAllForAdmin();
@@ -203,6 +204,7 @@ export class HomepageSlidesService {
       slides.map((slide, order) =>
         this.prisma.homepageSlide.update({ where: { id: slide.id }, data: { order } }),
       ),
+      { timeout: 20_000 },
     );
   }
 
