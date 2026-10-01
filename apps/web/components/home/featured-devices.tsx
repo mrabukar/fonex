@@ -124,8 +124,8 @@ export function FeaturedDevices({
                     sizes="(max-width: 768px) 100vw, (max-width: 1536px) 92vw, (max-width: 2560px) 1400px, 1800px"
                     unoptimized={!legacy}
                     style={{
-                      objectFit: legacy ? "contain" : "cover",
-                      padding: legacy ? "4%" : 0,
+                      objectFit: "contain",
+                      padding: "4%",
                       boxSizing: "border-box",
                     }}
                     priority={i === (looping ? 1 : 0)}
