@@ -11,14 +11,41 @@ const prisma = new PrismaClient({
   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL }),
 });
 
-const trustedOrigins = (process.env.WEB_ORIGIN ?? 'http://localhost:3000')
+const webOrigins = (process.env.WEB_ORIGIN ?? 'http://localhost:3000')
   .split(',')
-  .map((origin) => origin.trim());
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+const trustedOrigins = webOrigins;
+
+const baseURLCanonical = process.env.BETTER_AUTH_URL ?? 'http://localhost:8000';
+const baseURLProtocol = baseURLCanonical.startsWith('http://') ? 'http' : 'https';
+
+function parseAllowedHost(originUrl: string): string | null {
+  try {
+    return new URL(originUrl).hostname;
+  } catch {
+    return null;
+  }
+}
+
+const allowedHosts = Array.from(
+  new Set(
+    [
+      ...webOrigins.map(parseAllowedHost).filter((h): h is string => Boolean(h)),
+      parseAllowedHost(baseURLCanonical),
+    ].filter((h): h is string => Boolean(h)),
+  ),
+);
 
 export const auth = betterAuth({
   basePath: '/api/auth',
   secret: process.env.BETTER_AUTH_SECRET,
-  baseURL: process.env.BETTER_AUTH_URL ?? 'http://localhost:8000',
+  baseURL: {
+    allowedHosts,
+    protocol: baseURLProtocol,
+    fallback: baseURLCanonical,
+  },
   trustedOrigins,
   database: prismaAdapter(prisma, {
     provider: 'postgresql',
