@@ -59,6 +59,7 @@ export function DeviceTile({ fam, type, img, size = "sm" }: DeviceTileProps) {
           alt=""
           fill
           sizes={sizes}
+          unoptimized={img.startsWith("http")}
           style={{ objectFit: "cover", objectPosition: "center" }}
         />
       </div>
