@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import type { HomepageSlide, Product } from "@/lib/types";
 import { Button } from "@/components/ui/button";
@@ -26,20 +26,37 @@ import {
 import { apiClient, ApiError } from "@/lib/api-client";
 import { ImageThumbnail } from "@/components/admin/image-thumbnail";
 
+export type SlideFormValues = {
+  title: string;
+  imageDescription: string | null;
+  caption: string | null;
+  isActive: boolean;
+  startsAt: string | null;
+  endsAt: string | null;
+  productId: string | null;
+};
+
 export function SlideEditDialog({
   slide,
+  previewUrl,
+  defaultTitle,
   products,
   open,
   onOpenChange,
   onSaved,
+  onCreate,
 }: {
   slide: HomepageSlide | null;
+  previewUrl?: string | null;
+  defaultTitle?: string;
   products: Product[];
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSaved: () => void | Promise<void>;
+  onCreate?: (values: SlideFormValues) => Promise<void>;
 }) {
-  const [title, setTitle] = useState(slide?.title ?? "");
+  const isCreate = Boolean(onCreate) && !slide;
+  const [title, setTitle] = useState(slide?.title ?? defaultTitle ?? "");
   const [imageDescription, setImageDescription] = useState(slide?.imageDescription ?? "");
   const [caption, setCaption] = useState(slide?.caption ?? "");
   const [isActive, setIsActive] = useState(slide?.isActive ?? true);
@@ -50,49 +67,68 @@ export function SlideEditDialog({
   const [productQuery, setProductQuery] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
+  useEffect(() => {
+    if (!defaultTitle || slide) return;
+    setTitle((current) => current || defaultTitle);
+  }, [defaultTitle, slide]);
+
   const filteredProducts = useMemo(() => {
     const q = productQuery.trim().toLowerCase();
     if (!q) return products;
     return products.filter((product) => product.name.toLowerCase().includes(q));
   }, [products, productQuery]);
 
-  if (!slide) return null;
+  if (!open || (!slide && !isCreate)) return null;
+
+  function values(): SlideFormValues {
+    return {
+      title: title.trim(),
+      imageDescription: imageDescription.trim() || null,
+      caption: caption.trim() || null,
+      isActive,
+      startsAt: startsAt || null,
+      endsAt: endsAt || null,
+      productId: linkMode === "product" && productId ? productId : null,
+    };
+  }
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!slide) return;
     if (startsAt && endsAt && startsAt > endsAt) {
       toast.error("Start date must be on or before the end date");
+      return;
+    }
+    if (linkMode === "product" && !productId) {
+      toast.error("Choose a product, or switch to “Do nothing”");
       return;
     }
 
     setSubmitting(true);
     try {
-      await apiClient.patch(`/api/homepage-slides/${slide.id}`, {
-        title: title.trim(),
-        imageDescription: imageDescription.trim() || null,
-        caption: caption.trim() || null,
-        isActive,
-        startsAt: startsAt || null,
-        endsAt: endsAt || null,
-        productId: linkMode === "product" && productId ? productId : null,
-      });
+      const next = values();
+      if (isCreate && onCreate) {
+        await onCreate(next);
+        toast.success("Image added");
+        return;
+      }
+      if (!slide) return;
+      await apiClient.patch(`/api/homepage-slides/${slide.id}`, next);
       toast.success("Homepage image updated");
       await onSaved();
       onOpenChange(false);
     } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : "Failed to save changes");
+      toast.error(err instanceof ApiError ? err.message : isCreate ? "Failed to add image" : "Failed to save changes");
     } finally {
       setSubmitting(false);
     }
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-lg">
+    <Dialog open={open} onOpenChange={(next) => !next && !submitting && onOpenChange(false)}>
+      <DialogContent showCloseButton={!submitting} className="sm:max-w-lg">
         <form onSubmit={onSubmit} className="min-w-0">
           <DialogHeader>
-            <DialogTitle>Edit homepage image</DialogTitle>
+            <DialogTitle>{isCreate ? "Add homepage image" : "Edit homepage image"}</DialogTitle>
             <DialogDescription>
               Visitors never see the internal name. Caption and product link are optional.
             </DialogDescription>
@@ -100,8 +136,21 @@ export function SlideEditDialog({
 
           <div className="mt-4 flex max-h-[60vh] min-w-0 flex-col gap-4 overflow-y-auto pr-1">
             <div className="flex items-center gap-3">
-              <ImageThumbnail src={slide.imageUrl} size="md" />
-              <p className="text-sm text-muted-foreground">Replace the photo from the list, not here — that keeps its place.</p>
+              {previewUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={previewUrl}
+                  alt=""
+                  className="h-16 w-28 shrink-0 rounded-lg object-cover"
+                />
+              ) : (
+                <ImageThumbnail src={slide?.imageUrl ?? null} size="md" />
+              )}
+              <p className="text-sm text-muted-foreground">
+                {isCreate
+                  ? "Fill in the details, then save to add this photo to the homepage."
+                  : "Replace the photo from the list, not here — that keeps its place."}
+              </p>
             </div>
 
             <div className="flex flex-col gap-1.5">
@@ -224,11 +273,11 @@ export function SlideEditDialog({
           </div>
 
           <DialogFooter className="mt-2 gap-2 sm:gap-0">
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button type="button" variant="outline" disabled={submitting} onClick={() => onOpenChange(false)}>
               Cancel
             </Button>
             <Button type="submit" disabled={submitting}>
-              {submitting ? "Saving…" : "Save changes"}
+              {submitting ? "Saving…" : isCreate ? "Add image" : "Save changes"}
             </Button>
           </DialogFooter>
         </form>
